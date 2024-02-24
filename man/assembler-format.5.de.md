@@ -1,71 +1,67 @@
 % ASSEMBLER-FORMAT(5) Version 1.2.0 | Handbuch für Dateiformate
+---
 Datum: Februar 2024
-NAME
+---
 
-assembler-format --- Format von Eingabe-Assemblerdateien
-SYNOPSIS
+# NAME
 
-vbnet
+**assembler-format** --- Format von Eingabe-Assemblerdateien
 
-; ist ein einzeiliger Kommentar, hier kann alles geschrieben werden
-.data
-; Sie können hier auch Labels sowie Speicherorte verwenden
-LABEL:
-    .byte   1, 2, 3, LABEL      ; 8-Bit-Zahlen
-    .half   1, 2, 3, LABEL      ; 16-Bit-Zahlen
-    .word   1, 2, 3, LABEL      ; 32-Bit-Zahlen
-    .dword  1, 2, 3, LABEL      ; 64-Bit-Zahlen
-    .eqv    CONST, 20           ; CONST wird auf 20 gesetzt
+# SYNOPSIS
 
-.text
-; Sie können auch Labels hier im .text-Abschnitt verwenden
-; Schreiben Sie Anweisungen und Makros hier
-START:
-    nop
-    addi    zero, zero, 0
-    addi    t1, zero, 2
-    mul     t0, sp, t1
-LOD:
-    j       LOD                 ; Sie können Labels auch in Makros verwenden
+    ; ist ein einzeiliger Kommentar, hier kann alles geschrieben werden
+    .data
+    ; Sie können hier auch Labels sowie Speicherorte verwenden
+    LABEL:
+        .byte   1, 2, 3, LABEL      ; 8-Bit-Zahlen
+        .half   1, 2, 3, LABEL      ; 16-Bit-Zahlen
+        .word   1, 2, 3, LABEL      ; 32-Bit-Zahlen
+        .dword  1, 2, 3, LABEL      ; 64-Bit-Zahlen
+        .eqv    CONST, 20           ; CONST wird auf 20 gesetzt
 
-BESCHREIBUNG
+    .text
+    ; Sie können auch Labels hier im .text-Abschnitt verwenden
+    ; Schreiben Sie Anweisungen und Makros hier
+    START:
+        nop
+        addi    zero, zero, 0
+        addi    t1, zero, 2
+        mul     t0, sp, t1
+    LOD:
+        j       LOD                 ; Sie können Labels auch in Makros verwenden
+
+# BESCHREIBUNG
 
 Der Befehl [assembler(1)] konvertiert Assemblerdateien in eine Ausgabe im binären oder MIF-Format. Die Syntax basiert auf der MIPS-Assembler-Syntax und wurde modifiziert, um die Belastung des Programmierers zu verringern und die Kompatibilität mit bereits etablierten Tools und Konventionen zu erhöhen.
 
-
-SYNTAX
+# SYNTAX
 
 Im Allgemeinen enthält jede Zeile nichts (Leerzeichen), eine Sektion, ein Label oder ein Label und eine Operation. Kommentare können am Ende jeder Zeile hinzugefügt oder in eine Zeile eingefügt werden, die ansonsten nichts (Leerzeichen) enthalten würde. Der Assembler ist nachsichtig mit der Platzierung dieser Komponenten zueinander. Eine Operation ist eine Anweisung, ein Makro oder eine Direktive.
 
 Eine einzelne Zeile:
 
-css
-
-LABEL: <OPERATION> ; KOMMENTAR
+    LABEL: <OPERATION> ; COMMENT
 
 Mehrere Zeilen, die in einer einzigen Zeile zusammenfallen:
 
-css
+    LABEL:
+                    ; COMMENT
+    ; COMMENT
 
-LABEL:
-                ; KOMMENTAR
-; KOMMENTAR
-
-                        <OPERATION>
-     ; KOMMENTAR
+                           <OPERATION>
+            ; COMMENT
 
 Ähnlich wie oben, aber in einem anderen Format:
 
-css
-
-LABEL: ; KOMMENTAR
-    <OPERATION>                     ; KOMMENTAR
-    ; KOMMENTAR
+    LABEL: ; COMMENT
+        <OPERATION>                     ; COMMENT
+        ; COMMENT
 
 Alle drei Beispiele sind gleich, wenn die Operationen gleich sind.
 
 Siehe [OPERATIONS][] und [LABEL DEFINITIONS][] für Details.
-TEXT- UND DATENSEKTIONEN
+
+# TEXT- UND DATENSEKTIONEN
 
 Sektionen sind geordnet und werden verwendet, um Abschnitte eines bestimmten Typs zu umreißen. Sektionen jeglicher Art können nur einmal definiert werden. Derzeit werden nur Daten- und Textsektionen unterstützt, ohne Pläne zur Unterstützung anderer Sektionen.
 
@@ -127,45 +123,44 @@ Label-Definitionen sind Label-Verweise, die mit einem Doppelpunkt enden. Labels 
 
 Korrekte Label-Definitionen umfassen folgende:
 
-makefile
-
-Label0:
-A:
-LabelVeryNice:
-Example215:
+    Label0:
+    A:
+    LabelVeryNice:
+    Example215:
 
 Falsche Label-Definitionen sind:
 
-makefile
-
-:
-__TEST:
-0Lol:
-Lol
+    :
+    __TEST:
+    0Lol:
+    Lol
 
 Beachten Sie, dass derzeit keine Validierung der Label-Typen und ob der Label-Wert in die Anweisung passt, erfolgt. Fehler für Ersteres und Warnungen für Letzteres sind geplant.
+
 # OPERATIONEN
 
-Operationen sind Definitionen, die verwendet werden, um Anweisungen, Makros und Direktiven zu beschreiben. Die Argumente können Immediate, Register und/oder Labels sein. Die Argumente sind durch Kommas (,) oder Kommas mit einem Leerzeichen (, ) getrennt. Der Operationsname und die Argumente sind durch ein oder mehrere Leerzeichen getrennt.
+Operationen sind Definitionen, die verwendet werden, um Anweisungen, Makros und Direktiven zu beschreiben. Die Argumente können Immediate, Register und/oder Labels sein. Die Argumente sind durch Kommas (**,**) oder Kommas mit einem Leerzeichen (**,** ) getrennt. Der Operationsname und die Argumente sind durch ein oder mehrere Leerzeichen getrennt.
 
 Siehe [ANWEISUNGEN][], [DIREKTIVEN][] und [MAKROS][] für Details.
 
 # REGISTER
 
 Einige Anweisungen und Makros erfordern Register, um Aktionen auszuführen. Es gibt 31 Register, die verwendet werden können. Register können entweder durch die Registernummer mit einem vorangestellten x referenziert werden, was x0 bis x31 bedeutet, oder durch ihren ABI-Namen.
-Register	ABI-Name	Beschreibung	Speicher
-x0	zero	Unveränderbares Register, das immer Null ist.	—
-x1	ra	Rückgabeadresse	Angerufener
-x2	sp	Stack-Pointer	Angerufener
-x3	gp	Allzweckregister. Globales Zeiger gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet.	—
-x4	tp	Allzweckregister. Thread-Pointer gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet.	—
-x5-x7	t0-t2	Temporäres Register.	Aufrufer
-x8	s0/fp	Gespeichertes Register oder Frame-Pointer.	Angerufener
-x9	s1	Gespeichertes Register.	Angerufener
-x10-x11	a0-a1	Register für Rückgabewerte und Funktionsargumente.	Aufrufer
-x12-x17	a2-a7	Register für Funktionsargumente.	Aufrufer
-x18-x27	s2-s11	Gespeichertes Register.	Angerufener
-x28-x31	t3-t6	Temporäres Register.	Aufrufer
+
+| Register            | ABI Name            | Description                                                                                          | Saver    |
+|:-------------------:|:-------------------:|------------------------------------------------------------------------------------------------------|:--------:|
+| x0                  | zero                | Unveränderbares Register, das immer Null ist.                                                        | —        |
+| x1                  | ra                  | Rückgabeadresse                                                                                      | Callee   |
+| x2                  | sp                  | Stack-Pointer                                                                                        | Callee   |
+| x3                  | gp                  | Allzweckregister. Globales Zeiger gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet. | —        |
+| x4                  | tp                  | Allzweckregister. Thread-Pointer gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet.  | —        |
+| x5-x7               | t0-t2               | Temporäres Register.                                                                                 | Caller   |
+| x8                  | s0/fp               | Gespeichertes Register oder Frame-Pointer.                                                           | Callee   |
+| x9                  | s1                  | Gespeichertes Register.                                                                              | Callee   |
+| x10-x11             | a0-a1               | Register für Rückgabewerte und Funktionsargumente.                                                   | Caller   |
+| x12-x17             | a2-a7               | Register für Funktionsargumente.                                                                     | Caller   |
+| x18-x27             | s2-s11              | Gespeichertes Register.                                                                              | Callee   |
+| x28-x31             | t3-t6               | Temporäres Register.                                                                                 | Caller   |
 
 # IMMEDIATES
 
@@ -173,24 +168,20 @@ Einige Anweisungen, Makros und Direktiven erfordern Immediates, um Aktionen ausz
 
 Die folgenden Immediates sind gültig:
 
-diff
-
-0b10          ; 2
-0b10s         ; -2
-0x14          ; 20
-0x14s         ; 20
-205
--12
+    0b10          ; 2
+    0b10s         ; -2
+    0x14          ; 20
+    0x14s         ; 20
+    205
+    -12
 
 Die folgenden Immediates sind ungültig:
 
-arduino
-
-0.1           ; Gleitkommazahlen werden (noch) nicht unterstützt
-b100
-x1516
-02x3
-50-20         ; Ausdrücke werden nicht unterstützt
+    0.1           ; Gleitkommazahlen werden (noch) nicht unterstützt
+    b100
+    x1516
+    02x3
+    50-20         ; Ausdrücke werden nicht unterstützt
 
 # DIREKTIVEN
 
@@ -202,64 +193,58 @@ Die Reihenfolge der Direktiven in der Assemblierdatei bestimmt die Reihenfolge d
 
 Derzeit werden die folgenden Direktiven unterstützt:
 
-.byte register|label,[register|label]...
+**.byte** *register*|*label*,[*register*|*label*]...
 
 : Die Register und Labels werden als 8-Bit-Werte im Speicher gespeichert.
 
-.half register|label,[register|label]...
+**.half** *register*|*label*,[*register*|*label*]...
 
 : Die Register und Labels werden als 16-Bit-Werte im Speicher gespeichert.
 
-.word register|label,[register|label]...
+**.word** *register*|*label*,[*register*|*label*]...
 
 : Die Register und Labels werden als 32-Bit-Werte im Speicher gespeichert.
 
-.dword register|label,[register|label]...
+**.dword** *register*|*label*,[*register*|*label*]...
 
 : Die Register und Labels werden als 64-Bit-Werte im Speicher gespeichert.
 
-.space dezimal
+**.space** *dezimal*
 
-: Reserviere Platz für Daten. Das dezimal gibt den reservierten Platz in Bytes an. Es muss eine Dezimalzahl sein und kann nicht negativ sein.
+: Reserviere Platz für Daten. Das *dezimal* gibt den reservierten Platz in Bytes an. Es muss eine Dezimalzahl sein und kann nicht negativ sein.
 
-.ascii "string"
+**.ascii "***string***"**
 
-: Der string wird als aufeinanderfolgende 8-Bit-Werte gespeichert. Der string sollte nur ASCII-Zeichen enthalten. Alle Zeichen werden in ihren ASCII-Code übersetzt. Der string ist nicht nullterminiert.
+: Der *string* wird als aufeinanderfolgende 8-Bit-Werte gespeichert. Der *string* sollte nur ASCII-Zeichen enthalten. Alle Zeichen werden in ihren ASCII-Code übersetzt. Der *string* ist nicht nullterminiert.
 
-.asciz "string"
+**.asciz "***string***"**
 
-: Wie .ascii, aber der string ist nullterminiert.
+: Wie **.ascii**, aber der *string* ist nullterminiert.
 
-.string "string"
+**.string "***string***"**
 
-: Alias für .asciz.
+: Alias für **.asciz**.
 
-.eqv label, immediate
+**.eqv** *label*, *immediate*
 
-: Der Wert des label ist immediate. Ein auf diese Weise emittiertes label ist eine Konstante, die nicht im Speicher geschrieben wird und wie ein Immediate verwendet werden kann.
+: Der Wert des *label* ist *immediate*. Ein auf diese Weise emittiertes *label* ist eine Konstante, die nicht im Speicher geschrieben wird und wie ein Immediate verwendet werden kann.
 
 Diese sind gültige Direktiven:
 
-css
-
-.byte   1, 3,2,LABEL
-.half 20, 15, LABEL
-.space 10
-.eqv                          LABEL,30
+    .byte   1, 3,2,LABEL
+    .half 20, 15, LABEL
+    .space 10
+    .eqv                          LABEL,30
 
 Diese sind ungültige Direktiven:
 
-arduino
+    .non                  ; unbekannte Direktive
+    .byte                 ; keine Argumente
+    .half 30 15
+    .space 0b10           ; Argument kann nur Dezimalzahl sein
+    .asciz "STRING        ; fehlende abschließende Anführungszeichen
 
-.non                  ; unbekannte Direktive
-.byte                 ; keine Argumente
-.half 30 15
-.space 0b10           ; Argument kann nur Dezimalzahl sein
-.asciz "STRING        ; fehlende abschließende Anführungszeichen
-
-
-
-MAKROS
+# MAKROS
 
 Makros sind Pseudo-Anweisungen, die nicht direkt in Maschinencode übersetzt werden können. Die Syntax ist ähnlich wie bei [ANWEISUNGEN][]. Einige der gängigen Makros werden unterstützt.
 
@@ -269,69 +254,69 @@ Das erste Register für Makros, die solche haben, ist immer das Register, in das
 
 Derzeit werden die folgenden Makros unterstützt:
 
-srr register, register, immediate
+**srr** *register*, *register*, *immediate*
 
 : Shift right rotate. Dies ist als Unterprogramm implementiert, daher ist das Speichern von Registern erforderlich. Das Speichern von Registern erfolgt nicht automatisch!
 
-slr register, register, immediate
+**slr** *register*, *register*, *immediate*
 
 : Shift left rotate. Dies ist als Unterprogramm implementiert, daher ist das Speichern von Registern erforderlich. Das Speichern von Registern erfolgt nicht automatisch!
 
-li register, immediate|label
+**li** *register*, *immediate*|*label*
 
-: Load immediate. register wird auf das immediate oder label gesetzt.
+: Load *immediate*. *register* wird auf das *immediate* oder *label* gesetzt.
 
-la register, immediate|label
+**la** *register*, *immediate*|*label*
 
-: Load address. register wird entweder auf das immediate oder auf die Adresse des label gesetzt.
+: Load address. *register* wird entweder auf das *immediate* oder auf die Adresse des *label* gesetzt.
 
-call immediate|label
+**call** *immediate*|*label*
 
-: Springen Sie zu einem weit entfernten Label und behandeln Sie es als Unterprogramm. Die Rückgabeadresse wird in das Register ra geschrieben. Eine Rückkehr ist möglich, indem das Makro ret oder die entsprechende jal-Anweisung verwendet wird.
+: Springen Sie zu einem weit entfernten Label und behandeln Sie es als Unterprogramm. Die Rückgabeadresse wird in das Register **ra** geschrieben. Eine Rückkehr ist möglich, indem das Makro **ret** oder die entsprechende **jal**-Anweisung verwendet wird.
 
-tail immediate|label
+**tail** *immediate*|*label*
 
 : Springen Sie zu einem weit entfernten Label. Die Rückgabeadresse wird ungültig. Eine Rückkehr ist nicht möglich.
 
-push register, [register]...
+**push** *register*, [*register*]...
 
-: Speichern Sie den Inhalt dieser Register auf dem Stack. Die Initialisierung des Stack-Pointer-Registers sp ist erforderlich. Es können mehrere Register angegeben werden, um den Subtraktionsaufwand zu reduzieren. Die Register werden in der angegebenen Reihenfolge gespeichert. Das erste Register wird am unteren Ende, das letzte Register am oberen Ende des Stacks gespeichert.
+: Speichern Sie den Inhalt dieser Register auf dem Stack. Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich. Es können mehrere Register angegeben werden, um den Subtraktionsaufwand zu reduzieren. Die Register werden in der angegebenen Reihenfolge gespeichert. Das erste Register wird am unteren Ende, das letzte Register am oberen Ende des Stacks gespeichert.
 
-pop register, [register]...
+**pop** *register*, [*register*]...
 
-: Laden Sie den Inhalt des Stacks in die Register. Die Initialisierung des Stack-Pointer-Registers sp ist erforderlich. Es können mehrere Register angegeben werden, um den Additionsaufwand zu reduzieren. Der Inhalt wird in den Registern in der angegebenen Reihenfolge geladen. Das erste Register erhält den Inhalt des obersten Stacks, das letzte Register des untersten.
+: Laden Sie den Inhalt des Stacks in die Register. Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich. Es können mehrere Register angegeben werden, um den Additionsaufwand zu reduzieren. Der Inhalt wird in den Registern in der angegebenen Reihenfolge geladen. Das erste Register erhält den Inhalt des obersten Stacks, das letzte Register des untersten.
 
-rep dezimal, anweisung|makro
+**rep** *decimal*, *instruction*|*macro*
 
-: Wiederholen Sie die anweisung oder makro dezimal Mal. Die Dezimalzahl muss positiv und größer als 0 sein. Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
+: Wiederholen Sie die *instruction* oder *macro* *decimal* Mal. Die Dezimalzahl muss positiv und größer als 0 sein. Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
 
-mv register, register
+**mv** *register*, *register*
 
-: Kopieren Sie den Inhalt des letzten Registers in das erste Register. Dies wird entweder zur Anweisung addi oder add abgebildet.
+: Kopieren Sie den Inhalt des letzten Registers in das erste Register. Dies wird entweder zur Anweisung **addi** oder **add** abgebildet.
 
-nop
+**nop**
 
-: Keine Operation. Es bewirkt nichts. Dies wird entweder zur Anweisung addi zero, zero, 0 oder add zero, zero, zero abgebildet.
+: Keine Operation. Es bewirkt nichts. Dies wird entweder zur Anweisung **addi zero, zero, 0** oder **add zero, zero, zero** abgebildet.
 
-ret
+**ret**
 
-: Wird verwendet, um aus einem Unterprogramm zurückzukehren. Dies wird zur Anweisung jalr zero, ra, 0 abgebildet.
+: Wird verwendet, um aus einem Unterprogramm zurückzukehren. Dies wird zur Anweisung **jalr zero, ra, 0** abgebildet.
 
-j immediate|label
+**j** *immediate*|*label*
 
-: Springen Sie zum label oder immediate. Dies wird zur Anweisung jal zero, offset abgebildet.
+: Springen Sie zum *label* oder *immediate*. Dies wird zur Anweisung **jal zero,** *offset* abgebildet.
 
-jal immediate|label
+**jal** *immediate*|*label*
 
-: Springen Sie und verknüpfen Sie mit dem label oder immediate. Dies wird zur Anweisung jal ra, offset abgebildet.
+: Springen Sie und verknüpfen Sie mit dem *label* oder *immediate*. Dies wird zur Anweisung **jal ra,** *offset* abgebildet.
 
-jr register
+**jr** *register*
 
-: Springen Sie zur Adresse im register. Dies wird zur Anweisung jalr zero, register**, 0** abgebildet.
+: Springen Sie zur Adresse im *register*. Dies wird zur Anweisung **jalr zero,** *register***, 0** abgebildet.
 
-jalr register
+**jalr** *register*
 
-: Springen Sie und verknüpfen Sie mit der Adresse im register. Dies wird zur Anweisung jalr ra, register**, 0** abgebildet.
+: Springen Sie und verknüpfen Sie mit der Adresse im register. Dies wird zur Anweisung **jalr ra,** *register***, 0** abgebildet.
 
 Siehe [RISC-V Shortened Spec][] für Details.
 
