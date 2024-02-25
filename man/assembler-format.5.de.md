@@ -11,7 +11,7 @@ Datum: Februar 2024
 
     ; ist ein einzeiliger Kommentar, hier kann alles geschrieben werden
     .data
-    ; Sie können hier auch Labels sowie Speicherorte verwenden
+    ; Sie können hier* auch * sowie Speicherorte verwenden
     LABEL:
         .byte   1, 2, 3, LABEL      ; 8-Bit-Zahlen
         .half   1, 2, 3, LABEL      ; 16-Bit-Zahlen
@@ -20,15 +20,15 @@ Datum: Februar 2024
         .eqv    CONST, 20           ; CONST wird auf 20 gesetzt
 
     .text
-    ; Sie können auch Labels hier im .text-Abschnitt verwenden
-    ; Schreiben Sie Anweisungen und Makros hier
+    ; Sie können* auch * hier im .text-Abschnitt verwenden
+    ; Schreibt Anweisungen und Makros hier
     START:
         nop
         addi    zero, zero, 0
         addi    t1, zero, 2
         mul     t0, sp, t1
     LOD:
-        j       LOD                 ; Sie können Labels auch in Makros verwenden
+        j       LOD                 ; Sie k*önnen * auch in Makros verwenden
 
 # BESCHREIBUNG
 
@@ -73,53 +73,43 @@ Datensektionen müssen vor Textsektionen stehen.
 
 Gültige Assemblierdatei, die eine Datensektion und eine Textsektion enthält:
 
-php
+    .data                           ; Umreißt eine Datensektion, die bis zur nächsten Textsektion reicht
+        <DIREKTIVE>                 ; <DIREKTIVE>
+        <DIREKTIVE>
 
-.data                           ; Umreißt eine Datensektion, die bis zur nächsten Textsektion reicht
-    <DIREKTIVE>                 ; <DIREKTIVE>
-    <DIREKTIVE>
-
-.text                           ; Umreißt eine Textsektion, die bis zum Ende der Datei reicht
-    <ANWEISUNG>                 ; <ANWEISUNG>
-    <ANWEISUNG>
+    .text                           ; Umreißt eine Textsektion, die bis zum Ende der Datei reicht
+        <ANWEISUNG>                 ; <ANWEISUNG>
+        <ANWEISUNG>
 
 Gültige Assemblierdatei, die nur eine Textsektion enthält:
 
-php
-
-.text
-    <ANWEISUNG>
-    <ANWEISUNG>
+    .text
+        <ANWEISUNG>
+        <ANWEISUNG>
 
 Gültige Assemblierdatei, die implizit eine Textsektion definiert:
 
-php
-
-START:
-    <ANWEISUNG>
-    <ANWEISUNG>
+    START:
+        <ANWEISUNG>
+        <ANWEISUNG>
 
 Ungültige Assemblierdatei, da die Datensektion leer ist (dies kann sich in Zukunft ändern):
 
-arduino
-
-.data
-.text
-    <ANWEISUNG>
+    .data
+    .text
+        <ANWEISUNG>
 
 Ungültige Assemblierdatei, da sie nur eine Datensektion enthält:
 
-php
-
-.data
-    <DIREKTIVE>
-    <DIREKTIVE>
+    .data
+        <DIREKTIVE>
+        <DIREKTIVE>
 
 Siehe [DIREKTIVEN][], [MAKROS][] und [ANWEISUNGEN][] für Details.
 
 # LABEL-DEFINITIONEN
 
-Label-Definitionen sind Label-Verweise, die mit einem Doppelpunkt enden. Labels müssen mindestens ein Zeichen lang sein und dürfen nur alphanumerische Zeichen enthalten. Das erste Zeichen muss alphabetisch sein.
+Label-Definitionen sind Label-Verweise, die mit einem Doppelpunkt e*nden. * müssen mindestens ein Zeichen lang sein und dürfen nur alphanumerische Zeichen enthalten. Das erste Zeichen muss alphabetisch sein.
 
 Korrekte Label-Definitionen umfassen folgende:
 
@@ -135,32 +125,32 @@ Falsche Label-Definitionen sind:
     0Lol:
     Lol
 
-Beachten Sie, dass derzeit keine Validierung der Label-Typen und ob der Label-Wert in die Anweisung passt, erfolgt. Fehler für Ersteres und Warnungen für Letzteres sind geplant.
+Beachtt, dass derzeit keine Validierung der Label-Typen und ob der Label-Wert in die Anweisung passt, erfolgt. Fehler für Ersteres und Warnungen für Letzteres sind geplant.
 
 # OPERATIONEN
 
-Operationen sind Definitionen, die verwendet werden, um Anweisungen, Makros und Direktiven zu beschreiben. Die Argumente können Immediate, Register und/oder Labels sein. Die Argumente sind durch Kommas (**,**) oder Kommas mit einem Leerzeichen (**,** ) getrennt. Der Operationsname und die Argumente sind durch ein oder mehrere Leerzeichen getrennt.
+Operationen sind Definitionen, die verwendet werden, um Anweisungen, Makros und Direktiven zu beschreiben. Die Argumente können Immediate, *Register* und*/oder * sein. Die Argumente sind durch Kommas (**,**) oder Kommas mit einem Leerzeichen (**,** ) getrennt. Der Operationsname und die Argumente sind durch ein oder mehrere Leerzeichen getrennt.
 
 Siehe [ANWEISUNGEN][], [DIREKTIVEN][] und [MAKROS][] für Details.
 
-# REGISTER
+# *Register*
 
-Einige Anweisungen und Makros erfordern Register, um Aktionen auszuführen. Es gibt 31 Register, die verwendet werden können. Register können entweder durch die Registernummer mit einem vorangestellten x referenziert werden, was x0 bis x31 bedeutet, oder durch ihren ABI-Namen.
+Einige Anweisungen und Makros erfordern *Register*, um Aktionen auszuführen. Es gibt 31 *Register*, die verwendet werden können. *Register* können entweder durch die *Register*nummer mit einem vorangestellten x referenziert werden, was x0 bis x31 bedeutet, oder durch ihren ABI-Namen.
 
-| Register            | ABI Name            | Description                                                                                          | Saver    |
+| *Register*            | ABI Name            | Description                                                                                          | Saver    |
 |:-------------------:|:-------------------:|------------------------------------------------------------------------------------------------------|:--------:|
-| x0                  | zero                | Unveränderbares Register, das immer Null ist.                                                        | —        |
+| x0                  | zero                | Unveränderbares *Register*, das immer Null ist.                                                        | —        |
 | x1                  | ra                  | Rückgabeadresse                                                                                      | Callee   |
 | x2                  | sp                  | Stack-Pointer                                                                                        | Callee   |
-| x3                  | gp                  | Allzweckregister. Globales Zeiger gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet. | —        |
-| x4                  | tp                  | Allzweckregister. Thread-Pointer gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet.  | —        |
-| x5-x7               | t0-t2               | Temporäres Register.                                                                                 | Caller   |
-| x8                  | s0/fp               | Gespeichertes Register oder Frame-Pointer.                                                           | Callee   |
-| x9                  | s1                  | Gespeichertes Register.                                                                              | Callee   |
-| x10-x11             | a0-a1               | Register für Rückgabewerte und Funktionsargumente.                                                   | Caller   |
-| x12-x17             | a2-a7               | Register für Funktionsargumente.                                                                     | Caller   |
-| x18-x27             | s2-s11              | Gespeichertes Register.                                                                              | Callee   |
-| x28-x31             | t3-t6               | Temporäres Register.                                                                                 | Caller   |
+| x3                  | gp                  | Allzweck*Register*. Globales Zeiger gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet. | —        |
+| x4                  | tp                  | Allzweck*Register*. Thread-Pointer gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet.  | —        |
+| x5-x7               | t0-t2               | Temporäres *Register*.                                                                                 | Caller   |
+| x8                  | s0/fp               | Gespeichertes *Register* oder Frame-Pointer.                                                           | Callee   |
+| x9                  | s1                  | Gespeichertes *Register*.                                                                              | Callee   |
+| x10-x11             | a0-a1               | *Register* für Rückgabewerte und Funktionsargumente.                                                   | Caller   |
+| x12-x17             | a2-a7               | *Register* für Funktionsargumente.                                                                     | Caller   |
+| x18-x27             | s2-s11              | Gespeichertes *Register*.                                                                              | Callee   |
+| x28-x31             | t3-t6               | Temporäres *Register*.                                                                                 | Caller   |
 
 # IMMEDIATES
 
@@ -195,19 +185,19 @@ Derzeit werden die folgenden Direktiven unterstützt:
 
 **.byte** *register*|*label*,[*register*|*label*]...
 
-: Die Register und Labels werden als 8-Bit-Werte im Speicher gespeichert.
+: Die *Register* und * werden als 8-Bit-Werte im Speicher gespeichert.
 
 **.half** *register*|*label*,[*register*|*label*]...
 
-: Die Register und Labels werden als 16-Bit-Werte im Speicher gespeichert.
+: Die *Register* und *Labels* werden als 16-Bit-Werte im Speicher gespeichert.
 
 **.word** *register*|*label*,[*register*|*label*]...
 
-: Die Register und Labels werden als 32-Bit-Werte im Speicher gespeichert.
+: Die *Register* und *Labels* werden als 32-Bit-Werte im Speicher gespeichert.
 
 **.dword** *register*|*label*,[*register*|*label*]...
 
-: Die Register und Labels werden als 64-Bit-Werte im Speicher gespeichert.
+: Die *Register** und *Labels* werden als 64-Bit-Werte im Speicher gespeichert.
 
 **.space** *dezimal*
 
@@ -250,17 +240,17 @@ Makros sind Pseudo-Anweisungen, die nicht direkt in Maschinencode übersetzt wer
 
 Makros werden erweitert und auf Anweisungen abgebildet, die maschinenübersetzbar sind. Makros können nicht von Programmierern definiert werden.
 
-Das erste Register für Makros, die solche haben, ist immer das Register, in das geschrieben wird.
+Das erste *Register* für Makros, die solche haben, ist immer das *Register*, in das geschrieben wird.
 
 Derzeit werden die folgenden Makros unterstützt:
 
 **srr** *register*, *register*, *immediate*
 
-: Shift right rotate. Dies ist als Unterprogramm implementiert, daher ist das Speichern von Registern erforderlich. Das Speichern von Registern erfolgt nicht automatisch!
+: Shift right rotate. Dies ist als Unterprogramm implementiert, daher ist das Speichern von *Register*n erforderlich. Das Speichern von *Register*n erfolgt nicht automatisch!
 
 **slr** *register*, *register*, *immediate*
 
-: Shift left rotate. Dies ist als Unterprogramm implementiert, daher ist das Speichern von Registern erforderlich. Das Speichern von Registern erfolgt nicht automatisch!
+: Shift left rotate. Dies ist als Unterprogramm implementiert, daher ist das Speichern von *Register*n erforderlich. Das Speichern von *Register*n erfolgt nicht automatisch!
 
 **li** *register*, *immediate*|*label*
 
@@ -272,27 +262,27 @@ Derzeit werden die folgenden Makros unterstützt:
 
 **call** *immediate*|*label*
 
-: Springen Sie zu einem weit entfernten Label und behandeln Sie es als Unterprogramm. Die Rückgabeadresse wird in das Register **ra** geschrieben. Eine Rückkehr ist möglich, indem das Makro **ret** oder die entsprechende **jal**-Anweisung verwendet wird.
+: Springt zu einem weit entfernten *Label* und behandelt es als Unterprogramm. Die Rückgabeadresse wird in das *Register* **ra** geschrieben. Eine Rückkehr ist möglich, indem das Makro **ret** oder die entsprechende **jal**-Anweisung verwendet wird.
 
 **tail** *immediate*|*label*
 
-: Springen Sie zu einem weit entfernten Label. Die Rückgabeadresse wird ungültig. Eine Rückkehr ist nicht möglich.
+: Springt zu einem weit entfernten *Label*. Die Rückgabeadresse wird ungültig. Eine Rückkehr ist nicht möglich.
 
 **push** *register*, [*register*]...
 
-: Speichern Sie den Inhalt dieser Register auf dem Stack. Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich. Es können mehrere Register angegeben werden, um den Subtraktionsaufwand zu reduzieren. Die Register werden in der angegebenen Reihenfolge gespeichert. Das erste Register wird am unteren Ende, das letzte Register am oberen Ende des Stacks gespeichert.
+: Speichert den Inhalt dieser *Register* auf dem Stack. Die Initialisierung des Stack-Pointer-*Registers* **sp** ist erforderlich. Es können mehrere *Register* angegeben werden, um den Subtraktionsaufwand zu reduzieren. Die *Register* werden in der angegebenen Reihenfolge gespeichert. Das erste *Register* wird am unteren Ende, das letzte *Register* am oberen Ende des Stacks gespeichert.
 
 **pop** *register*, [*register*]...
 
-: Laden Sie den Inhalt des Stacks in die Register. Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich. Es können mehrere Register angegeben werden, um den Additionsaufwand zu reduzieren. Der Inhalt wird in den Registern in der angegebenen Reihenfolge geladen. Das erste Register erhält den Inhalt des obersten Stacks, das letzte Register des untersten.
+: Ladt den Inhalt des Stacks in die *Register*. Die Initialisierung des Stack-Pointer-*Registers* **sp** ist erforderlich. Es können mehrere *Register* angegeben werden, um den Additionsaufwand zu reduzieren. Der Inhalt wird in den *Register*n in der angegebenen Reihenfolge geladen. Das erste *Register* erhält den Inhalt des obersten Stacks, das letzte *Register* des untersten.
 
 **rep** *decimal*, *instruction*|*macro*
 
-: Wiederholen Sie die *instruction* oder *macro* *decimal* Mal. Die Dezimalzahl muss positiv und größer als 0 sein. Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
+: Wiederholt die *instruction* oder *macro* *decimal* Mal. Die Dezimalzahl muss positiv und größer als 0 sein. Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
 
 **mv** *register*, *register*
 
-: Kopieren Sie den Inhalt des letzten Registers in das erste Register. Dies wird entweder zur Anweisung **addi** oder **add** abgebildet.
+: Kopiert den Inhalt des letzten *Registers* in das erste *Register*. Dies wird entweder zur Anweisung **addi** oder **add** abgebildet.
 
 **nop**
 
@@ -304,234 +294,234 @@ Derzeit werden die folgenden Makros unterstützt:
 
 **j** *immediate*|*label*
 
-: Springen Sie zum *label* oder *immediate*. Dies wird zur Anweisung **jal zero,** *offset* abgebildet.
+: Springt zum *label* oder *immediate*. Dies wird zur Anweisung **jal zero,** *offset* abgebildet.
 
 **jal** *immediate*|*label*
 
-: Springen Sie und verknüpfen Sie mit dem *label* oder *immediate*. Dies wird zur Anweisung **jal ra,** *offset* abgebildet.
+: Springt und verknüpft mit dem *label* oder *immediate*. Dies wird zur Anweisung **jal ra,** *offset* abgebildet.
 
 **jr** *register*
 
-: Springen Sie zur Adresse im *register*. Dies wird zur Anweisung **jalr zero,** *register***, 0** abgebildet.
+: Springt zur Adresse im *register*. Dies wird zur Anweisung **jalr zero,** *register***, 0** abgebildet.
 
 **jalr** *register*
 
-: Springen Sie und verknüpfen Sie mit der Adresse im register. Dies wird zur Anweisung **jalr ra,** *register***, 0** abgebildet.
+: Springt und verknüpft mit der Adresse im *Register*. Dies wird zur Anweisung **jalr ra,** *register***, 0** abgebildet.
 
 Siehe [RISC-V Shortened Spec][] für Details.
 
 
-ANWEISUNGEN
+# ANWEISUNGEN
 
 Eine Anweisung ist Maschinencode in menschenlesbarer Form. Die Syntax ähnelt der von [MAKROS][]. Alle Anweisungen der RV32I- und RV32M-Erweiterungen werden unterstützt.
 
-Das erste Register für Anweisungen, die sie benötigen, ist immer das Register, in das geschrieben wird. Eine Einschränkung dieser Regel sind Sprunganweisungen.
+Das erste *Register* für Anweisungen, die sie benötigen, ist immer das *Register*, in das geschrieben wird. Eine Einschränkung dieser Regel sind Sprunganweisungen.
 
-Diese Anweisungen werden verwendet, um arithmetische, logische und Verschiebeoperationen mit Registern durchzuführen:
+Diese Anweisungen werden verwendet, um arithmetische, logische und Verschiebeoperationen mit *Register*n durchzuführen:
 
-add register, register, register
+**add** *register*, *register*, *register*
 
-: Addition der beiden letzten Register.
+: Addition der beiden letzten *Register*.
 
-sub register, register, register
+**sub** *register*, *register*, *register*
 
-: Subtraktion. Der Minuend ist der Inhalt des zweiten Registers, der Subtrahend ist der Inhalt des letzten Registers.
+: Subtraktion. Der Minuend ist der Inhalt des zweiten *Registers*, der Subtrahend ist der Inhalt des letzten *Registers*.
 
-xor register, register, register
+**xor** *register*, *register*, *register*
 
-: Logisches bitweises exklusives Oder des zweiten und dritten Registers.
+: Logisches bitweises exklusives Oder des zweiten und dritten *Registers*.
 
-or register, register, register
+**or** *register*, *register*, *register*
 
-: Logisches bitweises Oder des zweiten und dritten Registers.
+: Logisches bitweises Oder des zweiten und dritten *Registers*.
 
-and register, register, register
+**and** *register*, *register*, *register*
 
-: Logisches bitweises Oder des zweiten und dritten Registers.
+: Logisches bitweises Oder des zweiten und dritten *Registers*.
 
-sll register, register, register
+**sll** *register*, *register*, *register*
 
-: Logische Linksverschiebung des zweiten Registers um das dritte Register.
+: Logische Linksverschiebung des zweiten *Registers* um das dritte *Register*.
 
-srl register, register, register
+**srl** *register*, *register*, *register*
 
-: Logische Rechtsverschiebung des zweiten Registers um das dritte Register.
+: Logische Rechtsverschiebung des zweiten *Registers* um das dritte *Register*.
 
-sra register, register, register
+**sra** *register*, *register*, *register*
 
-: Arithmetische Rechtsverschiebung des zweiten Registers um das dritte Register.
+: Arithmetische Rechtsverschiebung des zweiten *Registers* um das dritte *Register*.
 
-slt register, register, register
+**slt** *register*, *register*, *register*
 
-: Das erste Register wird auf eins (1) gesetzt, wenn das zweite Register kleiner als das letzte Register ist.
+: Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das letzte *Register* ist.
 
-sltu register, register, register
+**sltu** *register*, *register*, *register*
 
-: Das erste Register wird auf eins (1) gesetzt, wenn das zweite Register kleiner als das letzte Register ist. Der Inhalt der verglichenen Register wird als vorzeichenlose Zahlen interpretiert.
+: Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das letzte *Register* ist. Der Inhalt der verglichenen *Register* wird als vorzeichenlose Zahlen interpretiert.
 
-xnor register, register, register
+**xnor** *register*, *register*, *register*
 
-: Logisches bitweises negiertes exklusives Oder des zweiten und dritten Registers. Beachten Sie, dass dies nicht in der RISC-V-Standarddefiniert ist.
+: Logisches bitweises negiertes exklusives Oder des zweiten und dritten *Registers*. Beachtt, dass dies nicht in der RISC-V-Standarddefiniert ist.
 
-equal register, register, register
+**equal** *register*, *register*, *register*
 
-: Vergleicht die zweiten und dritten Register und setzt das erste Register auf eins (1), wenn sie gleich sind. Beachten Sie, dass dies nicht in der RISC-V-Standarddefiniert ist.
+: Vergleicht die zweiten und dritten *Register* und setzt das erste *Register* auf eins (1), wenn sie gleich sind. Beachtt, dass dies nicht in der RISC-V-Standarddefiniert ist.
 
-mul register, register, register
+**mul** *register*, *register*, *register*
 
-: Multiplikation des zweiten und dritten Registers. Das erste Register wird auf die unteren 32 Bits des Ergebnisses gesetzt.
+: Multiplikation des zweiten und dritten *Registers*. Das erste *Register* wird auf die unteren 32 Bits des Ergebnisses gesetzt.
 
-mulh register, register, register
+**mulh** *register*, *register*, *register*
 
-: Hohe Multiplikation des zweiten und dritten Registers. Das erste Register wird auf die höheren 32 Bits des Ergebnisses gesetzt. Der Inhalt beider Register wird als vorzeichenbehaftete Zahlen interpretiert.
+: Hohe Multiplikation des zweiten und dritten *Registers*. Das erste *Register* wird auf die höheren 32 Bits des Ergebnisses gesetzt. Der Inhalt beider *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
-mulhu register, register, register
+**mulhu** *register*, *register*, *register*
 
-: Hohe Multiplikation des zweiten und dritten Registers. Das erste Register wird auf die höheren 32 Bits des Ergebnisses gesetzt. Der Inhalt beider Register wird als vorzeichenlose Zahlen interpretiert.
+: Hohe Multiplikation des zweiten und dritten *Registers*. Das erste *Register* wird auf die höheren 32 Bits des Ergebnisses gesetzt. Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
 
-mulhsu register, register, register
+**mulhsu** *register*, *register*, *register*
 
-: Hohe Multiplikation des zweiten und dritten Registers. Das erste Register wird auf die höheren 32 Bits des Ergebnisses gesetzt. Der Inhalt des zweiten Registers wird als vorzeichenbehaftete Zahl interpretiert, der Inhalt des dritten Registers als vorzeichenlose Zahl.
+: Hohe Multiplikation des zweiten und dritten *Registers*. Das erste *Register* wird auf die höheren 32 Bits des Ergebnisses gesetzt. Der Inhalt des zweiten *Registers* wird als vorzeichenbehaftete Zahl interpretiert, der Inhalt des dritten *Registers* als vorzeichenlose Zahl.
 
-div register, register, register
+**div** *register*, *register*, *register*
 
-: Division des zweiten und dritten Registers. Das zweite Register ist der Dividend und das dritte Register ist der Divisor. Der Inhalt beider Register wird als vorzeichenbehaftete Zahlen interpretiert.
+: Division des zweiten und dritten *Registers*. Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor. Der Inhalt beider *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
-divu register, register, register
+**divu** *register*, *register*, *register*
 
-: Division des zweiten und dritten Registers. Das zweite Register ist der Dividend und das dritte Register ist der Divisor. Der Inhalt beider Register wird als vorzeichenlose Zahlen interpretiert.
+: Division des zweiten und dritten *Registers*. Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor. Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
 
-rem register, register, register
+**rem** *register*, *register*, *register*
 
-: Modulo-Operation des zweiten und dritten Registers. Das zweite Register ist der Dividend und das dritte Register ist der Divisor. Der Inhalt beider Register wird als vorzeichenbehaftete Zahlen interpretiert.
+: Modulo-Operation des zweiten und dritten *Registers*. Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor. Der Inhalt beider *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
-remu register, register, register
+**remu** *register*, *register*, *register*
 
-: Modulo-Operation des zweiten und dritten Registers. Das zweite Register ist der Dividend und das dritte Register ist der Divisor. Der Inhalt beider Register wird als vorzeichenlose Zahlen interpretiert.
+: Modulo-Operation des zweiten und dritten *Registers*. Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor. Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
 
-Diese Anweisungen werden verwendet, um arithmetische, logische und Verschiebeoperationen mit unmittelbaren Werten durchzuführen:
+Diese Anweisungen werden verwendet, um arithmetische, logische und Verschiebeoperationen mit *Immediate* Werten durchzuführen:
 
-Verschiebeoperationen können nur unmittelbare Werte von 4 Bits verwenden.
+Verschiebeoperationen können nur *Immediate* Werte von 4 Bits verwenden.
 
-Beachten Sie, dass einige Anweisungen keine Labels verwenden können. Dies ist in Arbeit.
+Beachtt, dass einige Anweisungen *keine * verwenden können. Dies ist in Arbeit.
 
-addi register, register, immediate|label
+**addi** *register*, *register*, *immediate*|*label*
 
-: Addition des zweiten Registers und des unmittelbaren oder Labels.
+: Addition des zweiten *Registers* und des *Immediate** oder *.
 
-xori register, register, immediate
+**xori** *register*, *register*, *immediate*
 
-: Logisches bitweises exklusives Oder des zweiten Registers und des unmittelbaren.
+: Logisches bitweises exklusives Oder des zweiten *Registers* und des *Immediate*.
 
-ori register, register, immediate
+**ori** *register*, *register*, *immediate*
 
-: Logisches bitweises Oder des zweiten Registers und des unmittelbaren.
+: Logisches bitweises Oder des zweiten *Registers* und des *Immediate*.
 
-andi register, register, immediate
+**andi** *register*, *register*, *immediate*
 
-: Logisches bitweises Oder des zweiten Registers und des unmittelbaren.
+: Logisches bitweises Oder des zweiten *Registers* und des *Immediate*.
 
-slli register, register, immediate|label
+**slli** *register*, *register*, *immediate*|*label*
 
-: Logische Linksverschiebung des zweiten Registers um das unmittelbare oder Label.
+: Logische Linksverschiebung des zweiten *Registers* um das *Immediate* oder *Label*.
 
-srli register, register, immediate|label
+**srli** *register*, *register*, *immediate*|*label*
 
-: Logische Rechtsverschiebung des zweiten Registers um das unmittelbare oder Label.
+: Logische Rechtsverschiebung des zweiten *Registers* um das *Immediate* oder *Label*.
 
-srai register, register, immediate|label
+**srai** *register*, *register*, *immediate*|*label*
 
-: Arithmetische Rechtsverschiebung des zweiten Registers um das unmittelbare oder Label.
+: Arithmetische Rechtsverschiebung des zweiten *Registers* um das *Immediate* oder *Label*.
 
-slti register, register, immediate
+**slti** *register*, *register*, *immediate*
 
-: Das erste Register wird auf eins (1) gesetzt, wenn das zweite Register kleiner als das unmittelbare ist.
+: Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das *Immediate* ist.
 
-sltiu register, register, immediate
+**sltiu** *register*, *register*, *immediate*
 
-: Das erste Register wird auf eins (1) gesetzt, wenn das zweite Register kleiner als das unmittelbare ist. Der Inhalt der verglichenen Register wird als vorzeichenlose Zahlen interpretiert.
+: Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das *Immediate* ist. Der Inhalt der verglichenen *Register* wird als vorzeichenlose Zahlen interpretiert.
 
 Diese Anweisungen werden verwendet, um den Speicherinhalt zu manipulieren:
 
 Das Zielbyte und die Hälfte sind immer die LSBs des Zielregisters.
 
-lb register, register, immediate|label
+**lb** *register*, *register*, *immediate*|*label*
 
-: Lädt ein Byte aus dem Speicher an der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist.
+: Lädt ein Byte aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist.
 
-lh register, register, immediate|label
+**lh** *register*, *register*, *immediate*|*label*
 
-: Lädt eine Hälfte (16 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist.
+: Lädt eine Hälfte (16 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist.
 
-lw register, register, immediate|label
+**lw** *register*, *register*, *immediate*|*label*
 
-: Lädt ein Wort (32 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist.
+: Lädt ein Wort (32 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist.
 
-lbu register, register, immediate|label
+**lbu** *register*, *register*, *immediate*|*label*
 
-: Lädt ein Byte aus dem Speicher an der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist. Das Byte wird auf 32 Bits erweitert.
+: Lädt ein Byte aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist. Das Byte wird auf 32 Bits erweitert.
 
-lhu register, register, immediate|label
+**lhu** *register*, *register*, *immediate*|*label*
 
-: Lädt eine Hälfte aus dem Speicher an der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist. Die Hälfte wird auf 32 Bits erweitert.
+: Lädt eine Hälfte aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist. Die Hälfte wird auf 32 Bits erweitert.
 
-sb register, register, immediate|label
+**sb** *register*, *register*, *immediate*|*label*
 
-: Speichert ein Byte in den Speicher an der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist.
+: Speichert ein Byte in den Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist.
 
-sh register, register, immediate|label
+**sh** *register*, *register*, *immediate*|*label*
 
-: Speichert eine Hälfte in den Speicher an der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist.
+: Speichert ein halbes Wort in den Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist.
 
-sw register, register, immediate|label
+**sw** *register*, *register*, *immediate*|*label*
 
-: Speichert ein Wort in den Speicher an der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist.
+: Speichert ein Wort in den Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist.
 
 Diese Anweisungen werden verwendet, um den Logikfluss des Programms zu steuern:
 
 Für alle Anweisungen außer jalr wird eine PC-relative Adressierung verwendet. Für jalr wird eine absolute Adressierung verwendet.
 
-beq register, register, immediate|label
+**beq** *register*, *register*, *immediate*|*label*
 
-: Springen Sie, wenn die Register gleich sind.
+: Springt, wenn die *Register* gleich sind.
 
-bne register, register, immediate|label
+**bne** *register*, *register*, *immediate*|*label*
 
-: Springen Sie, wenn die Register nicht gleich sind.
+: Springt, wenn die *Register* nicht gleich sind.
 
-blt register, register, immediate|label
+**blt** *register*, *register*, *immediate*|*label*
 
-: Springen Sie, wenn der Inhalt des ersten Registers kleiner ist als der Inhalt des letzten Registers. Der Inhalt der Register wird als vorzeichenbehaftete Zahlen interpretiert.
+: Springt, wenn der Inhalt des ersten *Registers* kleiner ist als der Inhalt des letzten *Registers*. Der Inhalt der *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
-bltu register, register, immediate|label
+**bltu** *register*, *register*, *immediate*|*label*
 
-: Springen Sie, wenn der Inhalt des ersten Registers kleiner ist als der Inhalt des letzten Registers. Der Inhalt der Register wird als vorzeichenlose Zahlen interpretiert.
+: Springt, wenn der Inhalt des ersten *Registers* kleiner ist als der Inhalt des letzten *Registers*. Der Inhalt der *Register* wird als vorzeichenlose Zahlen interpretiert.
 
-bge register, register, immediate|label
+**bge** *register*, *register*, *immediate*|*label*
 
-: Springen Sie, wenn der Inhalt des ersten Registers größer oder gleich dem Inhalt des letzten Registers ist. Der Inhalt der Register wird als vorzeichenbehaftete Zahlen interpretiert.
+: Springt, wenn der Inhalt des ersten *Registers* größer oder gleich dem Inhalt des letzten *Registers* ist. Der Inhalt der *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
-bgeu register, register, immediate|label
+**bgeu** *register*, *register*, *immediate*|*label*
 
-: Springen Sie, wenn der Inhalt des ersten Registers größer oder gleich dem Inhalt des letzten Registers ist. Der Inhalt der Register wird als vorzeichenlose Zahlen interpretiert.
+: Springt, wenn der Inhalt des ersten *Registers* größer oder gleich dem Inhalt des letzten *Registers* ist. Der Inhalt der *Register* wird als vorzeichenlose Zahlen interpretiert.
 
-jal register, immediate|label
+**jal** *register*, *immediate*|*label*
 
-: Springen Sie und verknüpfen Sie mit der Adresse, die die Summe des Programmzählers und des unmittelbaren oder Labels ist. Die Rückkehradresse wird in das Register geschrieben.
+: "Jump and link" zu der Adresse, die die Summe des Programmzählers und des *Immediate** oder *Labels* ist. Die Rückkehradresse wird in das *Register* geschrieben.
 
-jalr register, register, immediate|label
+**jalr** *register*, *register*, *immediate*|*label*
 
-: Springen Sie und verknüpfen Sie mit der Adresse, die die Summe des zweiten Registers und des unmittelbaren oder Labels ist. Die Rückkehradresse wird in das Register geschrieben.
+: "Jump and link" zu der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist. Die Rückkehradresse wird in das *Register* geschrieben.
 
 Diese Anweisungen können nicht kategorisiert werden:
 
-lui register, immediate|label
+**lui** *register*, *immediate*|*label*
 
-: Laden Sie das obere unmittelbare. Die oberen 20 Bits des Registers werden auf das unmittelbare oder Labels gesetzt. Die unteren 12 Bits sind null.
+: Lädt das obere *Immediate*. Die oberen 20 Bits des *Registers* werden auf das *Immediate** oder *Label* gesetzt. Die unteren 12 Bits sind null.
 
-auipc register, immediate|label
+**auipc** *register*, *immediate*|*label*
 
-: Addieren Sie das obere unmittelbare auf den Programmzähler. Die oberen 20 Bits des unmittelbaren oder Labels werden zum Programmzähler addiert und das Ergebnis wird in das Register geschrieben.
+: Addiert das obere *Immediate* auf den Programmzähler. Die oberen 20 Bits des *Immediate* oder *Label* werden zum Programmzähler addiert und das Ergebnis wird in das *Register* geschrieben.
 
 Siehe [RISC-V Shortened Spec][] für weitere Details.
 # SIEHE AUCH
