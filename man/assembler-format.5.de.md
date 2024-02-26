@@ -298,7 +298,7 @@ Derzeit werden die folgenden Makros unterstützt:
 
 **jal** *immediate*|*label*
 
-: Jump and Link (Springen und verknüpfen) mit dem *label* oder *immediate*. Dies wird auf die Anweisung **jal ra,** *offset* abgebildet.
+: "Jump and Link" (Springen und verknüpfen) mit dem *label* oder *immediate*. Dies wird auf die Anweisung **jal ra,** *offset* abgebildet.
 
 **jr** *register*
 
@@ -306,7 +306,7 @@ Derzeit werden die folgenden Makros unterstützt:
 
 **jalr** *register*
 
-: Jump and Link (Springen und verknüpfen) mit der Adresse im *Register*. Dies wird auf die Anweisung **jalr ra,** *register***, 0** abgebildet.
+: "Jump and Link" (Springen und verknüpfen) mit der Adresse im *Register*. Dies wird auf die Anweisung **jalr ra,** *register***, 0** abgebildet.
 
 Siehe [RISC-V Shortened Spec][] für Details.
 
