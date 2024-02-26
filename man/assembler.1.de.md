@@ -41,7 +41,7 @@ Diese Optionen steuern das Format, den Speicherort und den Typ der Ausgabe.
 
 **-f**=[**raw**|**mif**|**debug**], **\-\-format**=[**raw**|**mif**|**debug**]
 
-: Legt das Format der Ausgabe fest. Standardmäßig ist es **mif**. **debug** gibt die Ausgabe nur auf [stderr(3)][stderr] aus. Wie der Name andeutet, sollte es nur zu Debugging-Zwecken verwendet werden. Erwarten Sie keine Stabilität im Format.
+: Legt das Format der Ausgabe fest. Standardmäßig ist es **mif**. **debug** gibt die Ausgabe nur auf [stderr(3)][stderr] aus. Wie der Name andeutet, sollte es nur zu Debugging-Zwecken verwendet werden. Das Ausgabeformat kann sich ändern.
 
 **raw** schreibt den Maschinencode und die Daten binär in die Ausgabedateien.
 
@@ -77,7 +77,7 @@ Eingabeoption:
 
 **-i**=*file*,[*file*]..., **\-\-input**=*file*,[*file*]...
 
-:   Die Liste der Eingabedateien für die Zusammenstellung. Mindestens eine Eingabedatei muss verwendet werden. Es können mehrere Eingabedateien verwendet werden, die durch Leerzeichen getrennt werden müssen.
+:   Die Liste der Eingabedateien für die Zusammenstellung. Mindestens eine Eingabedatei muss verwendet werden. Es können mehrere Eingabedateien verwendet werden,    die durch Leerzeichen getrennt werden müssen.
 
     Die Eingabedateien werden in der Reihenfolge der Spezifikation in dieser Option verknüpft. Die zuerst angegebene Datei wird zuerst verarbeitet, die zuletzt angegebene Datei zuletzt.
 
@@ -85,11 +85,11 @@ Sonstige Optionen:
 
 **-h**, **\-\-help**
 
-: Zeige Hilfe.
+: Zeigt Optionen an (show help).
 
 **-v**, **\-\-version**
 
-: Zeige Version und beendet dann.
+: Zeigt Version und beendet dann.
 
 # UMGEBUNG
 
