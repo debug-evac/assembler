@@ -1,6 +1,6 @@
 on:
   pull_request:
-    branches: [main, dev]
+    branches: [main, stable]
     types: [opened, synchronize, reopened, ready_for_review]
     paths: ['src/**.rs']
 
