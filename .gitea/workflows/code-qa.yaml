@@ -13,14 +13,19 @@ jobs:
     if: gitea.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v3
+        with:
+          repository: 'Prj-MR/assembler-crates'
+          submodules: true
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
+        working-directory: './assembler'
       - uses: actions-rs/cargo@v1
         with:
           command: test
+        working-directory: './assembler'
 
   clippy:
     name: Clippy
@@ -28,16 +33,22 @@ jobs:
     if: gitea.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v3
+        with:
+          repository: 'Prj-MR/assembler-crates'
+          submodules: true
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
+        working-directory: './assembler'
       - run: rustup component add clippy
+        working-directory: './assembler'
       - uses: actions-rs/cargo@v1
         with:
           command: clippy
           args: -- -D warnings
+        working-directory: './assembler'
 
   coverage:
     name: Code Coverage
@@ -45,12 +56,16 @@ jobs:
     if: gitea.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v3
+        with:
+          repository: 'Prj-MR/assembler-crates'
+          submodules: true
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
           components: llvm-tools-preview
+        working-directory: './assembler'
       - uses: actions-rs/cargo@v1
         with:
           command: test
@@ -60,15 +75,19 @@ jobs:
           RUSTFLAGS: '-Cinstrument-coverage'
           RUSTDOCFLAGS: '-Cinstrument-coverage'
           LLVM_PROFILE_FILE: 'report-%p-%m.profraw'
+        working-directory: './assembler'
       - name: Install grcov
         run: if [[ ! -e ~/.cargo/bin/grcov ]]; then cargo install grcov; fi
+        working-directory: './assembler'
       - name: Run grcov
         run: grcov . --binary-path target/debug/deps/ -s . -t cobertura --branch --ignore-not-existing --ignore '../**' --ignore '/*' -o coverage.xml
+        working-directory: './assembler'
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
           filename: coverage.xml
           fail_below_min: true
+        working-directory: './assembler'
 
   fail_if_pr_draft:
     if: gitea.event.pull_request.draft == true
