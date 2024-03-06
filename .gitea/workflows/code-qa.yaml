@@ -16,6 +16,7 @@ jobs:
         with:
           repository: 'Prj-MR/assembler-crates'
           ref: 'main'
+          token: ${{ secrets.GT_PAT }}
           submodules: true
       - uses: actions-rs/toolchain@v1
         with:
@@ -37,6 +38,7 @@ jobs:
         with:
           repository: 'Prj-MR/assembler-crates'
           ref: 'main'
+          token: ${{ secrets.GT_PAT }}
           submodules: true
       - uses: actions-rs/toolchain@v1
         with:
@@ -61,6 +63,7 @@ jobs:
         with:
           repository: 'Prj-MR/assembler-crates'
           ref: 'main'
+          token: ${{ secrets.GT_PAT }}
           submodules: true
       - uses: actions-rs/toolchain@v1
         with:
