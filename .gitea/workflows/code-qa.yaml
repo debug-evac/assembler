@@ -18,15 +18,20 @@ jobs:
           ref: 'main'
           token: ${{ secrets.GT_PAT }}
           submodules: true
+      - name: Setup correct branch on submodule
+        run: |
+          git -C ./assembler fetch --depth=1 origin ${{ gitea.ref }}
+          branch=$( echo ${{ gitea.ref }} | sed 's/refs\/heads\///g' )
+          git -C ./assembler checkout ${branch}
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
-        working-directory: './assembler'
       - uses: actions-rs/cargo@v1
         with:
           command: test
+          args: -p assembler
         working-directory: './assembler'
 
   clippy:
