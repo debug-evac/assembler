@@ -96,6 +96,7 @@ jobs:
           LLVM_PROFILE_FILE: 'report-%p-%m.profraw'
       - name: Install grcov
         run: if [[ ! -e ~/.cargo/bin/grcov ]]; then cargo install grcov; fi
+      # Currently does coverage for all packages
       - name: Run grcov
         run: grcov . --binary-path target/debug/ -s . -t cobertura --branch --ignore-not-existing --ignore '../**' --ignore '/*' -o coverage.xml
       - name: Code Coverage Summary Report
