@@ -22,10 +22,9 @@ jobs:
       - name: Setup correct branch on submodule
         run: |
           git -C ./assembler fetch --depth=1 origin ${{ gitea.head_ref }}
-          echo FETCH SUCCESS
           branch=$( echo ${{ gitea.head_ref }} | sed 's/refs\/heads\///g' )
+          echo ${{ gitea.event.repository.name }}
           git -C ./assembler checkout ${branch}
-          echo CHECKOUT SUCCESS
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -35,7 +34,6 @@ jobs:
         with:
           command: test
           args: -p assembler
-        working-directory: './assembler'
 
   clippy:
     name: Clippy
