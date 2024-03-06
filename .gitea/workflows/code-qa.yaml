@@ -23,6 +23,7 @@ jobs:
           git -C ./assembler fetch --depth=1 origin ${{ gitea.head_ref }}
           echo FETCH SUCCESS
           branch=$( echo ${{ gitea.head_ref }} | sed 's/refs\/heads\///g' )
+          echo BRANCH=${branch}
           # git -C ./assembler checkout ${branch}
           git checkout ${branch}
           echo CHECKOUT SUCCESS
