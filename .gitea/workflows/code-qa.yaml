@@ -21,8 +21,10 @@ jobs:
       - name: Setup correct branch on submodule
         run: |
           git -C ./assembler fetch --depth=1 origin ${{ gitea.head_ref }}
+          echo FETCH SUCCESS
           branch=$( echo ${{ gitea.head_ref }} | sed 's/refs\/heads\///g' )
           git -C ./assembler checkout ${branch}
+          echo CHECKOUT SUCCESS
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
