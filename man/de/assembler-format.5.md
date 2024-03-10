@@ -42,7 +42,7 @@ Eine einzelne Zeile:
 
     LABEL: <OPERATION> ; KOMMENTAR
 
-Mehrere Zeilen, die in einer einzigen Zeile zusammenfallen:
+Mehrere Zeilen, die in einer einzigen Zeile zusammenfasst werden:
 
     LABEL:
                     ; KOMMENTAR
@@ -74,11 +74,11 @@ Datensektionen müssen vor Textsektionen stehen.
 Gültige Assemblerdatei, die eine Datensektion und eine Textsektion enthält:
 
     .data                           ; Definiert eine Datensektion, die bis zur nächsten Textsektion reicht
-        <DIREKTIVE>                 ; <DIREKTIVE>
+        <DIREKTIVE>                 ;
         <DIREKTIVE>
 
     .text                           ; Definiert eine Textsektion, die bis zum Ende der Datei reicht
-        <ANWEISUNG>                 ; <ANWEISUNG>
+        <ANWEISUNG>                 ;
         <ANWEISUNG>
 
 Gültige Assemblerdatei, die nur eine Textsektion enthält:
@@ -135,14 +135,14 @@ Siehe [ANWEISUNGEN][], [DIREKTIVEN][] und [MAKROS][] für Details.
 
 # Register
 
-Einige Anweisungen und Makros erfordern Register, um Aktionen auszuführen. Es gibt 31 Register, die verwendet werden können. Register können entweder durch die Registernummer mit einem vorangestellten x referenziert werden, was **x0** bis **x31** bedeutet, oder durch ihren ABI-Namen.
+Einige Anweisungen und Makros erfordern Register, um Aktionen auszuführen. Es gibt 31 Register, die verwendet werden können. Register können entweder durch die Registernummer mit einem vorangestellten x, was **x0** bis **x31** bedeutet, oder durch ihren ABI-Namen referenziert werden.
 
-| Register            | ABI Name            | Description                                                                                          | Saver    |
+| Register            | ABI Name            | Beschreibung                                                                                         | Saver    |
 |:-------------------:|:-------------------:|------------------------------------------------------------------------------------------------------|:--------:|
 | x0                  | zero                | Unveränderbares Register, das immer Null ist.                                                        | —        |
 | x1                  | ra                  | Rücksprungadresse                                                                                    | Callee   |
 | x2                  | sp                  | Stack-Pointer                                                                                        | Callee   |
-| x3                  | gp                  | Allzweckregister. Globales Zeiger gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet. | —        |
+| x3                  | gp                  | Allzweckregister. Globaler Pointer gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet.| —        |
 | x4                  | tp                  | Allzweckregister. Thread-Pointer gemäß RISC-V-Spezifikation, aber hier nicht als solches verwendet.  | —        |
 | x5-x7               | t0-t2               | Temporäres Register.                                                                                 | Caller   |
 | x8                  | s0/fp               | Gespeichertes Register oder Frame-Pointer.                                                           | Callee   |
@@ -175,7 +175,7 @@ Die folgenden Immediates sind ungültig:
 
 # DIREKTIVEN
 
-Direktiven werden in Datensektionen verwendet und sind immer mit einem Punkt (.) vorangestellt. Einige häufig verwendete Direktiven werden unterstützt, hauptsächlich solche, die verwendet werden können, um Daten im Datensektion zu speichern.
+Direktiven werden in Datensektionen verwendet und sind immer mit einem Punkt (**.**) vorangestellt. Einige häufig verwendete Direktiven werden unterstützt, hauptsächlich solche, die zur Speicherung von Daten in der Datensektion verwendet werden.
 
 Für einige Direktiven ist das Argument ein String, der zwischen Anführungszeichen steht. Ansonsten gelten hier die Konventionen, die generell gelten.
 
@@ -274,11 +274,11 @@ Derzeit werden die folgenden Makros unterstützt:
 
 **pop** *register*, [*register*]...
 
-: Lädt den Inhalt des Stacks in die Register. Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich. Es können mehrere Register angegeben werden, um den Additionsaufwand zu reduzieren. Der Inhalt wird in den Registern in der angegebenen Reihenfolge geladen. Das erste Register erhält den obersten Inhalt vom Stack, das letzte Register den am weitesten untenliegenden Inhalt, der erreichbar ist.
+: Lädt den Inhalt des Stacks in die Register. Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich. Es können mehrere Register angegeben werden, um den Additionsaufwand zu reduzieren. Der Inhalt wird in den Registern in der angegebenen Reihenfolge geladen. Das erste Register erhält den Inhalt des ersten Elementes auf dem Stack. Das letzte Register erhält den Inhalt des n-ten Elementes, welches sich ausgehend von dem Anfang des Stacks auf dem Stack befindet. N steht für die Anzahl der Register, die bei der Anweisung angegeben wurde.
 
-**rep** *decimal*, *instruction*|*macro*
+**rep** *decimal*, *Anweisung*|*macro*
 
-: Die *instruction* oder *macro* wird *decimal* mal wiederholt. Die Dezimalzahl muss positiv und größer als 0 sein. Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
+: Die *Anweisung* oder *macro* wird *decimal* mal wiederholt. Die Dezimalzahl muss positiv und größer als 0 sein. Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
 
 **mv** *register*, *register*
 
@@ -298,7 +298,7 @@ Derzeit werden die folgenden Makros unterstützt:
 
 **jal** *immediate*|*label*
 
-: "Jump and Link" (Springen und verknüpfen) mit dem *label* oder *immediate*. Dies wird auf die Anweisung **jal ra,** *offset* abgebildet.
+: "Jump and Link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) mit dem *label* oder *immediate*. Dies wird auf die Anweisung **jal ra,** *offset* abgebildet.
 
 **jr** *register*
 
@@ -306,7 +306,7 @@ Derzeit werden die folgenden Makros unterstützt:
 
 **jalr** *register*
 
-: "Jump and Link" (Springen und verknüpfen) mit der Adresse im *Register*. Dies wird auf die Anweisung **jalr ra,** *register***, 0** abgebildet.
+: "Jump and Link Register" (Springt zu einer Subroutine, dessen Adresse im Register steht, und speichert die Rücksprungadresse) mit der Adresse im *Register*. Dies wird auf die Anweisung **jalr ra,** *register***, 0** abgebildet.
 
 Siehe [RISC-V Shortened Spec][] für Details.
 
@@ -315,7 +315,7 @@ Siehe [RISC-V Shortened Spec][] für Details.
 
 Eine Anweisung ist Maschinencode in menschenlesbarer Form. Die Syntax ähnelt der von [MAKROS][]. Alle Anweisungen der RV32I- und RV32M-Erweiterungen werden unterstützt.
 
-Bei Anweisungen, die sie benötigen, ist das erste Register immer das Register, in das geschrieben wird. Eine Einschränkung dieser Regel sind Sprunganweisungen.
+Bei Anweisungen, auf die das zutrifft, ist das erste Register immer das Register, in das geschrieben wird. Eine Ausnahme dazu bilden Sprunganweisungen.
 
 Diese Anweisungen werden verwendet, um arithmetische, logische und Schiebeoperationen mit Registern durchzuführen:
 
@@ -403,7 +403,7 @@ Diese Anweisungen werden verwendet, um arithmetische, logische und Schiebeoperat
 
 Schiebeoperationen können nur Immediatewerte von 4 Bits verwenden.
 
-Beachte, dass einige Anweisungen keine Labels verwenden können. Dies ist in Arbeit.
+Beachten Sie, dass in einigen Anweisungen keine Labels verwenden werden können. Dies befindet sich in Arbeit und wird zukünftig geändert.
 
 **addi** *register*, *register*, *immediate*|*label*
 
@@ -443,7 +443,7 @@ Beachte, dass einige Anweisungen keine Labels verwenden können. Dies ist in Arb
 
 Diese Anweisungen werden verwendet, um den Speicherinhalt zu manipulieren:
 
-Das Zielbyte und das halbe Wort sind immer die LSBs (least significant bit/ ) des Zielregisters.
+Das Zielbyte und das halbe Wort sind immer die LSBs (niederwertigsten Bits) des Zielregisters.
 
 **lb** *register*, *register*, *immediate*|*label*
 
@@ -459,11 +459,11 @@ Das Zielbyte und das halbe Wort sind immer die LSBs (least significant bit/ ) de
 
 **lbu** *register*, *register*, *immediate*|*label*
 
-: Lädt ein Byte aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediates* oder *Labels* ist. Das Byte wird auf 32 Bits erweitert.
+: Lädt ein Byte aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediates* oder *Labels* ist. Das Byte wird auf 32 Bits mit Nullen vorzeichenlos erweitert.
 
 **lhu** *register*, *register*, *immediate*|*label*
 
-: Lädt ein halbes Wort (16 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediates* oder *Labels* ist. Das halbe Wort wird auf 32 Bits erweitert.
+: Lädt ein halbes Wort (16 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediates* oder *Labels* ist. Das halbe Wort wird auf 32 Bits mit Nullen vorzeichenlos erweitert..
 
 **sb** *register*, *register*, *immediate*|*label*
 
@@ -477,9 +477,9 @@ Das Zielbyte und das halbe Wort sind immer die LSBs (least significant bit/ ) de
 
 : Speichert ein Wort in den Speicher an der Adresse, die die Summe des zweiten *Registers* und des *Immediates* oder *Labels* ist.
 
-Diese Anweisungen werden verwendet, um den Logikfluss des Programms zu steuern:
+Diese Anweisungen werden verwendet, um den Kontrollfluss des Programms zu steuern:
 
-Für alle Anweisungen außer jalr wird eine PC-relative Adressierung verwendet. Für jalr wird eine absolute Adressierung verwendet.
+Für alle Anweisungen außer jalr wird eine PC-relative Adressierung verwendet. Für **jalr** wird absolute Adressierung verwendet.
 
 **beq** *register*, *register*, *immediate*|*label*
 
@@ -507,11 +507,11 @@ Für alle Anweisungen außer jalr wird eine PC-relative Adressierung verwendet. 
 
 **jal** *register*, *immediate*|*label*
 
-: "Jump and link" (Springt und Verknüpft) zu der Adresse, die die Summe des Programmzählers und des *Immediate** oder *Labels* ist. Die Rücksprungadresse wird in das *Register* geschrieben.
+: "Jump and link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe des Programmzählers und des *Immediate** oder *Labels* ist. Die Rücksprungadresse wird in das *Register* geschrieben.
 
 **jalr** *register*, *register*, *immediate*|*label*
 
-: "Jump and link" (Springt und Verknüpft) zu der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist. Die Rücksprungadresse wird in das erste *Register* geschrieben.
+: "Jump and link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist. Die Rücksprungadresse wird in das erste *Register* geschrieben.
 
 Diese Anweisungen können nicht kategorisiert werden:
 
@@ -524,6 +524,7 @@ Diese Anweisungen können nicht kategorisiert werden:
 : Addiert den oberen Teil des *Immediate* auf den Programmzähler. Die oberen 20 Bits des *Immediates* oder *Labels* werden zum Programmzähler addiert und das Ergebnis wird in das *Register* geschrieben.
 
 Siehe [RISC-V Shortened Spec][] für weitere Details.
+
 # SIEHE AUCH
 
 [assembler(1)], [RISC-V Shortened Spec][]
