@@ -125,7 +125,7 @@ Mehrere Assemblerdateien assemblieren und Ausgabe im binären Format:
 
 Eine Assemblerdatei assemblieren und Ausgabe im MIF-Format mit Kommentaren und Verwendung einer Wortbreite von 8 Bit:
 
-    $ assembler -i example.asm \-\-width 8 -c
+    $ assembler -i example.asm --width 8 -c
     Assembled a.mif (/pfad/zu/beispiel)
     Fertig [=========================================================] 5/5 Erfolg
 
@@ -141,7 +141,7 @@ Siehe Gitea-Probleme: https://git.mafiasi.de/Prj-MR/Assembler/issues
 
 Urheberrecht (c) 2023 Steven Becker
 
-Dieses Quellcodeformular unterliegt den Bedingungen der Mozilla Public License, Version 2.0. Falls eine Kopie der MPL nicht mit dieser Datei verteilt wurde, können Sie eine unter http://mozilla.org/MPL/2.0/ erhalten.
+Dieses Quellcode unterliegt den Bedingungen der Mozilla Public License, Version 2.0. Falls eine Kopie der MPL nicht mit dieser Datei verteilt wurde, können Sie eine unter http://mozilla.org/MPL/2.0/ erhalten.
 
 # AUTOREN
 

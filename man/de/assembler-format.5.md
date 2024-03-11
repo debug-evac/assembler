@@ -511,7 +511,7 @@ Für alle Anweisungen außer jalr wird eine PC-relative Adressierung verwendet. 
 
 **jalr** *register*, *register*, *immediate*|*label*
 
-: "Jump and link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist. Die Rücksprungadresse wird in das erste *Register* geschrieben.
+: "Jump and link register" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe des zweiten *Registers* und des *Immediate* oder *Labels* ist. Die Rücksprungadresse wird in das erste *Register* geschrieben.
 
 Diese Anweisungen können nicht kategorisiert werden:
 
