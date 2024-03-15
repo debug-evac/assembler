@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - ReleaseDate
 
+### Changed
+
+- (BREAKING) Moved library out of this crate into assembler_lib and use workspace for management
+  - Does not impact program behavior but does impact development
+
 ## [1.3.0] - 2024-03-03
 
 ### Added
