@@ -9,12 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - ReleaseDate
 
+### Changed
+
+- (BREAKING) Moved library out of this crate into assembler_lib and use workspace for management
+  - Does not impact program behavior but does impact development
+
+## [1.3.0] - 2024-03-03
+
 ### Added
 
+- Python library
+  - You can now use this library in python to work with assembly files!
+  - There are two functions at your disposal:
+    - `assemble(assembly_code, sp_init=true, no_nop_insert=false, format="mif", outpath=Path("a.mif"), comment=false, depth=1024, width=8)` which takes assembly code as a list of strings.
+    - `assemble_paths(assembly_paths, sp_init=true, no_nop_insert=false, format="mif", outpath=Path("a.mif"), comment=false, depth=1024, width=8)` which first reads in assembly code from the `assembly_paths` list of paths and then calls `assemble` on it.
+- Rust library
+  - You can now use this crate in rust to work with assembly files!
 - New documentation
-  - This can be found in the directory 'man' of the git repo
+  - This can be found in the directory "man" of the git repo
 - Last instructions of RV32I for debugging & RARS compatibility
-  - `ecall` - System call (should not be used, we don't have an OS)
+  - `ecall` - System call (should not be used, we do not have an OS)
   - `ebreak` - Breaking point for debugging purposes (should be used in debugger only)
 - Automatic stack pointer initialization!
   - Stack pointer is automatically initialized to 4096 bytes
@@ -27,18 +41,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Debug information for data parsing sub step
 - Added more examples
   - `gcd.asm` which calculates the greatest common divisor of two signed numbers
+  - `rng.asm` which generates random numbers with the xoroshiro128++ algorithm and a 128 bit seed
+  - `fakultaet_128bit.asm` which uses 128 bits to store the solution of the faculty
 
 ### Changed
 
+- Internal representation of some data structures
+  - No changes in behavior
 - 8 bit word width for MIF format being deprecated
   - It will not be deprecated!
 - Information presentation in debugging log level
   - the information should be more concise
+- panic behavior
+  - A proper error is now thrown on edge cases, where panics or `std::process::exit` has been used before
 
 ### Deprecated
 
 - Documentation in the gitea wiki
-  - New documentation is in the 'man' directory and readme of the git repo
+  - New documentation is in the "man" directory and readme of the git repo
 
 ### Fixed
 
@@ -235,7 +255,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Forwarding unit, Multiplication hardware instruction
 
 <!-- next-url -->
-[Unreleased]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.2.0...HEAD
+[Unreleased]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.3.0...HEAD
+[1.3.0]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.2.0...1.3.0
 [1.2.0]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.1.2...1.2.0
 [1.1.2]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.1.1...1.1.2
 [1.1.1]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.1.0...1.1.1
