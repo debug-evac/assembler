@@ -1,41 +1,35 @@
 [package]
 name = "assembler"
-version = "1.2.0"
-edition = "2021"
+version = "1.3.0"
 description = "An assembler for a self-written RISC-V based CPU"
-repository = "https://git.mafiasi.de/Prj-MR/Assembler"
-license = "MPL-2.0"
-authors = ["Steven Becker <steven.becker@studium.uni-hamburg.de>", "Jan Julius <jan.julius@studium.uni-hamburg.de>"]
-publish = ["mafiasi-gitea"]
+repository = "https://git.mafiasi.de/Prj-MR/assembler"
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true
 
 [features]
 default = []
 full_nop = ["raw_nop", "mem_load_nop"]
-raw_nop = []
-mem_load_nop = []
+raw_nop = ["assembler_lib/raw_nop"]
+mem_load_nop = ["assembler_lib/mem_load_nop"]
 
 [badges]
 maintenance = { status = "experimental" }
 
 [dependencies]
-nom = "7.1.3"
-clap = { version = "4.4.8", features = ["cargo"]}
-indicatif = "0.17.7"
-indicatif-log-bridge = "0.2.2"
-console = { version = "0.15", default-features = false }
-log = "0.4.20"
-env_logger = "0.11.0"
+assembler_lib.workspace = true
+clap.workspace = true
+indicatif.workspace = true
+indicatif-log-bridge.workspace = true
+console.workspace = true
+log.workspace = true
+env_logger.workspace = true
 
 [dev-dependencies]
-assert_cmd = "2.0.12"
-predicates = "3.0.4"
-assert_fs = "1.1.0"
-
-[profile.release]
-strip = "symbols"
-codegen-units = 1
-lto = "fat"
-panic = "abort"
+assert_cmd.workspace = true
+predicates.workspace = true
+assert_fs.workspace = true
 
 [package.metadata.release]
 sign-commit = true
@@ -60,5 +54,5 @@ pkg-fmt = "bin"
 # pubkey = "RWQ6OyUDGTMQlRVb+YQi+iU6m3qkoDFa3MdTKpwRMb4OpSy/5IOXbM8b"
 # file = "{ url }.minisig"
 
-[package.metadata.cross.target.aarch64-apple-darwin]
-image = "ghcr.io/cross-rs/aarch64-apple-darwin-cross:local"
+# [package.metadata.cross.target.aarch64-apple-darwin]
+# image = "ghcr.io/cross-rs/aarch64-apple-darwin-cross:local"
