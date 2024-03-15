@@ -401,7 +401,7 @@ operations with registers:
 
 **and** *register*, *register*, *register*
 
-:   Logical bitwise or of the second and third *register*.
+:   Logical bitwise and of the second and third *register*.
 
 **sll** *register*, *register*, *register*
 
@@ -506,7 +506,7 @@ Note that some instructions cannot use labels. This is WIP.
 
 **andi** *register*, *register*, *immediate*
 
-:   Logical bitwise or of the second *register* and the *immediate*.
+:   Logical bitwise and of the second *register* and the *immediate*.
 
 **slli** *register*, *register*, *immediate*|*label*
 
@@ -623,7 +623,7 @@ absolute addressing is used.
 **jalr** *register*, *register*, *immediate*|*label*
 
 :   Jump and link to the address which is the sum of the second *register* and
-    the *immediate* or *label*. The return address is written to the *register*.
+    the *immediate* or *label*. The return address is written to the first *register*.
 
 These instructions cannot be categorized:
 
