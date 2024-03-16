@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-03-16 16:29+0100\n"
-"PO-Revision-Date: 2024-03-16 16:30+0100\n"
+"Report-Msgid-Bugs-To: steven.becker@studium.uni-hamburg.de\n"
+"POT-Creation-Date: 2024-03-16 18:19+0100\n"
+"PO-Revision-Date: 2024-03-16 18:26+0100\n"
 "Last-Translator: Steven Becker <steven.becker@studium.uni-hamburg.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de_DE\n"
@@ -16,30 +17,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#. type: Plain text
-#: en/assembler.1.md:2
-#, no-wrap
-msgid ""
-"% ASSEMBLER(1) Version 1.2.0 | General Commands Manual\n"
-"---\n"
-msgstr ""
-"% ASSEMBLER(1) Version 1.2.0 | Handbuch für generelle Befehle\n"
-"---\n"
+#. type: Pandoc title block
+#: en/assembler.1.md:1
+msgid "ASSEMBLER(1) Version 1.2.0 | General Commands Manual"
+msgstr "ASSEMBLER(1) Version 1.2.0 | Handbuch für generelle Befehle"
 
 #. type: Plain text
 #: en/assembler.1.md:4
-#, no-wrap
-msgid ""
-"date: February 2024\n"
-"---\n"
-msgstr ""
-"Datum: Februar 2024\n"
-"---\n"
+msgid "date: February 2024"
+msgstr "date: Februar 2024"
 
-#. type: Plain text
-#: en/assembler.1.md:7
-msgid "# NAME"
-msgstr "# NAME"
+#. type: Title #
+#: en/assembler.1.md:6
+#, no-wrap
+msgid "NAME"
+msgstr "NAME"
 
 #. type: Plain text
 #: en/assembler.1.md:9
@@ -47,10 +39,11 @@ msgstr "# NAME"
 msgid "**assembler** --- assemble code to self-written RISC-V based CPU\n"
 msgstr "**assembler** --- assembliert Code für eine selbst geschriebene auf RISC-V basierende CPU\n"
 
-#. type: Plain text
-#: en/assembler.1.md:11
-msgid "# SYNOPSIS"
-msgstr "# ÜBERSICHT"
+#. type: Title #
+#: en/assembler.1.md:10
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr "ÜBERSICHT"
 
 #. type: Plain text
 #: en/assembler.1.md:20
@@ -74,10 +67,11 @@ msgstr ""
 "**assembler -i**|**\\-\\-input** *Datei*... [**-f**|**\\-\\-format mif**]\n"
 "[**-c**]\n"
 
-#. type: Plain text
-#: en/assembler.1.md:22
-msgid "# DESCRIPTION"
-msgstr "# BESCHREIBUNG"
+#. type: Title #
+#: en/assembler.1.md:21
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr "BESCHREIBUNG"
 
 #. type: Plain text
 #: en/assembler.1.md:25
@@ -132,10 +126,11 @@ msgstr ""
 "verwenden.  Als letzte Möglichkeit können Sie ein Problem in unserem "
 "Repository öffnen, bei dem Sie das Problem detailliert darstellen sollten."
 
-#. type: Plain text
-#: en/assembler.1.md:40
-msgid "# FILES"
-msgstr "# DATEIEN"
+#. type: Title #
+#: en/assembler.1.md:39
+#, no-wrap
+msgid "FILES"
+msgstr "DATEIEN"
 
 #. type: Plain text
 #: en/assembler.1.md:43
@@ -180,10 +175,11 @@ msgstr ""
 "Befehls **assembler -i example.asm -o test.example** die Maschinencode-"
 "Instruktionen in **test.example** und die Daten in **test.mem.mif**."
 
-#. type: Plain text
-#: en/assembler.1.md:53
-msgid "# OPTIONS"
-msgstr "# OPTIONEN"
+#. type: Title #
+#: en/assembler.1.md:52
+#, no-wrap
+msgid "OPTIONS"
+msgstr "OPTIONEN"
 
 #. type: Plain text
 #: en/assembler.1.md:55
@@ -413,10 +409,11 @@ msgstr "**-v**, **\\-\\-version**\n"
 msgid ":   Show version and exit.\n"
 msgstr ":   Zeigt die Version an und beendet dann.\n"
 
-#. type: Plain text
-#: en/assembler.1.md:133
-msgid "# ENVIRONMENT"
-msgstr "# UMGEBUNG"
+#. type: Title #
+#: en/assembler.1.md:132
+#, no-wrap
+msgid "ENVIRONMENT"
+msgstr "UMGEBUNG"
 
 #. type: Plain text
 #: en/assembler.1.md:135
@@ -442,10 +439,11 @@ msgstr ""
 "    Das Protokollformat kann sich jederzeit ändern.\n"
 "    Weitere Informationen zur Protokollierung finden Sie unter <https://docs.rs/env_logger/0.11.1/env_logger/>.\n"
 
-#. type: Plain text
-#: en/assembler.1.md:144
-msgid "# EXIT STATUS"
-msgstr "# BEENDIGUNGSSTATUS"
+#. type: Title #
+#: en/assembler.1.md:143
+#, no-wrap
+msgid "EXIT STATUS"
+msgstr "BEENDIGUNGSSTATUS"
 
 #. type: Plain text
 #: en/assembler.1.md:148
@@ -480,10 +478,11 @@ msgstr "**1**\n"
 msgid ":   General error.\n"
 msgstr ":   Allgemeiner Fehler.\n"
 
-#. type: Plain text
-#: en/assembler.1.md:158
-msgid "# EXAMPLES"
-msgstr "# BEISPIELE"
+#. type: Title #
+#: en/assembler.1.md:157
+#, no-wrap
+msgid "EXAMPLES"
+msgstr "BEISPIELE"
 
 #. type: Plain text
 #: en/assembler.1.md:160
@@ -557,10 +556,11 @@ msgstr ""
 msgid "    $ RUST_LOG=debug assembler -i example.asm -f debug\n"
 msgstr "    $ RUST_LOG=debug assembler -i example.asm -f debug\n"
 
-#. type: Plain text
-#: en/assembler.1.md:182
-msgid "# BUGS"
-msgstr "# FEHLER"
+#. type: Title #
+#: en/assembler.1.md:181
+#, no-wrap
+msgid "BUGS"
+msgstr "FEHLER"
 
 #. type: Plain text
 #: en/assembler.1.md:184
@@ -569,10 +569,11 @@ msgid ""
 msgstr ""
 "Siehe Gitea-Probleme: <https://git.mafiasi.de/Prj-MR/assembler-crates/issues>"
 
-#. type: Plain text
-#: en/assembler.1.md:186
-msgid "# COPYRIGHT"
-msgstr "# URHEBERRECHT"
+#. type: Title #
+#: en/assembler.1.md:185
+#, no-wrap
+msgid "COPYRIGHT"
+msgstr "URHEBERRECHT"
 
 #. type: Plain text
 #: en/assembler.1.md:188
@@ -590,15 +591,17 @@ msgstr ""
 "Version 2.0.  Falls eine Kopie der MPL nicht mit dieser Datei verteilt "
 "wurde, können Sie eine unter <http://mozilla.org/MPL/2.0/> erhalten."
 
-#. type: Plain text
-#: en/assembler.1.md:193
-msgid "# AUTHORS"
-msgstr "# AUTOREN"
+#. type: Title #
+#: en/assembler.1.md:192
+#, no-wrap
+msgid "AUTHORS"
+msgstr "AUTOREN"
 
 #. type: Plain text
 #: en/assembler.1.md:195
-msgid "Steven Becker <steven.becker@studium.uni-hamburg.de>"
-msgstr "Steven Becker <steven.becker@studium.uni-hamburg.de>"
+#, no-wrap
+msgid "Steven Becker <steven.becker@studium.uni-hamburg.de>\n"
+msgstr "Steven Becker <steven.becker@studium.uni-hamburg.de>\n"
 
 #. type: Plain text
 #: en/assembler.1.md:197
@@ -608,8 +611,9 @@ msgstr ":   Hauptverantwortlicher\n"
 
 #. type: Plain text
 #: en/assembler.1.md:199
-msgid "Jan Julius <jan.julius@studium.uni-hamburg.de>"
-msgstr "Jan Julius <jan.julius@studium.uni-hamburg.de>"
+#, no-wrap
+msgid "Jan Julius <jan.julius@studium.uni-hamburg.de>\n"
+msgstr "Jan Julius <jan.julius@studium.uni-hamburg.de>\n"
 
 #. type: Plain text
 #: en/assembler.1.md:201
@@ -617,27 +621,31 @@ msgstr "Jan Julius <jan.julius@studium.uni-hamburg.de>"
 msgid ":   Maintainer\n"
 msgstr ":   Mitverantwortlicher\n"
 
-#. type: Plain text
-#: en/assembler.1.md:203
-msgid "# SEE ALSO"
-msgstr "# SIEHE AUCH"
+#. type: Title #
+#: en/assembler.1.md:202
+#, no-wrap
+msgid "SEE ALSO"
+msgstr "SIEHE AUCH"
 
 #. type: Plain text
 #: en/assembler.1.md:205
 msgid "[src_mif(5)][], [stderr(3)][], [assembler-format(5)][]"
 msgstr "[src_mif(5)][], [stderr(3)][], [assembler-format(5)][]"
 
-#. type: Plain text
-#: en/assembler.1.md:208
+#. type: Link reference
+#: en/assembler.1.md:206
+#, no-wrap
 msgid "[src_mif(5)]: https://linux.die.net/man/5/srec_mif"
 msgstr "[src_mif(5)]: https://linux.die.net/man/5/srec_mif"
 
-#. type: Plain text
-#: en/assembler.1.md:210
+#. type: Link reference
+#: en/assembler.1.md:207
+#, no-wrap
 msgid "[stderr(3)]: https://linux.die.net/man/3/stderr"
 msgstr "[stderr(3)]: https://linux.die.net/man/3/stderr"
 
-#. type: Plain text
-#: en/assembler.1.md:211
+#. type: Link reference
+#: en/assembler.1.md:208
+#, no-wrap
 msgid "[assembler-format(5)]: assembler-format.5.md"
 msgstr "[assembler-format(5)]: assembler-format.5.md"

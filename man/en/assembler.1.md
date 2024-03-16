@@ -203,9 +203,6 @@ Jan Julius <jan.julius@studium.uni-hamburg.de>
 
 [src_mif(5)][], [stderr(3)][], [assembler-format(5)][]
 
-
 [src_mif(5)]: https://linux.die.net/man/5/srec_mif
-
 [stderr(3)]: https://linux.die.net/man/3/stderr
-
 [assembler-format(5)]: assembler-format.5.md
