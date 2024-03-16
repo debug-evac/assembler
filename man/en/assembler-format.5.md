@@ -67,7 +67,7 @@ See [OPERATIONS][] and [LABEL DEFINITIONS][] for details.
 
 # TEXT AND DATA SECTIONS
 
-Sections are ordered and used to outline section of particular kind.
+Sections are ordered and used to store operations into a particular kind of memory or memory locations.
 Sections of any kind can only be defined once.
 Currently only data and text sections are supported with no plans for supporting other sections.
 

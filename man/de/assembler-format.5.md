@@ -1,13 +1,13 @@
 % ASSEMBLER-FORMAT(5) Version 1.2.0 | Handbuch für Dateiformate
 ---
-Datum: Februar 2024
+date: Februar 2024
 ---
 
 # NAME
 
 **assembler-format** --- Format von Eingabe-Assemblerdateien
 
-# SYNOPSIS
+# ÜBERSICHT
 
     ; ist ein einzeiliger Kommentar, hier kann alles geschrieben werden
     .data
@@ -32,15 +32,20 @@ Datum: Februar 2024
 
 # BESCHREIBUNG
 
-Der Befehl [assembler(1)] konvertiert Assemblerdateien in eine Ausgabe im binären oder MIF-Format.
-Die Syntax basiert auf der MIPS-Assembler-Syntax und wurde modifiziert, um den Aufwand des Programmierers zu verringern und die Kompatibilität mit bereits etablierten Tools und Konventionen zu erhöhen.
+Der Befehl [assembler(1)] konvertiert Assemblerdateien in eine Ausgabe im
+binären oder MIF-Format.  Die Syntax basiert auf der MIPS-Assembler-Syntax
+und wurde modifiziert, um den Aufwand des Programmierers zu verringern und
+die Kompatibilität mit bereits etablierten Tools und Konventionen zu
+erhöhen.
 
 # SYNTAX
 
-Im Allgemeinen enthält jede Zeile nichts (Leerzeichen), eine Sektion, ein Label oder ein Label und eine Operation.
-Kommentare können am Ende jeder Zeile hinzugefügt oder in eine Zeile eingefügt werden, die ansonsten nichts (Leerzeichen) enthalten würde.
-Der Assembler ist nachsichtig mit der Platzierung dieser Komponenten zueinander.
-Eine Operation ist eine Anweisung, ein Makro oder eine Direktive.
+Im Allgemeinen enthält jede Zeile nichts (Leerzeichen), eine Sektion, ein
+Label oder ein Label und eine Operation.  Kommentare können am Ende jeder
+Zeile hinzugefügt oder in eine Zeile eingefügt werden, die ansonsten nichts
+(Leerzeichen) enthalten würde.  Der Assembler ist nachsichtig mit der
+Platzierung dieser Komponenten zueinander.  Eine Operation ist eine
+Anweisung, ein Makro oder eine Direktive.
 
 Eine einzelne Zeile:
 
@@ -63,17 +68,22 @@ Mehrere Zeilen, die in einer einzigen Zeile zusammenfasst werden:
 
 Alle drei Beispiele sind gleich, wenn die Operationen gleich sind.
 
-Siehe [OPERATIONS][] und [LABEL DEFINITIONS][] für Details.
+Siehe [OPERATIONEN][] und [LABEL-DEFINITIONEN][] für Details.
 
 # TEXT- UND DATENSEKTIONEN
 
-Sektionen sind geordnet und werden verwendet, um Abschnitte eines bestimmten Typs zu umfassen.
-Sektionen jeglicher Art können nur einmal definiert werden.
-Derzeit werden nur Daten- und Textsektionen unterstützt ohne Pläne für die Unterstützung anderer Sektionen.
+Sektionen sind geordnet und werden verwendet, um Operationen, die sich in
+den Sektionen befinden, einer bestimmten Speicherstelle oder Speicherart
+zuzuweisen. Sektionen jeglicher Art können nur einmal definiert
+werden. Derzeit werden nur Daten- und Textsektionen unterstützt ohne Pläne
+für die Unterstützung anderer Sektionen.
 
-Die Verwendung von Sektionen ist optional, und eine Assemblerdatei, die keine expliziten Sektionen enthält, definiert implizit eine Textsektion, die die gesamte Datei umfasst.
+Die Verwendung von Sektionen ist optional, und eine Assemblerdatei, die
+keine expliziten Sektionen enthält, definiert implizit eine Textsektion, die
+die gesamte Datei umfasst.
 
-Assemblerdateien müssen eine Textsektion und optional eine nicht leere Datensektion enthalten.
+Assemblerdateien müssen eine Textsektion und optional eine nicht leere
+Datensektion enthalten.
 
 Datensektionen müssen vor Textsektionen stehen.
 
@@ -99,7 +109,8 @@ Gültige Assemblerdatei, die implizit eine Textsektion definiert:
         <ANWEISUNG>
         <ANWEISUNG>
 
-Ungültige Assemblerdatei, da die Datensektion leer ist (dies kann sich in Zukunft ändern):
+Ungültige Assemblerdatei, da die Datensektion leer ist (dies kann sich in
+Zukunft ändern):
 
     .data
     .text
@@ -116,8 +127,9 @@ Siehe [DIREKTIVEN][], [MAKROS][] und [ANWEISUNGEN][] für Details.
 # LABEL-DEFINITIONEN
 
 Label-Definitionen sind Label-Verweise, die mit einem Doppelpunkt enden.
-Labels müssen mindestens ein Zeichen lang sein und dürfen nur alphanumerische Zeichen enthalten.
-Das erste Zeichen muss alphabetisch sein.
+Labels müssen mindestens ein Zeichen lang sein und dürfen nur
+alphanumerische Zeichen enthalten.  Das erste Zeichen muss alphabetisch
+sein.
 
 Korrekte Label-Definitionen:
 
@@ -133,23 +145,26 @@ Falsche Label-Definitionen:
     0Lol:
     Lol
 
-Beachten Sie, dass derzeit keine Validierung der Label-Typen erfolgt und nicht überprüft wird, ob der Label-Wert in die Anweisung passt.
-Fehler für Ersteres und Warnungen für Letzteres sind geplant.
+Beachten Sie, dass derzeit keine Validierung der Label-Typen erfolgt und
+nicht überprüft wird, ob der Label-Wert in die Anweisung passt.  Fehler für
+Ersteres und Warnungen für Letzteres sind geplant.
 
 # OPERATIONEN
 
-Anweisungen, Makros und Direktiven werden unter dem Oberbegriff Operationen zusammengefasst.
-Die Argumente können Immediates, Register und/oder Labels sein.
-Die Argumente sind durch Kommas (**,**) oder Kommas mit einem Leerzeichen (**,** ) getrennt.
-Der Operationsname und die Argumente sind durch ein oder mehrere Leerzeichen getrennt.
+Anweisungen, Makros und Direktiven werden unter dem Oberbegriff Operationen
+zusammengefasst.  Die Argumente können Immediates, Register und/oder Labels
+sein.  Die Argumente sind durch Kommas (**,**) oder Kommas mit einem
+Leerzeichen (**,** ) getrennt.  Der Operationsname und die Argumente sind
+durch ein oder mehrere Leerzeichen getrennt.
 
 Siehe [ANWEISUNGEN][], [DIREKTIVEN][] und [MAKROS][] für Details.
 
-# Register
+# REGISTER
 
 Einige Anweisungen und Makros erfordern Register, um Aktionen auszuführen.
-Es gibt 31 Register, die verwendet werden können.
-Register können entweder durch die Registernummer mit einem vorangestellten x, was **x0** bis **x31** bedeutet, oder durch ihren ABI-Namen referenziert werden.
+Es gibt 31 Register, die verwendet werden können.  Register können entweder
+durch die Registernummer mit einem vorangestellten **x**, was **x0** bis
+**x31** bedeutet, oder durch ihren ABI-Namen referenziert werden.
 
 | Register            | ABI Name            | Beschreibung                                                                                         | Saver    |
 |:-------------------:|:-------------------:|------------------------------------------------------------------------------------------------------|:--------:|
@@ -168,11 +183,13 @@ Register können entweder durch die Registernummer mit einem vorangestellten x, 
 
 # IMMEDIATES
 
-Einige Anweisungen, Makros und Direktiven erfordern Immediates, um Aktionen auszuführen.
-Immediates sind entweder im Dezimal-, Binär- oder Hexadezimalformat.
-Standardmäßig wird das Dezimalformat angenommen.
-Um Immediates als binär oder hexadezimal zu interpretieren, muss das Präfix **0b** bzw. **0x** verwendet werden.
-Optional können binäre oder hexadezimale Immediates als vorzeichenbehaftete Zahlen interpretiert werden, indem ein s oder S als Suffix rangehängt wird.
+Einige Anweisungen, Makros und Direktiven erfordern Immediates, um Aktionen
+auszuführen.  Immediates sind entweder als Dezimal-, Binär- oder
+Hexadezimalzahl formatiert.  Standardmäßig wird das Dezimalformat
+angenommen.  Um Immediates als binär oder hexadezimal zu interpretieren,
+muss das Präfix **0b** bzw. **0x** verwendet werden.  Optional können binäre
+oder hexadezimale Immediates als vorzeichenbehaftete Zahlen interpretiert
+werden, indem ein **s** oder **S** als Suffix hinzugefügt wird.
 
 Die folgenden Immediates sind gültig:
 
@@ -193,15 +210,18 @@ Die folgenden Immediates sind ungültig:
 
 # DIREKTIVEN
 
-Direktiven werden in Datensektionen verwendet und sind immer mit einem Punkt (**.**) vorangestellt.
-Einige häufig verwendete Direktiven werden unterstützt, hauptsächlich solche, die zur Speicherung von Daten in der Datensektion verwendet werden.
+Direktiven werden in Datensektionen verwendet und sind immer mit einem Punkt
+(**.**) vorangestellt.  Einige häufig verwendete Direktiven werden
+unterstützt, hauptsächlich solche, die zur Speicherung von Daten in der
+Datensektion verwendet werden.
 
-Für einige Direktiven ist das Argument ein String, der zwischen Anführungszeichen steht.
-Ansonsten gelten hier die Konventionen, die generell gelten.
+Für einige Direktiven ist das Argument ein String, der zwischen
+Anführungszeichen steht.  Ansonsten gelten hier die Konventionen, die
+generell gelten.
 
-Die Reihenfolge der Direktiven in der Assemblerdatei bestimmt die Reihenfolge der Daten im Speicher.
-Daten beginnen bei Adresse 0 und wachsen nach oben.
-Die erste Direktive wird an Adresse 0 geschrieben.
+Die Reihenfolge der Direktiven in der Assemblerdatei bestimmt die
+Reihenfolge der Daten im Speicher.  Daten beginnen bei Adresse 0 und wachsen
+nach oben.  Die erste Direktive wird an Adresse 0 geschrieben.
 
 Derzeit werden die folgenden Direktiven unterstützt:
 
@@ -223,7 +243,7 @@ Derzeit werden die folgenden Direktiven unterstützt:
 
 **.space** *dezimal*
 
-:   Reserviere Platz für Daten. Das *dezimal* gibt den reservierten Platz in Bytes an.
+:   Reserviere Platz für Daten. Die *Dezimal*zahl gibt den reservierten Platz in Bytes an.
     Es muss eine Dezimalzahl sein und kann nicht negativ sein.
 
 **.ascii "***string***"**
@@ -243,8 +263,8 @@ Derzeit werden die folgenden Direktiven unterstützt:
 
 **.eqv** *label*, *immediate*
 
-:   Der Wert des *label* ist *immediate*.
-    Ein auf diese Weise erstelltes *label* ist eine Konstante, die nicht im Speicher geschrieben wird und wie ein Immediate verwendet werden kann.
+:   Der Wert des *label*s ist gleich *immediate*.
+    Ein auf diese Weise erstelltes *label* ist eine Konstante, die nicht in den Speicher geschrieben wird und wie ein Immediate verwendet werden kann.
 
 Diese sind gültige Direktiven:
 
@@ -258,19 +278,20 @@ Diese sind ungültige Direktiven:
     .non                  ; unbekannte Direktive
     .byte                 ; keine Argumente
     .half 30 15
-    .space 0b10           ; Argument kann nur Dezimalzahl sein
-    .asciz "STRING        ; fehlende abschließende Anführungszeichen
+    .space 0b10           ; Argument kann nur eine Dezimalzahl sein
+    .asciz "STRING        ; fehlendes abschließendes Anführungszeichen
 
 # MAKROS
 
-Makros sind Pseudo-Anweisungen, die nicht direkt in Maschinencode übersetzt werden können.
-Die Syntax ist ähnlich wie bei [ANWEISUNGEN][].
-Einige der gängigen Makros werden unterstützt.
+Makros sind Pseudo-Anweisungen, die nicht direkt in Maschinencode übersetzt
+werden können.  Die Syntax ist ähnlich wie bei [ANWEISUNGEN][].  Einige der
+gängigen Makros werden unterstützt.
 
-Makros werden erweitert und auf Anweisungen abgebildet, die maschinenübersetzbar sind.
-Makros können nicht von Programmierern definiert werden.
+Makros werden erweitert und auf Anweisungen abgebildet, die zu Maschinencode
+übersetzbar sind.  Makros können nicht von Programmierern definiert werden.
 
-Das erste Register für Makros (die welche haben) ist immer das Register, in das geschrieben wird.
+Das erste Register für Makros (die welche haben) ist immer das Register, in
+das geschrieben wird.
 
 Derzeit werden die folgenden Makros unterstützt:
 
@@ -300,7 +321,7 @@ Derzeit werden die folgenden Makros unterstützt:
 
 :   Springt zu einem weit entfernten *Label* und behandelt es als Unterprogramm.
     Die Rücksprungadresse wird in das Register **ra** geschrieben.
-    Eine Rücksprung ist mithilfe des Makros **ret** oder der entsprechenden **jal**-Anweisung möglich.
+    Ein Rücksprung ist mithilfe des Makros **ret** oder der entsprechenden **jal**-Anweisung möglich.
 
 **tail** *immediate*|*label*
 
@@ -312,7 +333,7 @@ Derzeit werden die folgenden Makros unterstützt:
 
 :   Speichert den Inhalt dieser Register auf dem Stack.
     Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich.
-    Es können mehrere Register angegeben werden, um den Subtraktionsaufwand zu reduzieren.
+    Es können mehrere Register angegeben werden, um nur eine Subtraktion auszuführen.
     Die Register werden in der angegebenen Reihenfolge gespeichert.
     Das erste Register wird am Ende und das letzte Register am Anfang des Stacks gespeichert.
 
@@ -322,11 +343,13 @@ Derzeit werden die folgenden Makros unterstützt:
     Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich.
     Es können mehrere Register angegeben werden, um nur eine Addition auszuführen.
     Der Inhalt wird in den Registern in der angegebenen Reihenfolge geladen.
-    Das erste Register erhält den Inhalt des ersten Elementes auf dem Stack. Das letzte Register erhält den Inhalt des n-ten Elementes, welches sich ausgehend von dem Anfang des Stacks auf dem Stack befindet. N steht für die Anzahl der Register, die bei der Anweisung angegeben wurde.
+    Das erste Register erhält den Inhalt des ersten Elementes auf dem Stack.
+    Das letzte Register erhält den Inhalt des n-ten Elementes, welches sich ausgehend von dem Anfang des Stacks auf dem Stack befindet.
+    N steht für die Anzahl der Register, die bei der Anweisung angegeben wurde.
 
-**rep** *decimal*, *Anweisung*|*macro*
+**rep** *dezimal*, *Anweisung*|*Makro*
 
-:   Die *Anweisung* oder *macro* wird *decimal* mal wiederholt.
+:   Die *Anweisung* oder *Makro* wird *dezimal* mal wiederholt.
     Die Dezimalzahl muss größer als 0 sein.
     Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
 
@@ -366,18 +389,20 @@ Derzeit werden die folgenden Makros unterstützt:
 :   "Jump and Link Register" (Springt zu einer Subroutine, dessen Adresse im *Register* steht, und speichert die Rücksprungadresse) mit der Adresse im Register **ra**.
     Dies wird auf die Anweisung **jalr ra,** *register***, 0** abgebildet.
 
-Siehe [RISC-V Shortened Spec][] für Details.
+Siehe [RISC-V Shortened Spec][] für weitere Details.
 
 # ANWEISUNGEN
 
-Eine Anweisung ist Maschinencode in menschenlesbarer Form.
-Die Syntax ähnelt der von [MAKROS][].
-Alle Anweisungen der RV32I- und RV32M-Erweiterungen werden unterstützt.
+Eine Anweisung ist Maschinencode in lesbarer Form.  Die Syntax ähnelt der
+von [MAKROS][].  Alle Anweisungen der RV32I- und RV32M-Erweiterungen werden
+unterstützt.
 
-Bei Anweisungen, auf die das zutrifft, ist das erste Register immer das Register, in das geschrieben wird.
-Eine Ausnahme dazu bilden Sprunganweisungen.
+Bei Anweisungen, auf die das zutrifft, ist das erste Register immer das
+Register, in das geschrieben wird.  Eine Ausnahme dazu bilden
+Sprunganweisungen.
 
-Diese Anweisungen werden verwendet, um arithmetische, logische und Schiebeoperationen mit Registern durchzuführen:
+Diese Anweisungen werden verwendet, um arithmetische, logische und
+Schiebeoperationen mit Registern durchzuführen:
 
 **add** *register*, *register*, *register*
 
@@ -419,7 +444,7 @@ Diese Anweisungen werden verwendet, um arithmetische, logische und Schiebeoperat
 **sltu** *register*, *register*, *register*
 
 :   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das letzte *Register* ist.
-    Der Inhalt der verglichenen *Register* wird als vorzeichenlose Zahlen interpretiert.
+    Die Inhalte der verglichenen *Register* werden als vorzeichenlose Zahlen interpretiert.
 
 **xnor** *register*, *register*, *register*
 
@@ -440,13 +465,13 @@ Diese Anweisungen werden verwendet, um arithmetische, logische und Schiebeoperat
 
 :   Hohe Multiplikation des zweiten und dritten *Register*s.
     Das erste *Register* wird auf die oberen 32 Bits des Ergebnisses gesetzt.
-    Der Inhalt beider *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
+    Die Inhalte beider *Register* werden als vorzeichenbehaftete Zahlen interpretiert.
 
 **mulhu** *register*, *register*, *register*
 
 :   Hohe Multiplikation des zweiten und dritten *Register*s.
     Das erste *Register* wird auf die oberen 32 Bits des Ergebnisses gesetzt.
-    Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
+    Die Inhalte beider *Register* werden als vorzeichenlose Zahlen interpretiert.
 
 **mulhsu** *register*, *register*, *register*
 
@@ -478,100 +503,103 @@ Diese Anweisungen werden verwendet, um arithmetische, logische und Schiebeoperat
     Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor.
     Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
 
-Diese Anweisungen werden verwendet, um arithmetische, logische und Schiebeoperationen mit Immediatewerten durchzuführen:
+Diese Anweisungen werden verwendet, um arithmetische, logische und
+Schiebeoperationen mit Immediates durchzuführen:
 
 Schiebeoperationen können nur Immediatewerte von 4 Bits verwenden.
 
-Beachten Sie, dass in einigen Anweisungen keine Labels verwenden werden können.
-Dies befindet sich in Arbeit und wird zukünftig geändert.
+Beachten Sie, dass in einigen Anweisungen keine Labels verwenden werden
+können.  Dies befindet sich in Arbeit und wird zukünftig geändert.
 
 **addi** *register*, *register*, *immediate*|*label*
 
-:   Addition des zweiten *Register*s und des *Immediates* oder Labels.
+:   Addition des zweiten *Register*s und des *Immediate*s oder *Label*s.
 
 **xori** *register*, *register*, *immediate*
 
-:   Logisches bitweises exklusives Oder des zweiten *Register*s und des *Immediates*.
+:   Logisches bitweises exklusives Oder des zweiten *Register*s und des *Immediate*s.
 
 **ori** *register*, *register*, *immediate*
 
-:   Logisches bitweises Oder des zweiten *Register*s und des *Immediates*.
+:   Logisches bitweises Oder des zweiten *Register*s und des *Immediate*s.
 
 **andi** *register*, *register*, *immediate*
 
-:   Logisches bitweises Und des zweiten *Register*s und des *Immediates*.
+:   Logisches bitweises Und des zweiten *Register*s und des *Immediate*s.
 
 **slli** *register*, *register*, *immediate*|*label*
 
-:   Logisches Linksschieben des zweiten *Register*s um das *Immediate* oder *Label*.
+:   Logisches Linksschieben des zweiten *Register*s um die *Immediate* oder den Wert des *Label*s.
 
 **srli** *register*, *register*, *immediate*|*label*
 
-:   Logisches Rechtsschieben des zweiten *Register*s um das *Immediate* oder *Label*.
+:   Logisches Rechtsschieben des zweiten *Register*s um die *Immediate* oder den Wert des *Label*s.
 
 **srai** *register*, *register*, *immediate*|*label*
 
-:   Arithmetisches Rechtsschieben des zweiten *Register*s um das *Immediate* oder *Label*.
+:   Arithmetisches Rechtsschieben des zweiten *Register*s um die *Immediate* oder den Wert des *Label*s.
 
 **slti** *register*, *register*, *immediate*
 
-:   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das *Immediate* ist.
+:   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als die *Immediate* ist.
 
 **sltiu** *register*, *register*, *immediate*
 
-:   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das *Immediate* ist.
-    Der Inhalt der verglichenen *Register* wird als vorzeichenlose Zahlen interpretiert.
+:   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als die *Immediate* ist.
+    Die Inhalte der verglichenen *Register* werden als vorzeichenlose Zahlen interpretiert.
 
 Diese Anweisungen werden verwendet, um den Speicherinhalt zu manipulieren:
 
-Das Zielbyte und das halbe Wort sind immer die LSBs (niederwertigsten Bits) des Zielregisters.
+Das Zielbyte und das halbe Wort sind immer die LSBs (niederwertigsten Bits)
+des Zielregisters.
 
 **lb** *register*, *register*, *immediate*|*label*
 
-:   Lädt ein Byte aus dem Speicher an der Adresse, die die Summe des zweiten *Register*s und des *Immediates* oder *Labels* ist.
+:   Lädt ein Byte aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
 
 **lh** *register*, *register*, *immediate*|*label*
 
-:   Lädt ein halbes Wort (16 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten *Register*s und des *Immediates* oder *Labels* ist.
+:   Lädt ein halbes Wort (16 Bit) aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
 
 **lw** *register*, *register*, *immediate*|*label*
 
-:   Lädt ein Wort (32 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten *Register*s und des *Immediates* oder *Labels* ist.
+:   Lädt ein Wort (32 Bit) aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
 
 **lbu** *register*, *register*, *immediate*|*label*
 
-:   Lädt ein Byte aus dem Speicher an der Adresse, die die Summe des zweiten *Register*s und des *Immediates* oder *Labels* ist.
+:   Lädt ein Byte aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
     Das Byte wird auf 32 Bits mit Nullen vorzeichenlos erweitert.
 
 **lhu** *register*, *register*, *immediate*|*label*
 
-:   Lädt ein halbes Wort (16 Bit) aus dem Speicher an der Adresse, die die Summe des zweiten *Register*s und des *Immediates* oder *Labels* ist.
+:   Lädt ein halbes Wort (16 Bit) aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
     Das halbe Wort wird auf 32 Bits mit Nullen vorzeichenlos erweitert.
 
 **sb** *register*, *register*, *immediate*|*label*
 
-:   Speichert ein Byte in den Speicher an der Adresse, die die Summe des zweiten *Register*s und des *Immediates* oder *Labels* ist.
+:   Speichert ein Byte in den Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
 
 **sh** *register*, *register*, *immediate*|*label*
 
-:   Speichert ein halbes Wort in den Speicher an der Adresse, die die Summe des zweiten *Register*s und des *Immediates* oder *Labels* ist.
+:   Speichert ein halbes Wort in den Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
 
 **sw** *register*, *register*, *immediate*|*label*
 
-:   Speichert ein Wort in den Speicher an der Adresse, die die Summe des zweiten *Register*s und des *Immediates* oder *Labels* ist.
+:   Speichert ein Wort in den Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
 
-Diese Anweisungen werden verwendet, um den Kontrollfluss des Programms zu steuern:
+Diese Anweisungen werden verwendet, um den Kontrollfluss des Programms zu
+steuern:
 
-Für alle Anweisungen außer jalr wird eine PC-relative Adressierung verwendet.
-Für **jalr** wird absolute Adressierung verwendet.
+Für alle Anweisungen außer **jalr** wird eine PC-relative Adressierung
+verwendet.  Für **jalr** wird absolute Adressierung verwendet.
 
 **beq** *register*, *register*, *immediate*|*label*
 
-:   Springt, wenn die *Register* gleich sind.
+:   Springt, wenn der Inhalt der *Register* gleich ist.
 
 **bne** *register*, *register*, *immediate*|*label*
 
-:   Springt, wenn die *Register* nicht gleich sind.
+:   Springt, wenn der Inhalt der *Register* nicht gleich ist.
 
 **blt** *register*, *register*, *immediate*|*label*
 
@@ -595,26 +623,26 @@ Für **jalr** wird absolute Adressierung verwendet.
 
 **jal** *register*, *immediate*|*label*
 
-:   "Jump and link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe des Programmzählers und des *Immediate** oder *Labels* ist.
+:   "Jump and link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe aus dem Programmzähler und der *Immediate* oder dem Wert des *Label*s ist.
     Die Rücksprungadresse wird in das *Register* geschrieben.
 
 **jalr** *register*, *register*, *immediate*|*label*
 
-:   "Jump and link register" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe des zweiten *Register*s und des *Immediate* oder *Labels* ist.
+:   "Jump and link register" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
     Die Rücksprungadresse wird in das erste *Register* geschrieben.
 
 Diese Anweisungen können nicht kategorisiert werden:
 
 **lui** *register*, *immediate*|*label*
 
-:   Lädt den oberen Teil des *Immediates*.
+:   Lädt den oberen Teil des *Immediate*s.
     Die oberen 20 Bits des *Register*s werden auf das *Immediate* oder *Label* gesetzt.
     Die unteren 12 Bits sind Nullen.
 
 **auipc** *register*, *immediate*|*label*
 
 :   Addiert den oberen Teil des *Immediate* auf den Programmzähler.
-    Die oberen 20 Bits des *Immediates* oder *Labels* werden zum Programmzähler addiert und das Ergebnis wird in das *Register* geschrieben.
+    Die oberen 20 Bits des *Immediate*s oder *Label*s werden zum Programmzähler addiert und das Ergebnis wird in das *Register* geschrieben.
 
 Siehe [RISC-V Shortened Spec][] für weitere Details.
 
@@ -624,8 +652,8 @@ Siehe [RISC-V Shortened Spec][] für weitere Details.
 
 [assembler(1)]: assembler.1.md
 [RISC-V Shortened Spec]: https://www.cs.sfu.ca/~ashriram/Courses/CS295/assets/notebooks/RISCV/RISCV_CARD.pdf
-[MAKROS]: #macros
-[LABEL-DEFINITIONEN]: #label-definitions
-[OPERATIONEN]: #operations
-[DIREKTIVEN]: #directives
-[ANWEISUNGEN]: #instructions
+[MAKROS]: #makros
+[LABEL-DEFINITIONEN]: #label-definitionen
+[OPERATIONEN]: #operationen
+[DIREKTIVEN]: #direktiven
+[ANWEISUNGEN]: #anweisungen
