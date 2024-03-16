@@ -156,6 +156,10 @@ to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
+### Translations
+
+We are using [po4a](https://po4a.org/) as translation framework for external documentation. If you want to provide translations in your language, simply create a .po file in your language or add to existing .po files.
+
 ## License
 
 [MPL-2.0](https://www.mozilla.org/en-US/MPL/2.0/)

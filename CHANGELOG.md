@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - (BREAKING) Moved library out of this crate into assembler_lib and use workspace for management
   - Does not impact program behavior but does impact development
+- Use po4a as translation framework for documentation
 
 ## [1.3.0] - 2024-03-03
 
