@@ -9,13 +9,13 @@ Datum: Februar 2024
 
 # ÜBERSICHT
 
-**assembler** [*OPTIONS*...] **\-\-input** *file*...\
-**assembler -i**|**\-\-input** *file*...\
-**assembler -i**|**\-\-input** *file*...
-[**-o**|**\-\-output** *file*]\
-**assembler -i**|**\-\-input** *file*...
+**assembler** [*OPTIONS*...] **\-\-input** *Datei*...\
+**assembler -i**|**\-\-input** *Datei*...\
+**assembler -i**|**\-\-input** *Datei*...
+[**-o**|**\-\-output** *Datei*]\
+**assembler -i**|**\-\-input** *Datei*...
 [**-f**|**\-\-format** [**debug**|**mif**|**raw**]]\
-**assembler -i**|**\-\-input** *file*... [**-f**|**\-\-format mif**]
+**assembler -i**|**\-\-input** *Datei*... [**-f**|**\-\-format mif**]
 [**-c**]
 
 # BESCHREIBUNG
@@ -23,42 +23,56 @@ Datum: Februar 2024
 **Assembler** übersetzt Assemblerdateien in Maschinencode für eine selbst geschriebene CPU, die auf RISC-V basiert.
 [assembler-format(5)][] basiert auf einer modifizierten MIPS-Syntax, die Anweisungen und Makros aus RISC-V enthält, insbesondere RV32I und RV32M.
 
-Standardmäßig übersetzt der **Assembler** eine oder mehrere Eingabedateien (*file*) in binäre oder MIF-Ausgabedateien.
-Die Option **-f** oder **\-\-format** gibt an, welches Format für die Ausgabe verwendet werden soll.
-Die Ausgabe erfolgt entweder binär (**raw**), im MIF-Format gemäß [src_mif(5)][] (**mif**) oder gar nicht (**debug**), wobei sie dann auf [stderr(3)][] ausgegeben wird.
-Standardmäßig wird das MIF-Format verwendet.
-Ausgabedateien werden nach den Eingabedateien benannt und im selben Verzeichnis wie diese geschrieben.
+Standardmäßig übersetzt der **Assembler** eine oder mehrere Eingabedateien
+(*file*s) in binäre oder MIF-Ausgabedateien.  Die Option **-f** oder
+**\-\-format** gibt an, welches Format für die Ausgabe verwendet werden
+soll.  Die Ausgabe erfolgt entweder binär (**raw**), im MIF-Format gemäß
+[src_mif(5)][] (**mif**) oder gar nicht (**debug**), wobei sie dann auf
+[stderr(3)][] ausgegeben wird.  Standardmäßig wird das MIF-Format
+verwendet.  Ausgabedateien werden nach den Eingabedateien benannt und im
+selben Verzeichnis wie diese geschrieben.
 
-Die Option **-o** or **\-\-output** ändert das Verzeichnis und den Dateinamen der Ausgabedateien.
-Wenn die Eingabedateien .data-Abschnitte enthalten, wird eine zweite Ausgabedatei generiert, die die Daten enthält.
+Die Option **-o** or **\-\-output** ändert das Verzeichnis und den
+Dateinamen der Ausgabedateien.  Wenn die Eingabedateien .data-Abschnitte
+enthalten, wird eine zweite Ausgabedatei generiert, die die Daten enthält.
 
-WARNUNG: Parserfehler sind derzeit sehr rudimentär, nicht einfach und nicht hilfreich.
-Stellen Sie sicher, dass Sie [assembler-format(5)][] korrekt verwenden.
-Als letzte Möglichkeit können Sie ein Problem in unserem Repository öffnen, bei dem Sie das Problem detailliert darstellen sollten.
+WARNUNG: Parserfehler sind derzeit sehr rudimentär, nicht einfach und nicht
+hilfreich.  Stellen Sie sicher, dass Sie [assembler-format(5)][] korrekt
+verwenden.  Als letzte Möglichkeit können Sie ein Problem in unserem
+Repository öffnen, bei dem Sie das Problem detailliert darstellen sollten.
 
 # DATEIEN
 
-Der Befehl **assembler** erwartet, dass die Eingabe gültige [assembler-format(5)][] Code ist.
-Quelldateien haben normalerweise den Namen *name*.asm (z. B. **example.asm**).
+Der Befehl **assembler** erwartet, dass die Eingabe gültiger Code im
+[assembler- format(5)][] ist.  Quelldateien haben normalerweise den Namen
+*name*.asm (z. B. **example.asm**).
 
-Quelldateien müssen im ASCII- oder UTF-8-Format vorliegen.
-Andere Codierungen wurden nicht getestet und funktionieren möglicherweise nicht.
+Quelldateien müssen im ASCII- oder UTF-8-Format vorliegen.  Andere
+Codierungen wurden nicht getestet und funktionieren möglicherweise nicht.
 
-Die Ausgabedateien werden entweder a.ext für Maschinencode-Instruktionen und a.mem.ext für Daten oder *name* für Maschinencode-Instruktionen und *name*.mem.ext für Daten genannt, ausgehend davon, ob die Option **-o** oder **\-\-output** verwendet wird.
-Daten werden nur generiert, wenn .data-Abschnitte in den Eingabedateien verwendet werden.
-Wenn eine Ausgabe mit einer Erweiterung angegeben wird, wird die Textausgabe an diesen Ort geschrieben, aber die Daten haben den Stamm des Dateinamens mit der Erweiterung mem.ext als Namen.
-Zum Beispiel schreibt das Ausführen des Befehls **assembler -i example.asm -o test.example** die Maschinencode-Instruktionen in **test.example** und die Daten in **test.mem.mif**.
+Die Ausgabedateien werden entweder a.*ext* für Maschinencode-Instruktionen
+und a.mem.*ext* für Daten oder *name* für Maschinencode-Instruktionen und
+*name*.mem.*ext* für Daten genannt, ausgehend davon, ob die Option **-o**
+oder **\-\-output** verwendet wird.  Daten werden nur generiert, wenn
+.data-Abschnitte in den Eingabedateien verwendet werden.  Wenn eine Ausgabe
+mit einer Erweiterung angegeben wird, wird die Textausgabe an diesen Ort
+geschrieben, aber die Daten haben den Stamm des Dateinamens mit der
+Erweiterung mem.*ext* als Namen.  Zum Beispiel schreibt das Ausführen des
+Befehls **assembler -i example.asm -o test.example** die
+Maschinencode-Instruktionen in **test.example** und die Daten in
+**test.mem.mif**.
 
 # OPTIONEN
 
-Diese Optionen legen das Format, den Speicherort und den Typ der Ausgabe fest.
+Diese Optionen legen das Format, den Speicherort und den Typ der Ausgabe
+fest.
 
 **-f**=[**raw**|**mif**|**debug**], **\-\-format**=[**raw**|**mif**|**debug**]
 
 :   Legt das Format der Ausgabe fest.
     Standardmäßig ist es **mif**.
     **debug** gibt die Ausgabe nur auf [stderr(3)][] aus.
-    Wie der Name andeutet, sollte es nur zu Debugging-Zwecken verwendet werden.
+    Wie der Name andeutet, sollte es nur zu Debug-Zwecken verwendet werden.
     Das Ausgabeformat kann sich jederzeit ändern.
 
     **raw** schreibt den Maschinencode und die Daten binär in die Ausgabedateien.
@@ -71,13 +85,13 @@ Diese Optionen legen das Format, den Speicherort und den Typ der Ausgabe fest.
 
 :   Gibt an, dass die MIF-Ausgabe kommentiert werden soll.
     Standardmäßig ist die MIF-Ausgabe nicht kommentiert.
-    Wenn sie mit **-f**=**mif** or **\-\-format**=**mif** verwendet wird, enthält jede Maschinencode-Anweisung eine menschenlesbare Darstellung als Kommentar.
+    Wenn sie mit **-f**=**mif** or **\-\-format**=**mif** verwendet wird, enthält jede Maschinencode-Anweisung eine lesbare Darstellung als Kommentar.
     Beachten Sie, dass Pseudoanweisungen oder Makros nicht als solche dargestellt werden und nur Anweisungen, die die Hardware implementiert, für die Darstellung in Kommentaren verwendet werden.
 
 **\-\-depth**=*depth*
 
-:   Legt die Speichertiefe für das MIF-Format fest.
-    Standardmäßig beträgt *depth* 1024.
+:   Legt die Speicherlänge für das MIF-Format fest.
+    Standardmäßig beträgt Speicherlänge (*depth*) 1024.
     Gültige Werte liegen zwischen 1 und 65535 (einschließlich).
     Siehe [src_mif(5)][] für Details.
 
@@ -100,12 +114,12 @@ Diese Optionen legen fest, wie der Assemblercode zusammengesetzt wird.
 
 :   Gibt an, dass keine NOP-Einfügungen durch den Assembler durchgeführt werden sollen.
     Standardmäßig werden NOPs eingefügt, um Probleme bei Daten-, Kontrollfluss- und Speicherabhängigkeiten zu umgehen.
-    Durch Verwendung dieses Flags können Unterprogramme nicht verwendet werden, da diese Datenabhängigkeiten enthalten!
+    Durch Verwendung dieser Flag können Unterprogramme nicht verwendet werden, da diese Datenabhängigkeiten enthalten!
 
 **\-\-no-sp-init**:
 
 :   Standardmäßig wird der Stack auf 4096 initialisiert.
-    Dieses Flag verhindert die Initialisierung des Stacks.
+    Diese Flag verhindert die Initialisierung des Stacks.
     Beachten Sie, dass der Stack initialisiert werden muss, wenn Stackoperationen verwendet werden.
 
 Eingabeoption:
@@ -142,9 +156,8 @@ Sonstige Optionen:
 
 # BEENDIGUNGSSTATUS
 
-Dieser Abschnitt ist in Arbeit (Work in Progress, WIP).
-Einige Betriebsfehler haben unterschiedliche Fehlercodes.
-Diese werden hier dokumentiert.
+Dieser Abschnitt ist in Arbeit (Work in Progress, WIP).  Einige
+Betriebsfehler haben andere Fehlercodes.  Diese werden hier dokumentiert.
 
 **0**
 
@@ -162,32 +175,37 @@ Eine Assemblierung einer Assemblerdatei mit Ausgabe im MIF-Format:
     Assembled a.mif (/pfad/zu/beispiel)
     Fertig [=========================================================] 5/5 Erfolg
 
-Mehrere Assemblerdateien assemblieren und Ausgabe im binären Format:
+Mehrere Assemblerdateien assemblieren und in binären Format in einer Datei
+ausgeben:
 
     $ assembler -i example.asm example2.asm example3.asm -f raw
     Assembled a.mif (/pfad/zu/beispiel)
     Fertig [=========================================================] 5/5 Erfolg
 
-Eine Assemblerdatei assemblieren und Ausgabe im MIF-Format mit Kommentaren und Verwendung einer Wortbreite von 8 Bit:
+Eine Assemblerdatei assemblieren und im MIF-Format mit Kommentaren unter
+Verwendung einer Wortbreite von 8 Bit in eine Datei ausgeben:
 
-    $ assembler -i example.asm --width 8 -c
+    $ assembler -i example.asm \-\-width 8 -c
     Assembled a.mif (/pfad/zu/beispiel)
     Fertig [=========================================================] 5/5 Erfolg
 
-Eine Assemblerdatei assemblieren, Debug-Nachrichten anzeigen und keine Ausgabe in Dateien schreiben:
+Eine Assemblerdatei assemblieren, Debug-Nachrichten anzeigen und Dateien
+erstellen:
 
     $ RUST_LOG=debug assembler -i example.asm -f debug
 
 # FEHLER
 
-Siehe Gitea-Probleme: <https://git.mafiasi.de/Prj-MR/Assembler/issues>
+Siehe Gitea-Probleme:
+<https://git.mafiasi.de/Prj-MR/assembler-crates/issues>
 
 # URHEBERRECHT
 
 Urheberrecht (c) 2023 Steven Becker
 
-Dieses Quellcode unterliegt den Bedingungen der Mozilla Public License, Version 2.0.
-Falls eine Kopie der MPL nicht mit dieser Datei verteilt wurde, können Sie eine unter <http://mozilla.org/MPL/2.0/> erhalten.
+Dieser Quellcode unterliegt den Bedingungen der Mozilla Public License,
+Version 2.0.  Falls eine Kopie der MPL nicht mit dieser Datei verteilt
+wurde, können Sie eine unter <http://mozilla.org/MPL/2.0/> erhalten.
 
 # AUTOREN
 
@@ -203,6 +221,9 @@ Jan Julius <jan.julius@studium.uni-hamburg.de>
 
 [src_mif(5)][], [stderr(3)][], [assembler-format(5)][]
 
+
 [src_mif(5)]: https://linux.die.net/man/5/srec_mif
+
 [stderr(3)]: https://linux.die.net/man/3/stderr
+
 [assembler-format(5)]: assembler-format.5.md

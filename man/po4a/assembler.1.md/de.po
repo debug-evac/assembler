@@ -1,24 +1,24 @@
-# assembler.1.md manual translation
-# Copyright (C) 2024 Steven Becker
+# SPDX-FileCopyrightText: 2024 Steven Becker
 # This file is distributed under the same license as the "Assembler" package.
-# Steven Becker <steven.becker@studium.uni-hamburg.de>, 2024.
 #
-#, fuzzy
+# SPDX-FileCopyrightText: 2024 Steven Becker <steven.becker@studium.uni-hamburg.de>
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-03-16 02:01+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2024-03-16 16:29+0100\n"
+"PO-Revision-Date: 2024-03-16 16:30+0100\n"
+"Last-Translator: Steven Becker <steven.becker@studium.uni-hamburg.de>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #. type: Plain text
 #: en/assembler.1.md:2
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "% ASSEMBLER(1) Version 1.2.0 | General Commands Manual\n"
 "---\n"
@@ -28,7 +28,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/assembler.1.md:4
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "date: February 2024\n"
 "---\n"
@@ -38,27 +38,23 @@ msgstr ""
 
 #. type: Plain text
 #: en/assembler.1.md:7
-#, fuzzy
 msgid "# NAME"
 msgstr "# NAME"
 
 #. type: Plain text
 #: en/assembler.1.md:9
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**assembler** --- assemble code to self-written RISC-V based CPU\n"
-msgstr ""
-"**assembler** --- assembliert Code für eine selbst geschriebene auf RISC-V "
-"basierende CPU\n"
+msgstr "**assembler** --- assembliert Code für eine selbst geschriebene auf RISC-V basierende CPU\n"
 
 #. type: Plain text
 #: en/assembler.1.md:11
-#, fuzzy
 msgid "# SYNOPSIS"
 msgstr "# ÜBERSICHT"
 
 #. type: Plain text
 #: en/assembler.1.md:20
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "**assembler** [*OPTIONS*...] **\\-\\-input** *file*...\\\n"
 "**assembler -i**|**\\-\\-input** *file*...\\\n"
@@ -69,38 +65,32 @@ msgid ""
 "**assembler -i**|**\\-\\-input** *file*... [**-f**|**\\-\\-format mif**]\n"
 "[**-c**]\n"
 msgstr ""
-"**assembler** [*OPTIONS*...] **\\-\\-input** *file*...\\\n"
-"**assembler -i**|**\\-\\-input** *file*...\\\n"
-"**assembler -i**|**\\-\\-input** *file*...\n"
-"[**-o**|**\\-\\-output** *file*]\\\n"
-"**assembler -i**|**\\-\\-input** *file*...\n"
+"**assembler** [*OPTIONS*...] **\\-\\-input** *Datei*...\\\n"
+"**assembler -i**|**\\-\\-input** *Datei*...\\\n"
+"**assembler -i**|**\\-\\-input** *Datei*...\n"
+"[**-o**|**\\-\\-output** *Datei*]\\\n"
+"**assembler -i**|**\\-\\-input** *Datei*...\n"
 "[**-f**|**\\-\\-format** [**debug**|**mif**|**raw**]]\\\n"
-"**assembler -i**|**\\-\\-input** *file*... [**-f**|**\\-\\-format mif**]\n"
+"**assembler -i**|**\\-\\-input** *Datei*... [**-f**|**\\-\\-format mif**]\n"
 "[**-c**]\n"
 
 #. type: Plain text
 #: en/assembler.1.md:22
-#, fuzzy
 msgid "# DESCRIPTION"
 msgstr "# BESCHREIBUNG"
 
 #. type: Plain text
 #: en/assembler.1.md:25
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
-"**Assembler** translates assembly code to machine code for a self-written "
-"RISC-V based CPU.\n"
-"[assembler-format(5)][] is based on a modified MIPS syntax that includes "
-"instructions and macros from RISC-V, especially RV32I and RV32M.\n"
+"**Assembler** translates assembly code to machine code for a self-written RISC-V based CPU.\n"
+"[assembler-format(5)][] is based on a modified MIPS syntax that includes instructions and macros from RISC-V, especially RV32I and RV32M.\n"
 msgstr ""
-"**Assembler** übersetzt Assemblerdateien in Maschinencode für eine selbst "
-"geschriebene CPU, die auf RISC-V basiert.\n"
-"[assembler-format(5)][] basiert auf einer modifizierten MIPS-Syntax, die "
-"Anweisungen und Makros aus RISC-V enthält, insbesondere RV32I und RV32M.\n"
+"**Assembler** übersetzt Assemblerdateien in Maschinencode für eine selbst geschriebene CPU, die auf RISC-V basiert.\n"
+"[assembler-format(5)][] basiert auf einer modifizierten MIPS-Syntax, die Anweisungen und Makros aus RISC-V enthält, insbesondere RV32I und RV32M.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:31
-#, fuzzy
 msgid ""
 "By default, **assembler** translates one or more input *file*s to binary or "
 "MIF output files.  The **-f** or **\\-\\-format** option dictates which "
@@ -111,17 +101,16 @@ msgid ""
 "same directory as input *file*s."
 msgstr ""
 "Standardmäßig übersetzt der **Assembler** eine oder mehrere Eingabedateien "
-"(*file*) in binäre oder MIF-Ausgabedateien.  Die Option **-f** oder "
-"**\\-\\-format** gibt an, welches Format für die Ausgabe verwendet werden "
-"soll.  Die Ausgabe erfolgt entweder binär (**raw**), im MIF-Format gemäß "
-"[src_mif(5)][] (**mif**) oder gar nicht (**debug**), wobei sie dann auf "
-"[stderr(3)][] ausgegeben wird.  Standardmäßig wird das MIF-Format "
-"verwendet.  Ausgabedateien werden nach den Eingabedateien benannt und im "
-"selben Verzeichnis wie diese geschrieben."
+"(*file*s) in binäre oder MIF-Ausgabedateien.  Die Option **-f** oder **\\-\\-"
+"format** gibt an, welches Format für die Ausgabe verwendet werden soll.  Die "
+"Ausgabe erfolgt entweder binär (**raw**), im MIF-Format gemäß [src_mif(5)][] "
+"(**mif**) oder gar nicht (**debug**), wobei sie dann auf [stderr(3)][] "
+"ausgegeben wird.  Standardmäßig wird das MIF-Format verwendet.  "
+"Ausgabedateien werden nach den Eingabedateien benannt und im selben "
+"Verzeichnis wie diese geschrieben."
 
 #. type: Plain text
 #: en/assembler.1.md:34
-#, fuzzy
 msgid ""
 "The **-o** or **\\-\\-output** option change the directory and file name of "
 "the output files.  If the input files contain .data sections, a second "
@@ -133,7 +122,6 @@ msgstr ""
 
 #. type: Plain text
 #: en/assembler.1.md:38
-#, fuzzy
 msgid ""
 "WARNING: Parser errors currently are very rudimentary, not simple and not "
 "helpful.  Make sure to use [assembler-format(5)][] correctly.  As last "
@@ -146,24 +134,21 @@ msgstr ""
 
 #. type: Plain text
 #: en/assembler.1.md:40
-#, fuzzy
 msgid "# FILES"
 msgstr "# DATEIEN"
 
 #. type: Plain text
 #: en/assembler.1.md:43
-#, fuzzy
 msgid ""
 "The **assembler** command expects input to be valid [assembler-format(5)][] "
 "code.  Source files are normally named *name*.asm (ex. **example.asm**)."
 msgstr ""
-"Der Befehl **assembler** erwartet, dass die Eingabe gültige "
-"[assembler-format(5)][] Code ist.  Quelldateien haben normalerweise den "
-"Namen *name*.asm (z. B. **example.asm**)."
+"Der Befehl **assembler** erwartet, dass die Eingabe gültiger Code im "
+"[assembler- format(5)][] ist.  Quelldateien haben normalerweise den Namen "
+"*name*.asm (z. B. **example.asm**)."
 
 #. type: Plain text
 #: en/assembler.1.md:46
-#, fuzzy
 msgid ""
 "Source files must be in ASCII or UTF-8 encoding.  Other encodings have not "
 "been tested and may not work."
@@ -173,7 +158,6 @@ msgstr ""
 
 #. type: Plain text
 #: en/assembler.1.md:51
-#, fuzzy
 msgid ""
 "When assembling output files, destination filenames are either a.*ext* for "
 "text output and a.mem.*ext* for data output or *name* for text output and "
@@ -185,27 +169,24 @@ msgid ""
 "**assembler -i example.asm -o test.example** will write the text output to "
 "**test.example** and the code output to **test.mem.mif**."
 msgstr ""
-"Die Ausgabedateien werden entweder a.ext für Maschinencode-Instruktionen und "
-"a.mem.ext für Daten oder *name* für Maschinencode-Instruktionen und "
-"*name*.mem.ext für Daten genannt, ausgehend davon, ob die Option **-o** oder "
-"**\\-\\-output** verwendet wird.  Daten werden nur generiert, wenn "
-".data-Abschnitte in den Eingabedateien verwendet werden.  Wenn eine Ausgabe "
+"Die Ausgabedateien werden entweder a.*ext* für Maschinencode-Instruktionen "
+"und a.mem.*ext* für Daten oder *name* für Maschinencode-Instruktionen und "
+"*name*.mem.*ext* für Daten genannt, ausgehend davon, ob die Option **-o** "
+"oder **\\-\\-output** verwendet wird.  Daten werden nur generiert, wenn ."
+"data-Abschnitte in den Eingabedateien verwendet werden.  Wenn eine Ausgabe "
 "mit einer Erweiterung angegeben wird, wird die Textausgabe an diesen Ort "
 "geschrieben, aber die Daten haben den Stamm des Dateinamens mit der "
-"Erweiterung mem.ext als Namen.  Zum Beispiel schreibt das Ausführen des "
-"Befehls **assembler -i example.asm -o test.example** die "
-"Maschinencode-Instruktionen in **test.example** und die Daten in "
-"**test.mem.mif**."
+"Erweiterung mem.*ext* als Namen.  Zum Beispiel schreibt das Ausführen des "
+"Befehls **assembler -i example.asm -o test.example** die Maschinencode-"
+"Instruktionen in **test.example** und die Daten in **test.mem.mif**."
 
 #. type: Plain text
 #: en/assembler.1.md:53
-#, fuzzy
 msgid "# OPTIONS"
 msgstr "# OPTIONEN"
 
 #. type: Plain text
 #: en/assembler.1.md:55
-#, fuzzy
 msgid "These options control the format, location and type of the output."
 msgstr ""
 "Diese Optionen legen das Format, den Speicherort und den Typ der Ausgabe "
@@ -213,17 +194,13 @@ msgstr ""
 
 #. type: Plain text
 #: en/assembler.1.md:57
-#, fuzzy, no-wrap
-msgid ""
-"**-f**=[**raw**|**mif**|**debug**], "
-"**\\-\\-format**=[**raw**|**mif**|**debug**]\n"
-msgstr ""
-"**-f**=[**raw**|**mif**|**debug**], "
-"**\\-\\-format**=[**raw**|**mif**|**debug**]\n"
+#, no-wrap
+msgid "**-f**=[**raw**|**mif**|**debug**], **\\-\\-format**=[**raw**|**mif**|**debug**]\n"
+msgstr "**-f**=[**raw**|**mif**|**debug**], **\\-\\-format**=[**raw**|**mif**|**debug**]\n"
 
 #. type: Plain text
 #: en/assembler.1.md:63
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   Specify the format of the output.\n"
 "    The default is **mif**.\n"
@@ -234,96 +211,76 @@ msgstr ""
 ":   Legt das Format der Ausgabe fest.\n"
 "    Standardmäßig ist es **mif**.\n"
 "    **debug** gibt die Ausgabe nur auf [stderr(3)][] aus.\n"
-"    Wie der Name andeutet, sollte es nur zu Debugging-Zwecken verwendet "
-"werden.\n"
+"    Wie der Name andeutet, sollte es nur zu Debug-Zwecken verwendet werden.\n"
 "    Das Ausgabeformat kann sich jederzeit ändern.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:65
-#, fuzzy, no-wrap
-msgid ""
-"    **raw** writes the machine code and data as binary to the output "
-"files.\n"
-msgstr ""
-"    **raw** schreibt den Maschinencode und die Daten binär in die "
-"Ausgabedateien.\n"
+#, no-wrap
+msgid "    **raw** writes the machine code and data as binary to the output files.\n"
+msgstr "    **raw** schreibt den Maschinencode und die Daten binär in die Ausgabedateien.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:69
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
-"    **mif** writes and formats the machine code and data as MIF, see "
-"[src_mif(5)][] for details.\n"
-"    The MIF format can be commented with the instruction assembly names "
-"using option **-c** or **\\-\\-comment**.\n"
-"    The memory *depth* and word *width* can be changed using **\\-\\-depth** "
-"and **\\-\\-width** respectively.\n"
+"    **mif** writes and formats the machine code and data as MIF, see [src_mif(5)][] for details.\n"
+"    The MIF format can be commented with the instruction assembly names using option **-c** or **\\-\\-comment**.\n"
+"    The memory *depth* and word *width* can be changed using **\\-\\-depth** and **\\-\\-width** respectively.\n"
 msgstr ""
-"    **mif** schreibt und formatiert den Maschinencode und die Daten als MIF, "
-"siehe [src_mif(5)][] für Details.\n"
-"    Jede Instruktion kann mithilfe der Option **-c** oder **\\-\\-comment** "
-"mit dessen Repräsentation in Assemblersyntax automatisch kommentiert "
-"werden.\n"
-"    Die Anzahl der Speicheradressen (*depth*) und die Wortbreite (*width*) "
-"kann mithilfe der Optionen **\\-\\-depth** und **\\-\\-width** respektive "
-"verändert werden.\n"
+"    **mif** schreibt und formatiert den Maschinencode und die Daten als MIF, siehe [src_mif(5)][] für Details.\n"
+"    Jede Instruktion kann mithilfe der Option **-c** oder **\\-\\-comment** mit dessen Repräsentation in Assemblersyntax automatisch kommentiert werden.\n"
+"    Die Anzahl der Speicheradressen (*depth*) und die Wortbreite (*width*) kann mithilfe der Optionen **\\-\\-depth** und **\\-\\-width** respektive verändert werden.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:71
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**-c**, **\\-\\-comment**\n"
 msgstr "**-c**, **\\-\\-comment**\n"
 
 #. type: Plain text
 #: en/assembler.1.md:76
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   Indicate that MIF output should be commented.\n"
 "    By default MIF output is not commented.\n"
-"    When used with **-f**=**mif** or **\\-\\-format**=**mif**, every "
-"machine\n"
-"    code instruction includes a human readable representation as "
-"comment. Note that pseudo instructions or macros are not represented as such "
-"and only hardware instructions are used for representation in comments.\n"
+"    When used with **-f**=**mif** or **\\-\\-format**=**mif**, every machine\n"
+"    code instruction includes a human readable representation as comment. Note that pseudo instructions or macros are not represented as such and only hardware instructions are used for representation in comments.\n"
 msgstr ""
 ":   Gibt an, dass die MIF-Ausgabe kommentiert werden soll.\n"
 "    Standardmäßig ist die MIF-Ausgabe nicht kommentiert.\n"
-"    Wenn sie mit **-f**=**mif** or **\\-\\-format**=**mif** verwendet wird, "
-"enthält jede Maschinencode-Anweisung eine menschenlesbare Darstellung als "
-"Kommentar.\n"
-"    Beachten Sie, dass Pseudoanweisungen oder Makros nicht als solche "
-"dargestellt werden und nur Anweisungen, die die Hardware implementiert, für "
-"die Darstellung in Kommentaren verwendet werden.\n"
+"    Wenn sie mit **-f**=**mif** or **\\-\\-format**=**mif** verwendet wird, enthält jede Maschinencode-Anweisung eine lesbare Darstellung als Kommentar.\n"
+"    Beachten Sie, dass Pseudoanweisungen oder Makros nicht als solche dargestellt werden und nur Anweisungen, die die Hardware implementiert, für die Darstellung in Kommentaren verwendet werden.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:78
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**\\-\\-depth**=*depth*\n"
 msgstr "**\\-\\-depth**=*depth*\n"
 
 #. type: Plain text
 #: en/assembler.1.md:83
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   Sets the memory *depth* for the MIF format.\n"
 "    By default *depth* equals 1024.\n"
 "    Valid values are between 1 and 65535 (including).\n"
 "    See [src_mif(5)][] for details.\n"
 msgstr ""
-":   Legt die Speichertiefe für das MIF-Format fest.\n"
-"    Standardmäßig beträgt *depth* 1024.\n"
+":   Legt die Speicherlänge für das MIF-Format fest.\n"
+"    Standardmäßig beträgt Speicherlänge (*depth*) 1024.\n"
 "    Gültige Werte liegen zwischen 1 und 65535 (einschließlich).\n"
 "    Siehe [src_mif(5)][] für Details.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:85
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**\\-\\-width**=[**8**|**32**]\n"
 msgstr "**\\-\\-width**=[**8**|**32**]\n"
 
 #. type: Plain text
 #: en/assembler.1.md:89
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   Sets the word *width* for the MIF format.\n"
 "    By default *width* equals 32 (bit).\n"
@@ -335,95 +292,79 @@ msgstr ""
 
 #. type: Plain text
 #: en/assembler.1.md:91
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**-o**=*file*, **\\-\\-output**=*file*\n"
 msgstr "**-o**=*file*, **\\-\\-output**=*file*\n"
 
 #. type: Plain text
 #: en/assembler.1.md:96
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   Write output to *file* instead of the default location **a.***ext*.\n"
-"    Does not do anything if **-f**=**debug** or "
-"**\\-\\-format**=**debug**.\n"
-"    If .data sections are used in input files, then data output will be "
-"written to the directory and stem of filename with the extension of "
-"**.mem.***ext*.\n"
-"    If **-f**=**mif** or **\\-\\-format**=**mif**, then *ext*=**mif**, "
-"otherwise *ext*=**bin**.\n"
+"    Does not do anything if **-f**=**debug** or **\\-\\-format**=**debug**.\n"
+"    If .data sections are used in input files, then data output will be written to the directory and stem of filename with the extension of **.mem.***ext*.\n"
+"    If **-f**=**mif** or **\\-\\-format**=**mif**, then *ext*=**mif**, otherwise *ext*=**bin**.\n"
 msgstr ""
 ":   Schreibt die Ausgabe in *file* anstelle des Standardorts **a.***ext*.\n"
-"    Diese Option wird ignoriert, wenn die Option **-f**=**debug** oder "
-"**\\-\\-format**=**debug** angegeben sind.\n"
-"    Wenn .data-Abschnitte in Eingabedateien verwendet werden, werden die "
-"Datenausgaben in das Verzeichnis und den Stamm des Dateinamens mit der "
-"Erweiterung **.mem.***ext* geschrieben.\n"
-"    Wenn die Option **-f**=**mif** oder **\\-\\-format**=**mif** angegeben "
-"sind, dann ist *ext*=**mif**, ansonsten gilt *ext*=**bin**.\n"
+"    Diese Option wird ignoriert, wenn die Option **-f**=**debug** oder **\\-\\-format**=**debug** angegeben sind.\n"
+"    Wenn .data-Abschnitte in Eingabedateien verwendet werden, werden die Datenausgaben in das Verzeichnis und den Stamm des Dateinamens mit der Erweiterung **.mem.***ext* geschrieben.\n"
+"    Wenn die Option **-f**=**mif** oder **\\-\\-format**=**mif** angegeben sind, dann ist *ext*=**mif**, ansonsten gilt *ext*=**bin**.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:98
-#, fuzzy
 msgid "These options control how the assembly code is assembled."
 msgstr "Diese Optionen legen fest, wie der Assemblercode zusammengesetzt wird."
 
 #. type: Plain text
 #: en/assembler.1.md:100
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**\\-\\-no-nop-insertion**\n"
 msgstr "**\\-\\-no-nop-insertion**\n"
 
 #. type: Plain text
 #: en/assembler.1.md:104
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   Indicate that no nop insertions should be done by the assembler.\n"
-"    By default nop's are inserted to circumvent data, control and memory "
-"hazards.\n"
-"    By using this flag, subroutines cannot be used since they contain "
-"hazards!\n"
+"    By default nop's are inserted to circumvent data, control and memory hazards.\n"
+"    By using this flag, subroutines cannot be used since they contain hazards!\n"
 msgstr ""
-":   Gibt an, dass keine NOP-Einfügungen durch den Assembler durchgeführt "
-"werden sollen.\n"
-"    Standardmäßig werden NOPs eingefügt, um Probleme bei Daten-, "
-"Kontrollfluss- und Speicherabhängigkeiten zu umgehen.\n"
-"    Durch Verwendung dieses Flags können Unterprogramme nicht verwendet "
-"werden, da diese Datenabhängigkeiten enthalten!\n"
+":   Gibt an, dass keine NOP-Einfügungen durch den Assembler durchgeführt werden sollen.\n"
+"    Standardmäßig werden NOPs eingefügt, um Probleme bei Daten-, Kontrollfluss- und Speicherabhängigkeiten zu umgehen.\n"
+"    Durch Verwendung dieser Flag können Unterprogramme nicht verwendet werden, da diese Datenabhängigkeiten enthalten!\n"
 
 #. type: Plain text
 #: en/assembler.1.md:106
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**\\-\\-no-sp-init**\n"
 msgstr "**\\-\\-no-sp-init**:\n"
 
 #. type: Plain text
 #: en/assembler.1.md:110
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   By default the stack is initialized to 4096.\n"
 "    This flag disallows stack initialization.\n"
 "    Note that the stack must be initialized when using stack operations.\n"
 msgstr ""
 ":   Standardmäßig wird der Stack auf 4096 initialisiert.\n"
-"    Dieses Flag verhindert die Initialisierung des Stacks.\n"
-"    Beachten Sie, dass der Stack initialisiert werden muss, wenn "
-"Stackoperationen verwendet werden.\n"
+"    Diese Flag verhindert die Initialisierung des Stacks.\n"
+"    Beachten Sie, dass der Stack initialisiert werden muss, wenn Stackoperationen verwendet werden.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:112
-#, fuzzy
 msgid "Input option:"
 msgstr "Eingabeoption:"
 
 #. type: Plain text
 #: en/assembler.1.md:114
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**-i**=*file*,[*file*]..., **\\-\\-input**=*file*,[*file*]...\n"
 msgstr "**-i**=*file*,[*file*]..., **\\-\\-input**=*file*,[*file*]...\n"
 
 #. type: Plain text
 #: en/assembler.1.md:118
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   The list of input assembly files to use for assembling.\n"
 "    At least one input file must be used.\n"
@@ -431,302 +372,272 @@ msgid ""
 msgstr ""
 ":   Die Liste der Eingabedateien für die Assemblierung.\n"
 "    Mindestens eine Eingabedatei muss angegeben werden.\n"
-"    Es können mehrere Eingabedateien angegeben werden, die durch ein "
-"Leerzeichen getrennt werden müssen.\n"
+"    Es können mehrere Eingabedateien angegeben werden, die durch ein Leerzeichen getrennt werden müssen.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:121
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
-"    The input files will be linked together in the order of specification in "
-"this option.\n"
-"    The first file specified comes first, the last file specified comes "
-"last.\n"
+"    The input files will be linked together in the order of specification in this option.\n"
+"    The first file specified comes first, the last file specified comes last.\n"
 msgstr ""
-"    Die Eingabedateien werden in der Reihenfolge der Spezifikation in dieser "
-"Option verknüpft.\n"
-"    Die zuerst angegebene Datei wird zuerst verarbeitet, die zuletzt "
-"angegebene Datei zuletzt.\n"
+"    Die Eingabedateien werden in der Reihenfolge der Spezifikation in dieser Option verknüpft.\n"
+"    Die zuerst angegebene Datei wird zuerst verarbeitet, die zuletzt angegebene Datei zuletzt.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:123
-#, fuzzy
 msgid "Miscellaneous options:"
 msgstr "Sonstige Optionen:"
 
 #. type: Plain text
 #: en/assembler.1.md:125
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**-h**, **\\-\\-help**\n"
 msgstr "**-h**, **\\-\\-help**\n"
 
 #. type: Plain text
 #: en/assembler.1.md:127
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ":   Show help.\n"
 msgstr ":   Zeigt die verwendbaren Optionen an (show help).\n"
 
 #. type: Plain text
 #: en/assembler.1.md:129
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**-v**, **\\-\\-version**\n"
 msgstr "**-v**, **\\-\\-version**\n"
 
 #. type: Plain text
 #: en/assembler.1.md:131
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ":   Show version and exit.\n"
 msgstr ":   Zeigt die Version an und beendet dann.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:133
-#, fuzzy
 msgid "# ENVIRONMENT"
 msgstr "# UMGEBUNG"
 
 #. type: Plain text
 #: en/assembler.1.md:135
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**RUST_LOG**\n"
 msgstr "**RUST_LOG**\n"
 
 #. type: Plain text
 #: en/assembler.1.md:142
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 ":   Used to set the log level for the assembler.\n"
-"    Valid log levels are "
-"[**warn**|**error**|**info**|**debug**|**tracing**].\n"
-"    Different log levels for different modules may also be specified by "
-"using *module*=*log_level*.\n"
+"    Valid log levels are [**warn**|**error**|**info**|**debug**|**tracing**].\n"
+"    Different log levels for different modules may also be specified by using *module*=*log_level*.\n"
 "    Only **debug** and below are used currently.\n"
 "    Expect log output format to change.\n"
-"    See <https://docs.rs/env_logger/0.11.1/env_logger/> for more information "
-"on logging.\n"
+"    See <https://docs.rs/env_logger/0.11.1/env_logger/> for more information on logging.\n"
 msgstr ""
 ":   Wird verwendet, um das Protokollniveau für den Assembler festzulegen.\n"
-"    Gültige Protokollniveaus sind "
-"[**warn**|**error**|**info**|**debug**|**tracing**].\n"
-"    Unterschiedliche Protokollniveaus für verschiedene Module können auch "
-"durch die Verwendung von *module*=*log_level* festgelegt werden.\n"
+"    Gültige Protokollniveaus sind [**warn**|**error**|**info**|**debug**|**tracing**].\n"
+"    Unterschiedliche Protokollniveaus für verschiedene Module können auch durch die Verwendung von *module*=*log_level* festgelegt werden.\n"
 "    Derzeit werden nur **debug** und niedrigere Niveaus verwendet.\n"
 "    Das Protokollformat kann sich jederzeit ändern.\n"
-"    Weitere Informationen zur Protokollierung finden Sie unter "
-"<https://docs.rs/env_logger/0.11.1/env_logger/>.\n"
+"    Weitere Informationen zur Protokollierung finden Sie unter <https://docs.rs/env_logger/0.11.1/env_logger/>.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:144
-#, fuzzy
 msgid "# EXIT STATUS"
 msgstr "# BEENDIGUNGSSTATUS"
 
 #. type: Plain text
 #: en/assembler.1.md:148
-#, fuzzy
 msgid ""
 "This section is WIP.  Some operational errors will have different error "
 "codes.  These are going to be documented here."
 msgstr ""
 "Dieser Abschnitt ist in Arbeit (Work in Progress, WIP).  Einige "
-"Betriebsfehler haben unterschiedliche Fehlercodes.  Diese werden hier "
-"dokumentiert."
+"Betriebsfehler haben andere Fehlercodes.  Diese werden hier dokumentiert."
 
 #. type: Plain text
 #: en/assembler.1.md:150
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**0**\n"
 msgstr "**0**\n"
 
 #. type: Plain text
 #: en/assembler.1.md:152
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ":   Successful program execution.\n"
 msgstr ":   Erfolgreiche Programmausführung.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:154
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "**1**\n"
 msgstr "**1**\n"
 
 #. type: Plain text
 #: en/assembler.1.md:156
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ":   General error.\n"
 msgstr ":   Allgemeiner Fehler.\n"
 
 #. type: Plain text
 #: en/assembler.1.md:158
-#, fuzzy
 msgid "# EXAMPLES"
 msgstr "# BEISPIELE"
 
 #. type: Plain text
 #: en/assembler.1.md:160
-#, fuzzy
 msgid "Assemble one assembly file to output in MIF format:"
 msgstr "Eine Assemblierung einer Assemblerdatei mit Ausgabe im MIF-Format:"
 
 #. type: Plain text
 #: en/assembler.1.md:164
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "    $ assembler -i example.asm\n"
 "    Assembled a.mif (/path/to/example)\n"
-"    Finished [=========================================================] 5/5 "
-"Success\n"
+"    Finished [=========================================================] 5/5 Success\n"
 msgstr ""
 "    $ assembler -i example.asm\n"
 "    Assembled a.mif (/pfad/zu/beispiel)\n"
-"    Fertig [=========================================================] 5/5 "
-"Erfolg\n"
+"    Fertig [=========================================================] 5/5 Erfolg\n"
 
 #. type: Plain text
 #: en/assembler.1.md:166
-#, fuzzy
 msgid "Assemble more assembly files to output in binary format:"
-msgstr "Mehrere Assemblerdateien assemblieren und Ausgabe im binären Format:"
+msgstr ""
+"Mehrere Assemblerdateien assemblieren und in binären Format in einer Datei "
+"ausgeben:"
 
 #. type: Plain text
 #: en/assembler.1.md:170
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "    $ assembler -i example.asm example2.asm example3.asm -f raw\n"
 "    Assembled a.mif (/path/to/example)\n"
-"    Finished [=========================================================] 5/5 "
-"Success\n"
+"    Finished [=========================================================] 5/5 Success\n"
 msgstr ""
 "    $ assembler -i example.asm example2.asm example3.asm -f raw\n"
 "    Assembled a.mif (/pfad/zu/beispiel)\n"
-"    Fertig [=========================================================] 5/5 "
-"Erfolg\n"
+"    Fertig [=========================================================] 5/5 Erfolg\n"
 
 #. type: Plain text
 #: en/assembler.1.md:172
-#, fuzzy
 msgid ""
 "Assemble one assembly file to output in MIF format, which is commented and "
 "uses 8 bit word width:"
 msgstr ""
-"Eine Assemblerdatei assemblieren und Ausgabe im MIF-Format mit Kommentaren "
-"und Verwendung einer Wortbreite von 8 Bit:"
+"Eine Assemblerdatei assemblieren und im MIF-Format mit Kommentaren unter "
+"Verwendung einer Wortbreite von 8 Bit in eine Datei ausgeben:"
 
 #. type: Plain text
 #: en/assembler.1.md:176
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "    $ assembler -i example.asm \\-\\-width 8 -c\n"
 "    Assembled a.mif (/path/to/example)\n"
-"    Finished [=========================================================] 5/5 "
-"Success\n"
+"    Finished [=========================================================] 5/5 Success\n"
 msgstr ""
-"    $ assembler -i example.asm --width 8 -c\n"
+"    $ assembler -i example.asm \\-\\-width 8 -c\n"
 "    Assembled a.mif (/pfad/zu/beispiel)\n"
-"    Fertig [=========================================================] 5/5 "
-"Erfolg\n"
+"    Fertig [=========================================================] 5/5 Erfolg\n"
 
 #. type: Plain text
 #: en/assembler.1.md:178
-#, fuzzy
 msgid ""
 "Assemble one assembly file, view debug messages and do not output anything "
 "to files:"
 msgstr ""
-"Eine Assemblerdatei assemblieren, Debug-Nachrichten anzeigen und keine "
-"Ausgabe in Dateien schreiben:"
+"Eine Assemblerdatei assemblieren, Debug-Nachrichten anzeigen und Dateien "
+"erstellen:"
 
 #. type: Plain text
 #: en/assembler.1.md:180
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "    $ RUST_LOG=debug assembler -i example.asm -f debug\n"
 msgstr "    $ RUST_LOG=debug assembler -i example.asm -f debug\n"
 
 #. type: Plain text
 #: en/assembler.1.md:182
-#, fuzzy
 msgid "# BUGS"
 msgstr "# FEHLER"
 
 #. type: Plain text
 #: en/assembler.1.md:184
-#, fuzzy
-msgid "See Gitea Issues: <https://git.mafiasi.de/Prj-MR/Assembler/issues>"
-msgstr "Siehe Gitea-Probleme: <https://git.mafiasi.de/Prj-MR/Assembler/issues>"
+msgid ""
+"See Gitea Issues: <https://git.mafiasi.de/Prj-MR/assembler-crates/issues>"
+msgstr ""
+"Siehe Gitea-Probleme: <https://git.mafiasi.de/Prj-MR/assembler-crates/issues>"
 
 #. type: Plain text
 #: en/assembler.1.md:186
-#, fuzzy
 msgid "# COPYRIGHT"
 msgstr "# URHEBERRECHT"
 
 #. type: Plain text
 #: en/assembler.1.md:188
-#, fuzzy
 msgid "Copyright (c) 2023 Steven Becker"
 msgstr "Urheberrecht (c) 2023 Steven Becker"
 
 #. type: Plain text
 #: en/assembler.1.md:191
-#, fuzzy
 msgid ""
 "This Source Code Form is subject to the terms of the Mozilla Public License, "
 "v. 2.0.  If a copy of the MPL was not distributed with this file, You can "
 "obtain one at <http://mozilla.org/MPL/2.0/>."
 msgstr ""
-"Dieses Quellcode unterliegt den Bedingungen der Mozilla Public License, "
+"Dieser Quellcode unterliegt den Bedingungen der Mozilla Public License, "
 "Version 2.0.  Falls eine Kopie der MPL nicht mit dieser Datei verteilt "
 "wurde, können Sie eine unter <http://mozilla.org/MPL/2.0/> erhalten."
 
 #. type: Plain text
 #: en/assembler.1.md:193
-#, fuzzy
 msgid "# AUTHORS"
 msgstr "# AUTOREN"
 
 #. type: Plain text
 #: en/assembler.1.md:195
-#, fuzzy
 msgid "Steven Becker <steven.becker@studium.uni-hamburg.de>"
 msgstr "Steven Becker <steven.becker@studium.uni-hamburg.de>"
 
 #. type: Plain text
 #: en/assembler.1.md:197
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ":   Lead Maintainer\n"
 msgstr ":   Hauptverantwortlicher\n"
 
 #. type: Plain text
 #: en/assembler.1.md:199
-#, fuzzy
 msgid "Jan Julius <jan.julius@studium.uni-hamburg.de>"
 msgstr "Jan Julius <jan.julius@studium.uni-hamburg.de>"
 
 #. type: Plain text
 #: en/assembler.1.md:201
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ":   Maintainer\n"
 msgstr ":   Mitverantwortlicher\n"
 
 #. type: Plain text
 #: en/assembler.1.md:203
-#, fuzzy
 msgid "# SEE ALSO"
 msgstr "# SIEHE AUCH"
 
 #. type: Plain text
 #: en/assembler.1.md:205
-#, fuzzy
 msgid "[src_mif(5)][], [stderr(3)][], [assembler-format(5)][]"
 msgstr "[src_mif(5)][], [stderr(3)][], [assembler-format(5)][]"
 
 #. type: Plain text
 #: en/assembler.1.md:208
-#, fuzzy
-msgid ""
-"[src_mif(5)]: https://linux.die.net/man/5/srec_mif [stderr(3)]: "
-"https://linux.die.net/man/3/stderr [assembler-format(5)]: "
-"assembler-format.5.md"
-msgstr ""
-"[src_mif(5)]: https://linux.die.net/man/5/srec_mif [stderr(3)]: "
-"https://linux.die.net/man/3/stderr [assembler-format(5)]: "
-"assembler-format.5.md"
+msgid "[src_mif(5)]: https://linux.die.net/man/5/srec_mif"
+msgstr "[src_mif(5)]: https://linux.die.net/man/5/srec_mif"
+
+#. type: Plain text
+#: en/assembler.1.md:210
+msgid "[stderr(3)]: https://linux.die.net/man/3/stderr"
+msgstr "[stderr(3)]: https://linux.die.net/man/3/stderr"
+
+#. type: Plain text
+#: en/assembler.1.md:211
+msgid "[assembler-format(5)]: assembler-format.5.md"
+msgstr "[assembler-format(5)]: assembler-format.5.md"

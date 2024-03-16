@@ -180,7 +180,7 @@ Assemble one assembly file, view debug messages and do not output anything to fi
 
 # BUGS
 
-See Gitea Issues: <https://git.mafiasi.de/Prj-MR/Assembler/issues>
+See Gitea Issues: <https://git.mafiasi.de/Prj-MR/assembler-crates/issues>
 
 # COPYRIGHT
 
@@ -203,6 +203,9 @@ Jan Julius <jan.julius@studium.uni-hamburg.de>
 
 [src_mif(5)][], [stderr(3)][], [assembler-format(5)][]
 
+
 [src_mif(5)]: https://linux.die.net/man/5/srec_mif
+
 [stderr(3)]: https://linux.die.net/man/3/stderr
+
 [assembler-format(5)]: assembler-format.5.md
