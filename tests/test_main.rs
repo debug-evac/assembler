@@ -12,7 +12,6 @@ use assert_fs::prelude::*;
 use std::process::{Command, Stdio};
 
 #[test]
-#[ignore]
 fn test_input_not_existing() -> Result<(), Box<dyn std::error::Error>> {
     let mut cmd = Command::cargo_bin("assembler")?;
 
@@ -96,7 +95,6 @@ ret
 }
 
 #[test]
-#[ignore]
 fn test_translate_multiple_files() -> Result<(), Box<dyn std::error::Error>> {
     let temp = assert_fs::TempDir::new()?;
     let main_in = temp.child("test_main.asm");
@@ -253,7 +251,6 @@ ret
 }
 
 #[test]
-#[ignore]
 fn test_translate_fail_undef_label() -> Result<(), Box<dyn std::error::Error>> {
     let temp = assert_fs::TempDir::new()?;
 
@@ -272,7 +269,6 @@ ret
 }
 
 #[test]
-#[ignore]
 fn test_translate_fail_unknown_instr() -> Result<(), Box<dyn std::error::Error>> {
     let temp = assert_fs::TempDir::new()?;
 
