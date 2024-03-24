@@ -8,8 +8,8 @@
 
 use assembler_lib::{
     common::errors::ExitErrorCode,
-    ParseLinkBuilder,
-    translator
+    asm::ParseLinkBuilder,
+    asm::translator
 };
 
 use clap::{
