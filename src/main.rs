@@ -149,8 +149,8 @@ fn write_code<T: Format>(code_writer: CodeWriter<T>, not_stdout_out: bool, data_
 fn translate(translatable_code: TranslatableCode, matches: ArgMatches) -> Result<String, TranslatorError> {
     // always returns Some(_)
     let outfmt = matches.get_one::<String>("format").unwrap();
-    let text_output = matches.get_one::<PathBuf>("output").unwrap();
-    let data_output = matches.get_one::<PathBuf>("output").unwrap();
+    let text_output = matches.get_one::<PathBuf>("text_output").unwrap();
+    let data_output = matches.get_one::<PathBuf>("data_output").unwrap();
     let comment = matches.get_flag("comment_mif");
     let depth = matches.get_one("format_depth").unwrap();
     let width = str::parse::<u8>(matches.get_one::<String>("format_width").unwrap()).unwrap();
