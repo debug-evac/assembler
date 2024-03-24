@@ -18,7 +18,7 @@ mem_load_nop = ["assembler_lib/mem_load_nop"]
 maintenance = { status = "experimental" }
 
 [dependencies]
-assembler_lib.workspace = true
+assembler_lib = { version = "2.0.0", workspace = true }
 clap.workspace = true
 indicatif.workspace = true
 indicatif-log-bridge.workspace = true

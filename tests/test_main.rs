@@ -9,7 +9,7 @@
 use assert_cmd::prelude::*;
 use predicates::prelude::*;
 use assert_fs::prelude::*;
-use std::process::Command;
+use std::process::{Command, Stdio};
 
 #[test]
 fn test_input_not_existing() -> Result<(), Box<dyn std::error::Error>> {
@@ -80,7 +80,8 @@ ret
 
     let mut cmd = Command::cargo_bin("assembler")?;
     cmd.arg("-i").arg(input.path()).arg("-o").arg(output_path.path()).arg("-f").arg("raw");
-    cmd.assert()
+    cmd.stdout(Stdio::inherit())
+        .assert()
         .success();
 
     output_path
@@ -172,7 +173,8 @@ ret
     cmd.arg("-i").arg(main_in.path()).arg(sec_in.path())
                  .arg("-o").arg(output_path.path())
                  .arg("-f").arg("raw");
-    cmd.assert()
+    cmd.stdout(Stdio::inherit())
+        .assert()
         .success();
 
     let get_vec = std::fs::read(output_path.path())?;
@@ -233,7 +235,8 @@ ret
     cmd.arg("-i").arg(input.path()).arg("-o").arg(output_path.path())
                                    .arg("--no-nop-insertion")
                                    .arg("-f").arg("raw");
-    cmd.assert()
+    cmd.stdout(Stdio::inherit())
+        .assert()
         .success();
 
     output_path
@@ -334,7 +337,8 @@ farAway: j farAway
     #[cfg(not(feature = "raw_nop"))]
     cmd.arg("-i").arg(input.path()).arg("-o").arg(output_path.path())
                  .arg("-f").arg("raw");
-    cmd.assert()
+    cmd.stdout(Stdio::inherit())
+        .assert()
         .success();
 
     output_path
