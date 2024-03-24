@@ -7,19 +7,11 @@
  */
 
 use assembler_lib::{
-    common::errors::ExitErrorCode,
-    asm::ParseLinkBuilder,
-    asm::translator
+    asm::{translator, ParseLinkBuilder}, common::{errors::ExitErrorCode, TranslatableCode}
 };
 
 use clap::{
-    builder::ArgPredicate,
-    Arg, 
-    Command, 
-    value_parser, 
-    ArgAction,
-    ArgMatches,
-    crate_authors, crate_version, crate_description, ValueHint
+    builder::ArgPredicate, crate_authors, crate_description, crate_version, value_parser, Arg, ArgAction, ArgMatches, Command, ValueHint
 };
 use indicatif_log_bridge::LogWrapper;
 use log::{log_enabled, error};
@@ -66,19 +58,35 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
                 .long("input")
                 .help("Input assembly files, use \"<PATH>\"")
     )
-    .arg(Arg::new("output")
-                .value_name("output bin file")
+    .arg(Arg::new("text_output")
+                .value_name("output text file")
                 .value_hint(ValueHint::FilePath)
                 .value_parser(value_parser!(PathBuf))
                 .action(ArgAction::Set)
-                .short('o')
+                .short('t')
+                .short_alias('o')
                 .num_args(1)
                 .default_value("a.bin")
                 .default_value_if("format", ArgPredicate::Equals("raw".into()), Some("a.bin"))
                 .default_value_if("format", ArgPredicate::Equals("mif".into()), Some("a.mif"))
                 .required(false)
-                .long("output")
-                .help("The destination for the output file")
+                .long("text-output")
+                .alias("output")
+                .help("The destination for the text output file")
+    )
+    .arg(Arg::new("data_output")
+                .value_name("output data file")
+                .value_hint(ValueHint::FilePath)
+                .value_parser(value_parser!(PathBuf))
+                .action(ArgAction::Set)
+                .short('d')
+                .num_args(1)
+                .default_value("a.mem.bin")
+                .default_value_if("format", ArgPredicate::Equals("raw".into()), Some("a.mem.bin"))
+                .default_value_if("format", ArgPredicate::Equals("mif".into()), Some("a.mem.mif"))
+                .required(false)
+                .long("data-output")
+                .help("The destination for the data output file")
     )
     .arg(Arg::new("format-depth")
                 .value_name("address count")
@@ -119,7 +127,28 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
                 .required(false)
                 .help("Comment mif with used instructions. Does not do anything, if format != mif.")
     )
+    .arg(Arg::new("stdout")
+                .long("stdout")
+                .action(ArgAction::SetTrue)
+                .conflicts_with_all(["text_output", "data_output"])
+                .required(false)
+                .help("Write output to stdout")
+    )
     .get_matches()
+}
+
+fn translate(translatable_code: TranslatableCode, matches: ArgMatches) {
+    // always returns Some(_)
+    let outfmt = matches.get_one::<String>("format").unwrap();
+    let outpath = matches.get_one::<PathBuf>("output").unwrap();
+    let comment = matches.get_flag("comment_mif");
+    let depth = matches.get_one("format-depth").unwrap();
+    let width = str::parse::<u8>(matches.get_one::<String>("format-width").unwrap()).unwrap();
+
+    if let Err(e) = translator::translate_and_present(outpath, translatable_code, comment, outfmt, (*depth, width)) {
+        error!("{e}");
+        std::process::exit(e.get_err_code())
+    };
 }
 
 fn main() {
@@ -192,19 +221,9 @@ fn main() {
     progbar.inc(1);
     progbar.set_message("Translating & Writing...");
 
-    // always returns Some(_)
-    let outfmt = matches.get_one::<String>("format").unwrap();
-    let outpath = matches.get_one::<PathBuf>("output").unwrap();
-    let comment = matches.get_flag("comment_mif");
-    let depth = matches.get_one("format-depth").unwrap();
-    let width = str::parse::<u8>(matches.get_one::<String>("format-width").unwrap()).unwrap();
+    translate(translatable_code, matches);
 
-    if let Err(e) = translator::translate_and_present(outpath, translatable_code, comment, outfmt, (*depth, width)) {
-        error!("{e}");
-        std::process::exit(e.get_err_code())
-    };
-
-    let line = if outfmt != "debug" {
+    /*let line = if outfmt != "debug" {
         format!(
             "{:>12} {} ({})",
             console::Style::new().bold().apply_to("Assembled"),
@@ -219,7 +238,7 @@ fn main() {
         )
     };
 
-    progbar.println(line);
+    progbar.println(line);*/
     progbar.set_prefix("Finished");
     progbar.finish_with_message("Success");
 }
