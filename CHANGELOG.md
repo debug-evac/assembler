@@ -9,11 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - ReleaseDate
 
+### Added
+
+- Flag for writing output to `stdout`
+  - This option cannot be used together with output path options
+- Detect redirection and pipes for `stdout` and automatically set `stdout` flag for these situations
+- Option for data output path
+
 ### Changed
 
-- (BREAKING) Moved library out of this crate into assembler_lib and use workspace for management
+- [BREAKING] Output option no longer dictates output path of data
+  - `-t` or `--text-output` decides the path of the text output
+  - `-d` or `--data-output` decides the path of the data output
+  - For compatibility, `-o` and `--output` also decides the path of the text output
+- [BREAKING] Updated library to version 2.0.0, see the changelog [here](https://git.mafiasi.de/Prj-MR/assembler_lib/src/branch/main/CHANGELOG.md)
+  - This update has breaking changes to the assembler syntax!
+- [BREAKING] Moved library out of this crate into assembler_lib and use workspace for management
   - Does not impact program behavior but does impact development
 - Use po4a as translation framework for documentation
+
+### Removed
+
+- [BREAKING] Debug format
+  - Either use `RUST_LOG=debug` for more presentable information about instructions; or
+  - Use the `--stdout` flag, which will write instructions and data to the terminal (if there is no redirection or piping)
+- Integration tests that tested the library (which is done in the library already)
 
 ## [1.3.0] - 2024-03-03
 

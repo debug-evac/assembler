@@ -9,10 +9,11 @@ authors.workspace = true
 publish.workspace = true
 
 [features]
-default = []
+default = ["infer_stdout"]
 full_nop = ["raw_nop", "mem_load_nop"]
 raw_nop = ["assembler_lib/raw_nop"]
 mem_load_nop = ["assembler_lib/mem_load_nop"]
+infer_stdout = []
 
 [badges]
 maintenance = { status = "experimental" }
