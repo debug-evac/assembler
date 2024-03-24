@@ -15,8 +15,10 @@ use clap::{
 };
 use indicatif_log_bridge::LogWrapper;
 use log::{log_enabled, error};
+#[cfg(feature = "infer_stdout")]
+use std::io::IsTerminal;
 use std::{
-    fs, io::IsTerminal, path::PathBuf
+    fs, path::PathBuf
 };
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use console::Term;
@@ -154,7 +156,10 @@ fn translate(translatable_code: TranslatableCode, matches: ArgMatches) -> Result
     let comment = matches.get_flag("comment_mif");
     let depth = matches.get_one("format_depth").unwrap();
     let width = str::parse::<u8>(matches.get_one::<String>("format_width").unwrap()).unwrap();
+    #[cfg(feature = "infer_stdout")]
     let not_stdout_out = matches.get_flag("stdout") && std::io::stdout().is_terminal();
+    #[cfg(not(feature = "infer_stdout"))]
+    let not_stdout_out = matches.get_flag("stdout");
 
     let data_empty = {
         translatable_code.get_all_ref().1.is_empty()

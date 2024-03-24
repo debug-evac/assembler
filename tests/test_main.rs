@@ -9,7 +9,9 @@
 use assert_cmd::prelude::*;
 use predicates::prelude::*;
 use assert_fs::prelude::*;
-use std::process::{Command, Stdio};
+use std::process::Command;
+#[cfg(feature = "infer_stdout")]
+use std::process::Stdio;
 
 #[test]
 fn test_input_not_existing() -> Result<(), Box<dyn std::error::Error>> {
@@ -24,7 +26,6 @@ fn test_input_not_existing() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 #[test]
-#[ignore]
 fn test_translate_test_file() -> Result<(), Box<dyn std::error::Error>> {
     let temp = assert_fs::TempDir::new()?;
     let input = temp.child("test_assembly_file.asm");
@@ -81,8 +82,14 @@ ret
 
     let mut cmd = Command::cargo_bin("assembler")?;
     cmd.arg("-i").arg(input.path()).arg("-o").arg(output_path.path()).arg("-f").arg("raw");
+
+    #[cfg(feature = "infer_stdout")]
     cmd.stdout(Stdio::inherit())
         .assert()
+        .success();
+
+    #[cfg(not(feature = "infer_stdout"))]
+    cmd.assert()
         .success();
 
     output_path
@@ -95,7 +102,6 @@ ret
 }
 
 #[test]
-#[ignore]
 fn test_translate_multiple_files() -> Result<(), Box<dyn std::error::Error>> {
     let temp = assert_fs::TempDir::new()?;
     let main_in = temp.child("test_main.asm");
@@ -175,8 +181,14 @@ ret
     cmd.arg("-i").arg(main_in.path()).arg(sec_in.path())
                  .arg("-o").arg(output_path.path())
                  .arg("-f").arg("raw");
+
+    #[cfg(feature = "infer_stdout")]
     cmd.stdout(Stdio::inherit())
         .assert()
+        .success();
+
+    #[cfg(not(feature = "infer_stdout"))]
+    cmd.assert()
         .success();
 
     let get_vec = std::fs::read(output_path.path())?;
@@ -199,7 +211,6 @@ ret
 }
 
 #[test]
-#[ignore]
 fn test_translate_no_nop() -> Result<(), Box<dyn std::error::Error>> {
     let temp = assert_fs::TempDir::new()?;
     let input = temp.child("test_assembly_file.asm");
@@ -238,8 +249,14 @@ ret
     cmd.arg("-i").arg(input.path()).arg("-o").arg(output_path.path())
                                    .arg("--no-nop-insertion")
                                    .arg("-f").arg("raw");
+
+    #[cfg(feature = "infer_stdout")]
     cmd.stdout(Stdio::inherit())
         .assert()
+        .success();
+
+    #[cfg(not(feature = "infer_stdout"))]
+    cmd.assert()
         .success();
 
     output_path
@@ -288,7 +305,6 @@ ret
 }
 
 #[test]
-#[ignore]
 fn test_faraway_calls() -> Result<(), Box<dyn std::error::Error>> {
     let temp = assert_fs::TempDir::new()?;
 
@@ -341,8 +357,14 @@ farAway: j farAway
     #[cfg(not(feature = "raw_nop"))]
     cmd.arg("-i").arg(input.path()).arg("-o").arg(output_path.path())
                  .arg("-f").arg("raw");
+
+    #[cfg(feature = "infer_stdout")]
     cmd.stdout(Stdio::inherit())
         .assert()
+        .success();
+
+    #[cfg(not(feature = "infer_stdout"))]
+    cmd.assert()
         .success();
 
     output_path
