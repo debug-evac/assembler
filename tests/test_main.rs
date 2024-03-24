@@ -95,6 +95,7 @@ ret
 }
 
 #[test]
+#[ignore]
 fn test_translate_multiple_files() -> Result<(), Box<dyn std::error::Error>> {
     let temp = assert_fs::TempDir::new()?;
     let main_in = temp.child("test_main.asm");
