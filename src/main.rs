@@ -7,7 +7,7 @@
  */
 
 use assembler_lib::{
-    asm::{translator, ParseLinkBuilder}, common::{errors::ExitErrorCode, TranslatableCode}
+    asm::{translator::{CodeWriter, Format, MifFormat, RawFormat, WordWidth}, ParseLinkBuilder}, common::{errors::{ExitErrorCode, TranslatorError}, TranslatableCode}
 };
 
 use clap::{
@@ -16,8 +16,7 @@ use clap::{
 use indicatif_log_bridge::LogWrapper;
 use log::{log_enabled, error};
 use std::{
-    fs,
-    path::PathBuf,
+    fs, io::IsTerminal, path::PathBuf
 };
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use console::Term;
@@ -39,7 +38,7 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
 ")
     .arg(Arg::new("format")
                 .value_hint(ValueHint::Other)
-                .value_parser(["mif", "raw", "debug"])
+                .value_parser(["mif", "raw"])
                 .action(ArgAction::Set)
                 .short('f')
                 .num_args(1)
@@ -88,7 +87,7 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
                 .long("data-output")
                 .help("The destination for the data output file")
     )
-    .arg(Arg::new("format-depth")
+    .arg(Arg::new("format_depth")
                 .value_name("address count")
                 .value_hint(ValueHint::Other)
                 .value_parser(value_parser!(u16).range(1..65536))
@@ -98,7 +97,7 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
                 .default_value("1024")
                 .help("Depth for MIF format. Does not do anything, if format != mif.")
     )
-    .arg(Arg::new("format-width")
+    .arg(Arg::new("format_width")
                 .value_name("word width in bits")
                 .value_hint(ValueHint::Other)
                 .value_parser(["8", "32"])
@@ -129,7 +128,7 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
     )
     .arg(Arg::new("stdout")
                 .long("stdout")
-                .action(ArgAction::SetTrue)
+                .action(ArgAction::SetFalse)
                 .conflicts_with_all(["text_output", "data_output"])
                 .required(false)
                 .help("Write output to stdout")
@@ -137,18 +136,72 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
     .get_matches()
 }
 
-fn translate(translatable_code: TranslatableCode, matches: ArgMatches) {
+#[inline]
+fn write_code<T: Format>(code_writer: CodeWriter<T>, not_stdout_out: bool, data_empty: bool, text_output: &PathBuf, data_output: &PathBuf) -> Result<(), TranslatorError> {
+    match (not_stdout_out, data_empty) {
+        (true, true) => code_writer.write_text_file(text_output),
+        (true, false) => code_writer.write_files(text_output, data_output),
+        (false, true) => code_writer.write_text_stdout(),
+        (false, false) => code_writer.write_to(std::io::stdout()),
+    }
+}
+
+fn translate(translatable_code: TranslatableCode, matches: ArgMatches) -> Result<String, TranslatorError> {
     // always returns Some(_)
     let outfmt = matches.get_one::<String>("format").unwrap();
-    let outpath = matches.get_one::<PathBuf>("output").unwrap();
+    let text_output = matches.get_one::<PathBuf>("output").unwrap();
+    let data_output = matches.get_one::<PathBuf>("output").unwrap();
     let comment = matches.get_flag("comment_mif");
-    let depth = matches.get_one("format-depth").unwrap();
-    let width = str::parse::<u8>(matches.get_one::<String>("format-width").unwrap()).unwrap();
+    let depth = matches.get_one("format_depth").unwrap();
+    let width = str::parse::<u8>(matches.get_one::<String>("format_width").unwrap()).unwrap();
+    let not_stdout_out = matches.get_flag("stdout") || std::io::stdout().is_terminal();
 
-    if let Err(e) = translator::translate_and_present(outpath, translatable_code, comment, outfmt, (*depth, width)) {
-        error!("{e}");
-        std::process::exit(e.get_err_code())
+    let data_empty = {
+        translatable_code.get_all_ref().1.is_empty()
     };
+
+    match outfmt.as_str() {
+        "mif" => {
+            let width = if width == 32 { WordWidth::ThirtyTwoBit } else { WordWidth::EightBit };
+            let mif_format = MifFormat::default().set_comment(comment).set_mem_len(*depth).set_word_len(width);
+            let code_writer = CodeWriter::new(mif_format, translatable_code);
+
+            write_code(code_writer, not_stdout_out, data_empty, text_output, data_output)?;
+        },
+        "raw" => {
+            let code_writer = CodeWriter::new(RawFormat, translatable_code);
+
+            write_code(code_writer, not_stdout_out, data_empty, text_output, data_output)?;
+        },
+        "dat" => {
+            error!("Dat format is currently not available!");
+            std::process::exit(1)
+        },
+        _ => unreachable!(),
+    };
+
+    Ok(if not_stdout_out && data_empty {
+        format!(
+            "{:>12} {} ({})",
+            console::Style::new().bold().apply_to("Assembled"),
+            text_output.as_path().file_name().unwrap().to_str().unwrap(),
+            std::fs::canonicalize(text_output.as_path()).unwrap().parent().unwrap().to_str().unwrap()
+        )
+    } else if not_stdout_out && !data_empty {
+        format!(
+            "{:>12} {} ({}, {})",
+            console::Style::new().bold().apply_to("Assembled"),
+            text_output.as_path().file_name().unwrap().to_str().unwrap(),
+            std::fs::canonicalize(text_output.as_path()).unwrap().parent().unwrap().to_str().unwrap(),
+            std::fs::canonicalize(data_output.as_path()).unwrap().parent().unwrap().to_str().unwrap()
+        )
+    } else {
+        format!(
+            "{:>12} {}",
+            console::Style::new().bold().apply_to("Assembled"),
+            "Printed to console"
+        )
+    })
 }
 
 fn main() {
@@ -221,24 +274,15 @@ fn main() {
     progbar.inc(1);
     progbar.set_message("Translating & Writing...");
 
-    translate(translatable_code, matches);
-
-    /*let line = if outfmt != "debug" {
-        format!(
-            "{:>12} {} ({})",
-            console::Style::new().bold().apply_to("Assembled"),
-            outpath.as_path().file_name().unwrap().to_str().unwrap(),
-            std::fs::canonicalize(outpath.as_path()).unwrap().parent().unwrap().to_str().unwrap()
-        )
-    } else {
-        format!(
-            "{:>12} {}",
-            console::Style::new().bold().apply_to("Assembled"),
-            "Printed to console"
-        )
+    let line = match translate(translatable_code, matches) {
+        Ok(finish_line) => finish_line,
+        Err(e) => {
+            error!("{e}");
+            std::process::exit(e.get_err_code())
+        }
     };
 
-    progbar.println(line);*/
+    progbar.println(line);
     progbar.set_prefix("Finished");
     progbar.finish_with_message("Success");
 }
