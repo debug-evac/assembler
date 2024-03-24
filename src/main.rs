@@ -154,7 +154,7 @@ fn translate(translatable_code: TranslatableCode, matches: ArgMatches) -> Result
     let comment = matches.get_flag("comment_mif");
     let depth = matches.get_one("format_depth").unwrap();
     let width = str::parse::<u8>(matches.get_one::<String>("format_width").unwrap()).unwrap();
-    let not_stdout_out = matches.get_flag("stdout") || std::io::stdout().is_terminal();
+    let not_stdout_out = matches.get_flag("stdout") && std::io::stdout().is_terminal();
 
     let data_empty = {
         translatable_code.get_all_ref().1.is_empty()
