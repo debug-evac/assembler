@@ -225,21 +225,21 @@ nach oben.  Die erste Direktive wird an Adresse 0 geschrieben.
 
 Derzeit werden die folgenden Direktiven unterstützt:
 
-**.byte** *register*|*label*,[*register*|*label*]...
+**.byte** *immediate*|*label*,[*immediate*|*label*]...
 
-:   Die Register und Label werden als 8-Bit-Werte im Speicher gespeichert.
+:   Die Immediates und Label werden als 8-Bit-Werte im Speicher gespeichert.
 
-**.half** *register*|*label*,[*register*|*label*]...
+**.half** *immediate*|*label*,[*immediate*|*label*]...
 
-:   Die Register und Label werden als 16-Bit-Werte im Speicher gespeichert.
+:   Die Immediates und Label werden als 16-Bit-Werte im Speicher gespeichert.
 
-**.word** *register*|*label*,[*register*|*label*]...
+**.word** *immediate*|*label*,[*immediate*|*label*]...
 
-:   Die Register und Label werden als 32-Bit-Werte im Speicher gespeichert.
+:   Die Immediates und Label werden als 32-Bit-Werte im Speicher gespeichert.
 
-**.dword** *register*|*label*,[*register*|*label*]...
+**.dword** *immediate*|*label*,[*immediate*|*label*]...
 
-:   Die Register und Label werden als 64-Bit-Werte im Speicher gespeichert.
+:   Die Immediates und Label werden als 64-Bit-Werte im Speicher gespeichert.
 
 **.space** *dezimal*
 

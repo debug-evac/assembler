@@ -183,21 +183,21 @@ The order of the directives in the assembly file dictate the order of the data i
 
 Currently the following directives are supported:
 
-**.byte** *register*|*label*,[*register*|*label*]...
+**.byte** *immediate*|*label*,[*immediate*|*label*]...
 
-:   The registers and labels are stored as 8 bit values in memory.
+:   The immediates and labels are stored as 8 bit values in memory.
 
-**.half** *register*|*label*,[*register*|*label*]...
+**.half** *immediate*|*label*,[*immediate*|*label*]...
 
-:   The registers and labels are stored as 16 bit values in memory.
+:   The immediates and labels are stored as 16 bit values in memory.
 
-**.word** *register*|*label*,[*register*|*label*]...
+**.word** *immediate*|*label*,[*immediate*|*label*]...
 
-:   The registers and labels are stored as 32 bit values in memory.
+:   The immediates and labels are stored as 32 bit values in memory.
 
-**.dword** *register*|*label*,[*register*|*label*]...
+**.dword** *immediate*|*label*,[*immediate*|*label*]...
 
-:   The registers and labels are stored as 64 bit values in memory.
+:   The immediates and labels are stored as 64 bit values in memory.
 
 **.space** *decimal*
 

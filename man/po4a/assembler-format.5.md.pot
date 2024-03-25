@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Assembler 1.3.0\n"
 "Report-Msgid-Bugs-To: steven.becker@studium.uni-hamburg.de\n"
-"POT-Creation-Date: 2024-03-25 01:30+0100\n"
+"POT-Creation-Date: 2024-03-25 15:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -484,49 +484,49 @@ msgstr ""
 #. type: Plain text
 #: en/assembler-format.5.md:187
 #, no-wrap
-msgid "**.byte** *register*|*label*,[*register*|*label*]...\n"
+msgid "**.byte** *immediate*|*label*,[*immediate*|*label*]...\n"
 msgstr ""
 
 #. type: Plain text
 #: en/assembler-format.5.md:189
 #, no-wrap
-msgid ":   The registers and labels are stored as 8 bit values in memory.\n"
+msgid ":   The immediates and labels are stored as 8 bit values in memory.\n"
 msgstr ""
 
 #. type: Plain text
 #: en/assembler-format.5.md:191
 #, no-wrap
-msgid "**.half** *register*|*label*,[*register*|*label*]...\n"
+msgid "**.half** *immediate*|*label*,[*immediate*|*label*]...\n"
 msgstr ""
 
 #. type: Plain text
 #: en/assembler-format.5.md:193
 #, no-wrap
-msgid ":   The registers and labels are stored as 16 bit values in memory.\n"
+msgid ":   The immediates and labels are stored as 16 bit values in memory.\n"
 msgstr ""
 
 #. type: Plain text
 #: en/assembler-format.5.md:195
 #, no-wrap
-msgid "**.word** *register*|*label*,[*register*|*label*]...\n"
+msgid "**.word** *immediate*|*label*,[*immediate*|*label*]...\n"
 msgstr ""
 
 #. type: Plain text
 #: en/assembler-format.5.md:197
 #, no-wrap
-msgid ":   The registers and labels are stored as 32 bit values in memory.\n"
+msgid ":   The immediates and labels are stored as 32 bit values in memory.\n"
 msgstr ""
 
 #. type: Plain text
 #: en/assembler-format.5.md:199
 #, no-wrap
-msgid "**.dword** *register*|*label*,[*register*|*label*]...\n"
+msgid "**.dword** *immediate*|*label*,[*immediate*|*label*]...\n"
 msgstr ""
 
 #. type: Plain text
 #: en/assembler-format.5.md:201
 #, no-wrap
-msgid ":   The registers and labels are stored as 64 bit values in memory.\n"
+msgid ":   The immediates and labels are stored as 64 bit values in memory.\n"
 msgstr ""
 
 #. type: Plain text
