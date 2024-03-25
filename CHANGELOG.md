@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Documentation & Examples
+  - Updated to reflect latest changes in version 2.0.0
 - [BREAKING] Output option no longer dictates output path of data
   - `-t` or `--text-output` decides the path of the text output
   - `-d` or `--data-output` decides the path of the data output
