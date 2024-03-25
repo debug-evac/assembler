@@ -1,6 +1,6 @@
-% ASSEMBLER(1) Version 1.2.0 | Handbuch für generelle Befehle
+% ASSEMBLER(1) Version 2.0.0 | Handbuch für generelle Befehle
 ---
-date: Februar 2024
+date: März 2024
 ---
 
 # NAME
@@ -14,7 +14,7 @@ date: Februar 2024
 **assembler -i**|**\-\-input** *Datei*...
 [**-o**|**\-\-output** *Datei*]\
 **assembler -i**|**\-\-input** *Datei*...
-[**-f**|**\-\-format** [**debug**|**mif**|**raw**]]\
+[**-f**|**\-\-format** [**mif**|**raw**]]\
 **assembler -i**|**\-\-input** *Datei*... [**-f**|**\-\-format mif**]
 [**-c**]
 
@@ -23,17 +23,23 @@ date: Februar 2024
 **Assembler** übersetzt Assemblerdateien in Maschinencode für eine selbst geschriebene CPU, die auf RISC-V basiert. [assembler-format(5)][] basiert auf einer modifizierten MIPS-Syntax, die Anweisungen und Makros aus RISC-V enthält, insbesondere RV32I und RV32M.
 
 Standardmäßig übersetzt der **Assembler** eine oder mehrere Eingabedateien
-(*file*s) in binäre oder MIF-Ausgabedateien.  Die Option **-f** oder
+(*file*s) in binäre oder MIF-Ausgabedateien. Die Option **-f** oder
 **\-\-format** gibt an, welches Format für die Ausgabe verwendet werden
-soll.  Die Ausgabe erfolgt entweder binär (**raw**), im MIF-Format gemäß
-[src_mif(5)][] (**mif**) oder gar nicht (**debug**), wobei sie dann auf
-[stderr(3)][] ausgegeben wird.  Standardmäßig wird das MIF-Format
-verwendet.  Ausgabedateien werden nach den Eingabedateien benannt und im
+soll. Die Ausgabe erfolgt entweder binär (**raw**) oder im MIF-Format gemäß
+[src_mif(5)][] (**mif**). Standardmäßig wird das MIF-Format
+verwendet. Ausgabedateien werden nach den Eingabedateien benannt und im
 selben Verzeichnis wie diese geschrieben.
 
-Die Option **-o** or **\-\-output** ändert das Verzeichnis und den
-Dateinamen der Ausgabedateien.  Wenn die Eingabedateien .data-Abschnitte
-enthalten, wird eine zweite Ausgabedatei generiert, die die Daten enthält.
+Die Optionen **-t** oder **\-\-text-output** und **-d** oder
+**\-\-data-output** ändern das Verzeichnis und den Dateinamen der
+Ausgabedateien respektive für die Code und Datenausgabe. Wenn die
+Eingabedateien .data-Abschnitte enthalten, wird eine zweite Ausgabedatei
+generiert, die die Daten enthält.
+
+Die Option **\-\-stdout** kann dazu verwendet werden, um die Ausgabe über
+[stdout(3)][] auf die Konsole auszugeben. Pipes und Umleitungen von
+[stdout(3)][] werden auch erkannt und die Ausgabe wird automatisch über
+[stdout(3)][] ausgeben.
 
 WARNUNG: Parserfehler sind derzeit sehr rudimentär, nicht einfach und nicht
 hilfreich.  Stellen Sie sicher, dass Sie [assembler-format(5)][] korrekt
@@ -49,26 +55,21 @@ Der Befehl **assembler** erwartet, dass die Eingabe gültiger Code im
 Quelldateien müssen im ASCII- oder UTF-8-Format vorliegen.  Andere
 Codierungen wurden nicht getestet und funktionieren möglicherweise nicht.
 
-Die Ausgabedateien werden entweder a.*ext* für Maschinencode-Instruktionen
-und a.mem.*ext* für Daten oder *name* für Maschinencode-Instruktionen und
-*name*.mem.*ext* für Daten genannt, ausgehend davon, ob die Option **-o**
-oder **\-\-output** verwendet wird.  Daten werden nur generiert, wenn
-.data-Abschnitte in den Eingabedateien verwendet werden.  Wenn eine Ausgabe
-mit einer Erweiterung angegeben wird, wird die Textausgabe an diesen Ort
-geschrieben, aber die Daten haben den Stamm des Dateinamens mit der
-Erweiterung mem.*ext* als Namen.  Zum Beispiel schreibt das Ausführen des
-Befehls **assembler -i example.asm -o test.example** die
-Maschinencode-Instruktionen in **test.example** und die Daten in
-**test.mem.mif**.
+Die Zieldateinamen sind standardmäßig **a.***ext* für Code- und
+**a.mem.***ext* für Datenausgaben. Die Pfade für diese Dateien können
+mittels den Optionen **-d** oder **\-\-data-output** und **-t** oder
+**\-\-text-output* verändert werden. Eine Datenausgabedatei wird nur dann
+erstellt, wenn .data Sektionen in einer der Eingabedateien (*file*s)
+verwendet wird.
 
 # OPTIONEN
 
 Diese Optionen legen das Format, den Speicherort und den Typ der Ausgabe
 fest.
 
-**-f**=[**raw**|**mif**|**debug**], **\-\-format**=[**raw**|**mif**|**debug**]
+**-f**=[**raw**|**mif**], **\-\-format**=[**raw**|**mif**]
 
-:   Legt das Format der Ausgabe fest. Standardmäßig ist es **mif**. **debug** gibt die Ausgabe nur auf [stderr(3)][] aus. Wie der Name andeutet, sollte es nur zu Debug-Zwecken verwendet werden. Das Ausgabeformat kann sich jederzeit ändern.
+:   Gibt das Format der Ausgabe an. Standardmäßig ist diese **mif**.
 
     **raw** schreibt den Maschinencode und die Daten binär in die Ausgabedateien.
 
@@ -86,9 +87,19 @@ fest.
 
 :   Legt die Wortbreite (*width*) für das MIF-Format fest. Standardmäßig beträgt die Wortbreite (*width*) 32 (Bit). Siehe [src_mif(5)][] für Details.
 
-**-o**=*file*, **\-\-output**=*file*
+**-t**=*file*, **\-\-text-output**=*file*
 
-:   Schreibt die Ausgabe in *file* anstelle des Standardorts **a.***ext*. Diese Option wird ignoriert, wenn die Option **-f**=**debug** oder **\-\-format**=**debug** angegeben sind. Wenn .data-Abschnitte in Eingabedateien verwendet werden, werden die Datenausgaben in das Verzeichnis und den Stamm des Dateinamens mit der Erweiterung **.mem.***ext* geschrieben. Wenn die Option **-f**=**mif** oder **\-\-format**=**mif** angegeben sind, dann ist *ext*=**mif**, ansonsten gilt *ext*=**bin**.
+:   Schreibt die Code-Ausgabe nach *file* anstatt zu dem standardmäßigen Pfad **a.***ext*. Wenn **-f**=**mif** oder **\-\-format**=**mif**, dann ist *ext*=**mif**, ansonsten ist *ext*=**bin**. Beachten Sie, dass eine Datei, die an diesem Pfad existiert, überschrieben wird!
+
+**-d**=*file*, **\-\-data-output**=*file*
+
+:   Schreibt die Daten-Ausgabe nach *file* anstatt zu dem standardmäßigen Pfad **a.mem.***ext*. Wenn **-f**=**mif** oder **\-\-format**=**mif**, dann ist *ext*=**mif**, ansonsten ist *ext*=**bin**. Beachten Sie, dass eine Datei, die an diesem Pfad existiert, überschrieben wird!
+
+**\-\-stdout**:
+
+:   Die Code- und Daten-Ausgabe wird nach [stdout(3)][] geschrieben, wenn diese Flag genutzt wird. Diese Flag kann nicht mit den Optionen **-t**, **\-\-text-output**, **-d** oder **\-\-data-output** genutzt werden.
+
+    Beachten Sie, dass die Ausgabe automatisch nach [stdout(3)][] geschrieben wird, falls eine Pipe oder Umleitung von [stdout(3)][] festgestellt wurde.
 
 Diese Optionen legen fest, wie der Assemblercode zusammengesetzt wird.
 
@@ -137,6 +148,18 @@ Betriebsfehler haben andere Fehlercodes.  Diese werden hier dokumentiert.
 
 :   Allgemeiner Fehler.
 
+**64**
+
+:   Normalerweise wird dieser Fehlercode verwendet, um ein Fehler in den Nutzereingaben über die Argumente zu indizieren.
+
+**65**
+
+:   In der Regel wird dieser Fehlercode verwendet, um auf Fehler in der Formatierung der Eingabe oder Ausgabe hinzuweisen.
+
+**73**
+
+:   Der Assembler konnte keine Ausgabedatei(en) erstellen.
+
 # BEISPIELE
 
 Eine Assemblierung einer Assemblerdatei mit Ausgabe im MIF-Format:
@@ -159,10 +182,10 @@ Verwendung einer Wortbreite von 8 Bit in eine Datei ausgeben:
     Assembled a.mif (/pfad/zu/beispiel)
     Fertig [=========================================================] 5/5 Erfolg
 
-Eine Assemblerdatei assemblieren, Debug-Nachrichten anzeigen und Dateien
-erstellen:
+Eine Assemblerdatei assemblieren, Debug-Nachrichten anzeigen und die Ausgabe
+nach [stdout(3)][] schreiben:
 
-    $ RUST_LOG=debug assembler -i example.asm -f debug
+    $ RUST_LOG=debug assembler -i example.asm \-\-stdout
 
 # FEHLER
 
@@ -189,8 +212,8 @@ Jan Julius <jan.julius@studium.uni-hamburg.de>
 
 # SIEHE AUCH
 
-[src_mif(5)][], [stderr(3)][], [assembler-format(5)][]
+[src_mif(5)][], [stdout(3)][], [assembler-format(5)][]
 
 [src_mif(5)]: https://linux.die.net/man/5/srec_mif
-[stderr(3)]: https://linux.die.net/man/3/stderr
+[stdout(3)]: https://linux.die.net/man/3/stdout
 [assembler-format(5)]: assembler-format.5.md
