@@ -15,7 +15,7 @@ TEST:
     sll     t2, t3, s3
     or      t2, t2, t3
     addi    sp, sp, -4
-    sw      t2, sp, 0
+    sw      t2, (sp)
     and     t2, t2, zero
     addi    t3, zero, 2
 TWOLOOP:
@@ -28,8 +28,8 @@ TWOLOOP:
     addi    t2, zero, 4
     sll     t1, t1, t2
     addi    t1, t1, 13
-    sb      t1, sp, 2
-    lhu     t1, sp, 0
+    sb      t1, 2(sp)
+    lhu     t1, (sp)
     addi    t2, zero, 2
     addi    t3, zero, 2
     addi    t4, zero, 4
@@ -48,5 +48,5 @@ FORWARD:
     or      t2, t2, t4
     slli    t2, t2, 7
     or      t1, t1, t2
-    sh      t1, sp, 0
-    lw      t1, sp, 0
+    sh      t1, (sp)
+    lw      t1, (sp)

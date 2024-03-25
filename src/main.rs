@@ -7,25 +7,18 @@
  */
 
 use assembler_lib::{
-    common::errors::ExitErrorCode,
-    ParseLinkBuilder,
-    translator
+    asm::{translator::{CodeWriter, Format, MifFormat, RawFormat, WordWidth}, ParseLinkBuilder}, common::{errors::{ExitErrorCode, TranslatorError}, TranslatableCode}
 };
 
 use clap::{
-    builder::ArgPredicate,
-    Arg, 
-    Command, 
-    value_parser, 
-    ArgAction,
-    ArgMatches,
-    crate_authors, crate_version, crate_description, ValueHint
+    builder::ArgPredicate, crate_authors, crate_description, crate_version, value_parser, Arg, ArgAction, ArgMatches, Command, ValueHint
 };
 use indicatif_log_bridge::LogWrapper;
 use log::{log_enabled, error};
+#[cfg(feature = "infer_stdout")]
+use std::io::IsTerminal;
 use std::{
-    fs,
-    path::PathBuf,
+    fs, path::PathBuf
 };
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use console::Term;
@@ -47,7 +40,7 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
 ")
     .arg(Arg::new("format")
                 .value_hint(ValueHint::Other)
-                .value_parser(["mif", "raw", "debug"])
+                .value_parser(["mif", "raw"])
                 .action(ArgAction::Set)
                 .short('f')
                 .num_args(1)
@@ -66,21 +59,37 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
                 .long("input")
                 .help("Input assembly files, use \"<PATH>\"")
     )
-    .arg(Arg::new("output")
-                .value_name("output bin file")
+    .arg(Arg::new("text_output")
+                .value_name("output text file")
                 .value_hint(ValueHint::FilePath)
                 .value_parser(value_parser!(PathBuf))
                 .action(ArgAction::Set)
-                .short('o')
+                .short('t')
+                .short_alias('o')
                 .num_args(1)
                 .default_value("a.bin")
                 .default_value_if("format", ArgPredicate::Equals("raw".into()), Some("a.bin"))
                 .default_value_if("format", ArgPredicate::Equals("mif".into()), Some("a.mif"))
                 .required(false)
-                .long("output")
-                .help("The destination for the output file")
+                .long("text-output")
+                .alias("output")
+                .help("The destination for the text output file")
     )
-    .arg(Arg::new("format-depth")
+    .arg(Arg::new("data_output")
+                .value_name("output data file")
+                .value_hint(ValueHint::FilePath)
+                .value_parser(value_parser!(PathBuf))
+                .action(ArgAction::Set)
+                .short('d')
+                .num_args(1)
+                .default_value("a.mem.bin")
+                .default_value_if("format", ArgPredicate::Equals("raw".into()), Some("a.mem.bin"))
+                .default_value_if("format", ArgPredicate::Equals("mif".into()), Some("a.mem.mif"))
+                .required(false)
+                .long("data-output")
+                .help("The destination for the data output file")
+    )
+    .arg(Arg::new("format_depth")
                 .value_name("address count")
                 .value_hint(ValueHint::Other)
                 .value_parser(value_parser!(u16).range(1..65536))
@@ -90,7 +99,7 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
                 .default_value("1024")
                 .help("Depth for MIF format. Does not do anything, if format != mif.")
     )
-    .arg(Arg::new("format-width")
+    .arg(Arg::new("format_width")
                 .value_name("word width in bits")
                 .value_hint(ValueHint::Other)
                 .value_parser(["8", "32"])
@@ -119,7 +128,85 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
                 .required(false)
                 .help("Comment mif with used instructions. Does not do anything, if format != mif.")
     )
+    .arg(Arg::new("stdout")
+                .long("stdout")
+                .action(ArgAction::SetFalse)
+                .conflicts_with_all(["text_output", "data_output"])
+                .required(false)
+                .help("Write output to stdout")
+    )
     .get_matches()
+}
+
+#[inline]
+fn write_code<T: Format>(code_writer: CodeWriter<T>, not_stdout_out: bool, data_empty: bool, text_output: &PathBuf, data_output: &PathBuf) -> Result<(), TranslatorError> {
+    match (not_stdout_out, data_empty) {
+        (true, true) => code_writer.write_text_file(text_output),
+        (true, false) => code_writer.write_files(text_output, data_output),
+        (false, true) => code_writer.write_text_stdout(),
+        (false, false) => code_writer.write_to(std::io::stdout()),
+    }
+}
+
+fn translate(translatable_code: TranslatableCode, matches: ArgMatches) -> Result<String, TranslatorError> {
+    // always returns Some(_)
+    let outfmt = matches.get_one::<String>("format").unwrap();
+    let text_output = matches.get_one::<PathBuf>("text_output").unwrap();
+    let data_output = matches.get_one::<PathBuf>("data_output").unwrap();
+    let comment = matches.get_flag("comment_mif");
+    let depth = matches.get_one("format_depth").unwrap();
+    let width = str::parse::<u8>(matches.get_one::<String>("format_width").unwrap()).unwrap();
+    #[cfg(feature = "infer_stdout")]
+    let not_stdout_out = matches.get_flag("stdout") && std::io::stdout().is_terminal();
+    #[cfg(not(feature = "infer_stdout"))]
+    let not_stdout_out = matches.get_flag("stdout");
+
+    let data_empty = {
+        translatable_code.get_all_ref().1.is_empty()
+    };
+
+    match outfmt.as_str() {
+        "mif" => {
+            let width = if width == 32 { WordWidth::ThirtyTwoBit } else { WordWidth::EightBit };
+            let mif_format = MifFormat::default().set_comment(comment).set_mem_len(*depth).set_word_len(width);
+            let code_writer = CodeWriter::new(mif_format, translatable_code);
+
+            write_code(code_writer, not_stdout_out, data_empty, text_output, data_output)?;
+        },
+        "raw" => {
+            let code_writer = CodeWriter::new(RawFormat, translatable_code);
+
+            write_code(code_writer, not_stdout_out, data_empty, text_output, data_output)?;
+        },
+        "dat" => {
+            error!("Dat format is currently not available!");
+            std::process::exit(1)
+        },
+        _ => unreachable!(),
+    };
+
+    Ok(if not_stdout_out && data_empty {
+        format!(
+            "{:>12} {} ({})",
+            console::Style::new().bold().apply_to("Assembled"),
+            text_output.as_path().file_name().unwrap().to_str().unwrap(),
+            std::fs::canonicalize(text_output.as_path()).unwrap().parent().unwrap().to_str().unwrap()
+        )
+    } else if not_stdout_out && !data_empty {
+        format!(
+            "{:>12} {} ({}, {})",
+            console::Style::new().bold().apply_to("Assembled"),
+            text_output.as_path().file_name().unwrap().to_str().unwrap(),
+            std::fs::canonicalize(text_output.as_path()).unwrap().parent().unwrap().to_str().unwrap(),
+            std::fs::canonicalize(data_output.as_path()).unwrap().parent().unwrap().to_str().unwrap()
+        )
+    } else {
+        format!(
+            "{:>12} {}",
+            console::Style::new().bold().apply_to("Assembled"),
+            "Printed to console"
+        )
+    })
 }
 
 fn main() {
@@ -192,31 +279,12 @@ fn main() {
     progbar.inc(1);
     progbar.set_message("Translating & Writing...");
 
-    // always returns Some(_)
-    let outfmt = matches.get_one::<String>("format").unwrap();
-    let outpath = matches.get_one::<PathBuf>("output").unwrap();
-    let comment = matches.get_flag("comment_mif");
-    let depth = matches.get_one("format-depth").unwrap();
-    let width = str::parse::<u8>(matches.get_one::<String>("format-width").unwrap()).unwrap();
-
-    if let Err(e) = translator::translate_and_present(outpath, translatable_code, comment, outfmt, (*depth, width)) {
-        error!("{e}");
-        std::process::exit(e.get_err_code())
-    };
-
-    let line = if outfmt != "debug" {
-        format!(
-            "{:>12} {} ({})",
-            console::Style::new().bold().apply_to("Assembled"),
-            outpath.as_path().file_name().unwrap().to_str().unwrap(),
-            std::fs::canonicalize(outpath.as_path()).unwrap().parent().unwrap().to_str().unwrap()
-        )
-    } else {
-        format!(
-            "{:>12} {}",
-            console::Style::new().bold().apply_to("Assembled"),
-            "Printed to console"
-        )
+    let line = match translate(translatable_code, matches) {
+        Ok(finish_line) => finish_line,
+        Err(e) => {
+            error!("{e}");
+            std::process::exit(e.get_err_code())
+        }
     };
 
     progbar.println(line);
