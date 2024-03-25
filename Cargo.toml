@@ -1,6 +1,6 @@
 [package]
 name = "assembler"
-version = "1.3.0"
+version = "2.0.0"
 description = "An assembler for a self-written RISC-V based CPU"
 repository = "https://git.mafiasi.de/Prj-MR/assembler"
 edition.workspace = true
