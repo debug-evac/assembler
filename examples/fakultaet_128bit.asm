@@ -23,11 +23,11 @@ FAK:
     mul	    a0, a0, a4		; D x E
     addi    a4, a4, -1
     bne	    a4, zero, FAK
-    la	    a4, VAL         ; Store result in memory and return pointer to value
-    sw	    a0, a4, 0
-    sw	    a1, a4, 4
-    sw      a2, a4, 8
-    sw	    a3, a4, 12
+    la	    a4, .VAL         ; Store result in memory and return pointer to value
+    sw	    a0, (a4)
+    sw	    a1, 4(a4)
+    sw      a2, 8(a4)
+    sw	    a3, 12(a4)
     mv	    a1, zero
     mv	    a0, a4
 LOD:
