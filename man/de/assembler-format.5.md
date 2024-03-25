@@ -243,15 +243,11 @@ Derzeit werden die folgenden Direktiven unterstützt:
 
 **.space** *dezimal*
 
-:   Reserviere Platz für Daten. Die *Dezimal*zahl gibt den reservierten Platz in Bytes an.
-    Es muss eine Dezimalzahl sein und kann nicht negativ sein.
+:   Reserviere Platz für Daten. Die *Dezimal*zahl gibt den reservierten Platz in Bytes an. Es muss eine Dezimalzahl sein und kann nicht negativ sein.
 
 **.ascii "***string***"**
 
-:   Der *string* wird als aufeinanderfolgende 8-Bit-Werte gespeichert.
-    Der *string* sollte nur ASCII-Zeichen enthalten.
-    Alle Zeichen werden in ihren ASCII-Code übersetzt.
-    Der *string* ist nicht nullterminiert.
+:   Der *string* wird als aufeinanderfolgende 8-Bit-Werte gespeichert. Der *string* sollte nur ASCII-Zeichen enthalten. Alle Zeichen werden in ihren ASCII-Code übersetzt. Der *string* ist nicht nullterminiert.
 
 **.asciz "***string***"**
 
@@ -263,8 +259,7 @@ Derzeit werden die folgenden Direktiven unterstützt:
 
 **.eqv** *label*, *immediate*
 
-:   Der Wert des *label*s ist gleich *immediate*.
-    Ein auf diese Weise erstelltes *label* ist eine Konstante, die nicht in den Speicher geschrieben wird und wie ein Immediate verwendet werden kann.
+:   Der Wert des *label*s ist gleich *immediate*. Ein auf diese Weise erstelltes *label* ist eine Konstante, die nicht in den Speicher geschrieben wird und wie ein Immediate verwendet werden kann.
 
 Diese sind gültige Direktiven:
 
@@ -297,97 +292,67 @@ Derzeit werden die folgenden Makros unterstützt:
 
 **srr** *register*, *register*, *immediate*
 
-:   Shift right rotate (Bitweise rechts rotieren).
-    Dies ist als Unterprogramm implementiert, daher ist das Speichern von Registern erforderlich.
-    Das Speichern von Registern erfolgt nicht automatisch!
+:   Shift right rotate (Bitweise rechts rotieren). Dies ist als Unterprogramm implementiert, daher ist das Speichern von Registern erforderlich. Das Speichern von Registern erfolgt nicht automatisch!
 
 **slr** *register*, *register*, *immediate*
 
-:   Shift left rotate (Bitweise links rotieren).
-    Dies ist als Unterprogramm implementiert, daher ist das Speichern von Registern erforderlich.
-    Das Speichern von Registern erfolgt nicht automatisch!
+:   Shift left rotate (Bitweise links rotieren). Dies ist als Unterprogramm implementiert, daher ist das Speichern von Registern erforderlich. Das Speichern von Registern erfolgt nicht automatisch!
 
 **li** *register*, *immediate*|*label*
 
-:   Load immediate (Lade den Immediate).
-    *register* wird auf das *immediate* oder *label* gesetzt.
+:   Load immediate (Lade den Immediate). *register* wird auf das *immediate* oder *label* gesetzt.
 
 **la** *register*, *immediate*|*label*
 
-:   Load address (Lade die Speicheradresse).
-    *register* wird entweder auf das *immediate* oder auf die Adresse des *label* gesetzt.
+:   Load address (Lade die Speicheradresse). *register* wird entweder auf das *immediate* oder auf die Adresse des *label* gesetzt.
 
 **call** *immediate*|*label*
 
-:   Springt zu einem weit entfernten *Label* und behandelt es als Unterprogramm.
-    Die Rücksprungadresse wird in das Register **ra** geschrieben.
-    Ein Rücksprung ist mithilfe des Makros **ret** oder der entsprechenden **jal**-Anweisung möglich.
+:   Springt zu einem weit entfernten *Label* und behandelt es als Unterprogramm. Die Rücksprungadresse wird in das Register **ra** geschrieben. Ein Rücksprung ist mithilfe des Makros **ret** oder der entsprechenden **jal**-Anweisung möglich.
 
 **tail** *immediate*|*label*
 
-:   Springt zu einem weit entfernten *Label*.
-    Die Rücksprungadresse wird nicht gespeichert.
-    Ein Rücksprung ist nicht möglich.
+:   Springt zu einem weit entfernten *Label*. Die Rücksprungadresse wird nicht gespeichert. Ein Rücksprung ist nicht möglich.
 
 **push** *register*, [*register*]...
 
-:   Speichert den Inhalt dieser Register auf dem Stack.
-    Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich.
-    Es können mehrere Register angegeben werden, um nur eine Subtraktion auszuführen.
-    Die Register werden in der angegebenen Reihenfolge gespeichert.
-    Das erste Register wird am Ende und das letzte Register am Anfang des Stacks gespeichert.
+:   Speichert den Inhalt dieser Register auf dem Stack. Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich. Es können mehrere Register angegeben werden, um nur eine Subtraktion auszuführen. Die Register werden in der angegebenen Reihenfolge gespeichert. Das erste Register wird am Ende und das letzte Register am Anfang des Stacks gespeichert.
 
 **pop** *register*, [*register*]...
 
-:   Lädt den Inhalt des Stacks in die Register.
-    Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich.
-    Es können mehrere Register angegeben werden, um nur eine Addition auszuführen.
-    Der Inhalt wird in den Registern in der angegebenen Reihenfolge geladen.
-    Das erste Register erhält den Inhalt des ersten Elementes auf dem Stack.
-    Das letzte Register erhält den Inhalt des n-ten Elementes, welches sich ausgehend von dem Anfang des Stacks auf dem Stack befindet.
-    N steht für die Anzahl der Register, die bei der Anweisung angegeben wurde.
+:   Lädt den Inhalt des Stacks in die Register. Die Initialisierung des Stack-Pointer-Registers **sp** ist erforderlich. Es können mehrere Register angegeben werden, um nur eine Addition auszuführen. Der Inhalt wird in den Registern in der angegebenen Reihenfolge geladen. Das erste Register erhält den Inhalt des ersten Elementes auf dem Stack. Das letzte Register erhält den Inhalt des n-ten Elementes, welches sich ausgehend von dem Anfang des Stacks auf dem Stack befindet. N steht für die Anzahl der Register, die bei der Anweisung angegeben wurde.
 
 **rep** *dezimal*, *Anweisung*|*Makro*
 
-:   Die *Anweisung* oder *Makro* wird *dezimal* mal wiederholt.
-    Die Dezimalzahl muss größer als 0 sein.
-    Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
+:   Die *Anweisung* oder *Makro* wird *dezimal* mal wiederholt. Die Dezimalzahl muss größer als 0 sein. Wiederholungen können nicht verschachtelt werden, d. h. eine Wiederholung kann keine weitere Wiederholung enthalten.
 
 **mv** *register*, *register*
 
-:   Kopiert den Inhalt des letzten Registers in das erste Register.
-    Dies wird entweder auf die Anweisung **addi** oder **add** abgebildet.
+:   Kopiert den Inhalt des letzten Registers in das erste Register. Dies wird entweder auf die Anweisung **addi** oder **add** abgebildet.
 
 **nop**
 
-:   Nulloperation.
-    Die Operation inkrementiert nur den Programmzähler um 4 und nutzt Prozessorzyklen.
-    Dies wird entweder auf die Anweisung **addi zero, zero, 0** oder **add zero, zero, zero** abgebildet.
+:   Nulloperation. Die Operation inkrementiert nur den Programmzähler um 4 und nutzt Prozessorzyklen. Dies wird entweder auf die Anweisung **addi zero, zero, 0** oder **add zero, zero, zero** abgebildet.
 
 **ret**
 
-:   Wird verwendet, um aus einem Unterprogramm zurückzukehren.
-    Dies wird auf die Anweisung **jalr zero, ra, 0** abgebildet.
+:   Wird verwendet, um aus einem Unterprogramm zurückzukehren. Dies wird auf die Anweisung **jalr zero, ra, 0** abgebildet.
 
 **j** *immediate*|*label*
 
-:   Springt zum *Label* oder *Immediate*.
-    Dies wird auf die Anweisung **jal zero,** *offset* abgebildet.
+:   Springt zum *Label* oder *Immediate*. Dies wird auf die Anweisung **jal zero,** *offset* abgebildet.
 
 **jal** *immediate*|*label*
 
-:   "Jump and Link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) mit dem *label* oder *immediate*.
-    Dies wird auf die Anweisung **jal ra,** *offset* abgebildet.
+:   "Jump and Link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) mit dem *label* oder *immediate*. Dies wird auf die Anweisung **jal ra,** *offset* abgebildet.
 
 **jr** *register*
 
-:   Springt zur Adresse im *Register*.
-    Dies wird auf die Anweisung **jalr zero,** *register***, 0** abgebildet.
+:   Springt zur Adresse im *Register*. Dies wird auf die Anweisung **jalr zero,** *register***, 0** abgebildet.
 
 **jalr** *register*
 
-:   "Jump and Link Register" (Springt zu einer Subroutine, dessen Adresse im *Register* steht, und speichert die Rücksprungadresse) mit der Adresse im Register **ra**.
-    Dies wird auf die Anweisung **jalr ra,** *register***, 0** abgebildet.
+:   "Jump and Link Register" (Springt zu einer Subroutine, dessen Adresse im *Register* steht, und speichert die Rücksprungadresse) mit der Adresse im Register **ra**. Dies wird auf die Anweisung **jalr ra,** *register***, 0** abgebildet.
 
 Siehe [RISC-V Shortened Spec][] für weitere Details.
 
@@ -410,8 +375,7 @@ Schiebeoperationen mit Registern durchzuführen:
 
 **sub** *register*, *register*, *register*
 
-:   Subtraktion.
-    Der Minuend ist der Inhalt des zweiten *Register*s, der Subtrahend ist der Inhalt des letzten *Register*s.
+:   Subtraktion. Der Minuend ist der Inhalt des zweiten *Register*s, der Subtrahend ist der Inhalt des letzten *Register*s.
 
 **xor** *register*, *register*, *register*
 
@@ -443,65 +407,47 @@ Schiebeoperationen mit Registern durchzuführen:
 
 **sltu** *register*, *register*, *register*
 
-:   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das letzte *Register* ist.
-    Die Inhalte der verglichenen *Register* werden als vorzeichenlose Zahlen interpretiert.
+:   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als das letzte *Register* ist. Die Inhalte der verglichenen *Register* werden als vorzeichenlose Zahlen interpretiert.
 
 **xnor** *register*, *register*, *register*
 
-:   Logisches bitweises negiertes exklusives Oder des zweiten und dritten *Register*s.
-    Dies ist nicht im RISC-V-Standard definiert.
+:   Logisches bitweises negiertes exklusives Oder des zweiten und dritten *Register*s. Dies ist nicht im RISC-V-Standard definiert.
 
 **equal** *register*, *register*, *register*
 
-:   Vergleicht das zweite und dritte *Register* und setzt das erste *Register* auf eins (1), wenn sie gleich sind.
-    Dies ist nicht im RISC-V-Standard definiert.
+:   Vergleicht das zweite und dritte *Register* und setzt das erste *Register* auf eins (1), wenn sie gleich sind. Dies ist nicht im RISC-V-Standard definiert.
 
 **mul** *register*, *register*, *register*
 
-:   Multiplikation des zweiten und dritten *Register*s.
-    Das erste *Register* wird auf die unteren 32 Bits des Ergebnisses gesetzt.
+:   Multiplikation des zweiten und dritten *Register*s. Das erste *Register* wird auf die unteren 32 Bits des Ergebnisses gesetzt.
 
 **mulh** *register*, *register*, *register*
 
-:   Hohe Multiplikation des zweiten und dritten *Register*s.
-    Das erste *Register* wird auf die oberen 32 Bits des Ergebnisses gesetzt.
-    Die Inhalte beider *Register* werden als vorzeichenbehaftete Zahlen interpretiert.
+:   Hohe Multiplikation des zweiten und dritten *Register*s. Das erste *Register* wird auf die oberen 32 Bits des Ergebnisses gesetzt. Die Inhalte beider *Register* werden als vorzeichenbehaftete Zahlen interpretiert.
 
 **mulhu** *register*, *register*, *register*
 
-:   Hohe Multiplikation des zweiten und dritten *Register*s.
-    Das erste *Register* wird auf die oberen 32 Bits des Ergebnisses gesetzt.
-    Die Inhalte beider *Register* werden als vorzeichenlose Zahlen interpretiert.
+:   Hohe Multiplikation des zweiten und dritten *Register*s. Das erste *Register* wird auf die oberen 32 Bits des Ergebnisses gesetzt. Die Inhalte beider *Register* werden als vorzeichenlose Zahlen interpretiert.
 
 **mulhsu** *register*, *register*, *register*
 
-:   Hohe Multiplikation des zweiten und dritten *Register*s.
-    Das erste *Register* wird auf die oberen 32 Bits des Ergebnisses gesetzt.
-    Der Inhalt des zweiten *Register*s wird als vorzeichenbehaftete Zahl interpretiert, der Inhalt des dritten *Register*s als vorzeichenlose Zahl.
+:   Hohe Multiplikation des zweiten und dritten *Register*s. Das erste *Register* wird auf die oberen 32 Bits des Ergebnisses gesetzt. Der Inhalt des zweiten *Register*s wird als vorzeichenbehaftete Zahl interpretiert, der Inhalt des dritten *Register*s als vorzeichenlose Zahl.
 
 **div** *register*, *register*, *register*
 
-:   Division des zweiten und dritten *Register*s.
-    Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor.
-    Der Inhalt beider *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
+:   Division des zweiten und dritten *Register*s. Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor. Der Inhalt beider *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
 **divu** *register*, *register*, *register*
 
-:   Division des zweiten und dritten *Register*s.
-    Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor.
-    Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
+:   Division des zweiten und dritten *Register*s. Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor. Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
 
 **rem** *register*, *register*, *register*
 
-:   Modulo-Operation des zweiten und dritten *Register*s.
-    Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor.
-    Der Inhalt beider *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
+:   Modulo-Operation des zweiten und dritten *Register*s. Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor. Der Inhalt beider *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
 **remu** *register*, *register*, *register*
 
-:   Modulo-Operation des zweiten und dritten *Register*s.
-    Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor.
-    Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
+:   Modulo-Operation des zweiten und dritten *Register*s. Das zweite *Register* ist der Dividend und das dritte *Register* ist der Divisor. Der Inhalt beider *Register* wird als vorzeichenlose Zahlen interpretiert.
 
 Diese Anweisungen werden verwendet, um arithmetische, logische und
 Schiebeoperationen mit Immediates durchzuführen:
@@ -545,8 +491,7 @@ können.  Dies befindet sich in Arbeit und wird zukünftig geändert.
 
 **sltiu** *register*, *register*, *immediate*
 
-:   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als die *Immediate* ist.
-    Die Inhalte der verglichenen *Register* werden als vorzeichenlose Zahlen interpretiert.
+:   Das erste *Register* wird auf eins (1) gesetzt, wenn das zweite *Register* kleiner als die *Immediate* ist. Die Inhalte der verglichenen *Register* werden als vorzeichenlose Zahlen interpretiert.
 
 Diese Anweisungen werden verwendet, um den Speicherinhalt zu manipulieren:
 
@@ -567,13 +512,11 @@ des Zielregisters.
 
 **lbu** *register*, *register*, *immediate*|*label*
 
-:   Lädt ein Byte aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
-    Das Byte wird auf 32 Bits mit Nullen vorzeichenlos erweitert.
+:   Lädt ein Byte aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist. Das Byte wird auf 32 Bits mit Nullen vorzeichenlos erweitert.
 
 **lhu** *register*, *register*, *immediate*|*label*
 
-:   Lädt ein halbes Wort (16 Bit) aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
-    Das halbe Wort wird auf 32 Bits mit Nullen vorzeichenlos erweitert.
+:   Lädt ein halbes Wort (16 Bit) aus dem Speicher an der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist. Das halbe Wort wird auf 32 Bits mit Nullen vorzeichenlos erweitert.
 
 **sb** *register*, *register*, *immediate*|*label*
 
@@ -603,46 +546,37 @@ verwendet.  Für **jalr** wird absolute Adressierung verwendet.
 
 **blt** *register*, *register*, *immediate*|*label*
 
-:   Springt, wenn der Inhalt des ersten *Register*s kleiner ist als der Inhalt des letzten *Register*s.
-    Der Inhalt der *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
+:   Springt, wenn der Inhalt des ersten *Register*s kleiner ist als der Inhalt des letzten *Register*s. Der Inhalt der *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
 **bltu** *register*, *register*, *immediate*|*label*
 
-:   Springt, wenn der Inhalt des ersten *Register*s kleiner ist als der Inhalt des letzten *Register*s.
-    Der Inhalt der *Register* wird als vorzeichenlose Zahlen interpretiert.
+:   Springt, wenn der Inhalt des ersten *Register*s kleiner ist als der Inhalt des letzten *Register*s. Der Inhalt der *Register* wird als vorzeichenlose Zahlen interpretiert.
 
 **bge** *register*, *register*, *immediate*|*label*
 
-:   Springt, wenn der Inhalt des ersten *Register*s größer oder gleich dem Inhalt des letzten *Register*s ist.
-    Der Inhalt der *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
+:   Springt, wenn der Inhalt des ersten *Register*s größer oder gleich dem Inhalt des letzten *Register*s ist. Der Inhalt der *Register* wird als vorzeichenbehaftete Zahlen interpretiert.
 
 **bgeu** *register*, *register*, *immediate*|*label*
 
-:   Springt, wenn der Inhalt des ersten *Register*s größer oder gleich dem Inhalt des letzten *Register*s ist.
-    Der Inhalt der *Register* wird als vorzeichenlose Zahlen interpretiert.
+:   Springt, wenn der Inhalt des ersten *Register*s größer oder gleich dem Inhalt des letzten *Register*s ist. Der Inhalt der *Register* wird als vorzeichenlose Zahlen interpretiert.
 
 **jal** *register*, *immediate*|*label*
 
-:   "Jump and link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe aus dem Programmzähler und der *Immediate* oder dem Wert des *Label*s ist.
-    Die Rücksprungadresse wird in das *Register* geschrieben.
+:   "Jump and link" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe aus dem Programmzähler und der *Immediate* oder dem Wert des *Label*s ist. Die Rücksprungadresse wird in das *Register* geschrieben.
 
 **jalr** *register*, *register*, *immediate*|*label*
 
-:   "Jump and link register" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist.
-    Die Rücksprungadresse wird in das erste *Register* geschrieben.
+:   "Jump and link register" (Springt zu einer Subroutine und speichert die Rücksprungadresse) zu der Adresse, die die Summe aus dem Inhalt des zweiten *Register*s und der *Immediate* oder dem Wert des *Label*s ist. Die Rücksprungadresse wird in das erste *Register* geschrieben.
 
 Diese Anweisungen können nicht kategorisiert werden:
 
 **lui** *register*, *immediate*|*label*
 
-:   Lädt den oberen Teil des *Immediate*s.
-    Die oberen 20 Bits des *Register*s werden auf das *Immediate* oder *Label* gesetzt.
-    Die unteren 12 Bits sind Nullen.
+:   Lädt den oberen Teil des *Immediate*s. Die oberen 20 Bits des *Register*s werden auf das *Immediate* oder *Label* gesetzt. Die unteren 12 Bits sind Nullen.
 
 **auipc** *register*, *immediate*|*label*
 
-:   Addiert den oberen Teil des *Immediate* auf den Programmzähler.
-    Die oberen 20 Bits des *Immediate*s oder *Label*s werden zum Programmzähler addiert und das Ergebnis wird in das *Register* geschrieben.
+:   Addiert den oberen Teil des *Immediate* auf den Programmzähler. Die oberen 20 Bits des *Immediate*s oder *Label*s werden zum Programmzähler addiert und das Ergebnis wird in das *Register* geschrieben.
 
 Siehe [RISC-V Shortened Spec][] für weitere Details.
 
