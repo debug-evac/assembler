@@ -173,7 +173,7 @@ The following immediates are invalid:
     0.1           ; floating point not supported (yet)
     b100
     x1516
-    SYMBOL        ; Inalid if symbol has not been emitted by .eqv
+    SYMBOL        ; Invalid if symbol has not been emitted by .eqv
     02x3
     50-20         ; expressions are not supported
 
@@ -262,7 +262,7 @@ Currently the following macros are supported:
 
 **la** *register*, *label*
 
-:   Load address. *register* is set to either the *immediate* or the address of the *label*.
+:   Load address. *register* is set to the address of the *label*.
 
 **call** *label*
 
