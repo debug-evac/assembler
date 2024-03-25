@@ -1,6 +1,6 @@
-% ASSEMBLER-FORMAT(5) Version 1.2.0 | File Formats Manual
+% ASSEMBLER-FORMAT(5) Version 2.0.0 | File Formats Manual
 ---
-date: February 2024
+date: May 2024
 ---
 
 # NAME
@@ -24,7 +24,7 @@ date: February 2024
     ; Write instructions and macros here
     START:
         nop
-        addi    zero, zero, 0
+        addi    zero, zero, CONST   ; same as addi zero, zero, 20
         addi    t1, zero, 2
         mul     t0, sp, t1
     LOD:
@@ -156,12 +156,15 @@ Some instructions and macros require registers to perform actions. There are 31 
 
 Some instructions, macros and directives require immediates to perform actions. Immediates are either in decimal, binary or hexadecimal format. By default the decimal format is assumed. To interpret immediates as binary or hexadecimal, the prefix **0b** and **0x** must be used respectively. Optionally binary or hexadecimal can be interpreted as signed numbers by suffixing the immediate with **s** or **S**.
 
+Operations that take immediates as arguments can also take symbols. Symbols are constants emitted by the directive **.eqv**. See more regarding this directive in [DIRECTIVES][].
+
 The following immediates are valid:
 
     0b10          ; 2
     0b10s         ; -2
     0x14          ; 20
     0x14s         ; 20
+    SYMBOL        ; Valid if symbol has been emitted by .eqv
     205
     -12
 
@@ -170,6 +173,7 @@ The following immediates are invalid:
     0.1           ; floating point not supported (yet)
     b100
     x1516
+    SYMBOL        ; Inalid if symbol has not been emitted by .eqv
     02x3
     50-20         ; expressions are not supported
 
@@ -215,9 +219,9 @@ Currently the following directives are supported:
 
 :   Alias for **.asciz**.
 
-**.eqv** *label*, *immediate*
+**.eqv** *symbol*, *immediate*
 
-:   The value of the *label* is *immediate*. A *label* emitted this way is a constant that is not written in memory and can be used like a immediate.
+:   The value of the *symbol* is *immediate*. A *symbol* emitted this way is a constant that is not written in memory and can be used like a immediate.
 
 These are valid directives:
 
@@ -252,19 +256,19 @@ Currently the following macros are supported:
 
 :   Shift left rotate. This is implemented as a subroutine thus saving registers is required. Saving registers is not done automatically!
 
-**li** *register*, *immediate*|*label*
+**li** *register*, *immediate*
 
-:   Load immediate. *register* is set to the *immediate* or *label*.
+:   Load immediate. *register* is set to the *immediate*.
 
-**la** *register*, *immediate*|*label*
+**la** *register*, *label*
 
 :   Load address. *register* is set to either the *immediate* or the address of the *label*.
 
-**call** *immediate*|*label*
+**call** *label*
 
 :   Jump to a far-away label and handle it as a subroutine. The return address is written to register **ra**. Returning is possible by using the macro **ret** or by the equivalent **jal** instruction.
 
-**tail** *immediate*|*label*
+**tail** *label*
 
 :   Jump to a far-away label. The return address is voided. Returning is not possible.
 
@@ -292,13 +296,13 @@ Currently the following macros are supported:
 
 :   Used to return from a subroutine. This is mapped to the instruction **jalr zero, ra, 0**.
 
-**j** *immediate*|*label*
+**j** *label*
 
-:   Jump to the *label* or *immediate*. This is mapped to the instruction **jal zero,** *offset*.
+:   Jump to the *label*. This is mapped to the instruction **jal zero,** *offset*.
 
-**jal** *immediate*|*label*
+**jal** *label*
 
-:   Jump and link to the *label* or *immediate*. This is mapped to the instruction **jal ra,** *offset*.
+:   Jump and link to the *label*. This is mapped to the instruction **jal ra,** *offset*.
 
 **jr** *register*
 
@@ -307,6 +311,74 @@ Currently the following macros are supported:
 **jalr** *register*
 
 :   Jump and link to the address in the *register*. This is mapped to the instruction **jalr ra,** *register***, 0**.
+
+**lb** *register*, *immediate*
+: \
+**lb** *register*, *label*
+: \
+
+**lb** *register*, **%lo(***label***)**, **(***register***)**
+
+:   Loads a byte from memory at the address which is either a *immediate*, a *label* or the sum of the lower 12 bits of a *label* and a *register*.
+
+**lh** *register*, *immediate*
+: \
+**lh** *register*, *label*
+: \
+
+**lh** *register*, **%lo(***label***)**, **(***register***)**
+
+:   Loads a half (16 bits) from memory at the address which is either a *immediate*, a *label* or the sum of the lower 12 bits of a *label* and a *register*.
+
+**lw** *register*, *immediate*
+: \
+**lw** *register*, *label*
+: \
+
+**lw** *register*, **%lo(***label***)**, **(***register***)**
+
+:   Loads a word (32 bits) from memory at the address which is either a *immediate*, a *label* or the sum of the lower 12 bits of a *label* and a *register*.
+
+**lbu** *register*, *immediate*
+: \
+
+**lbu** *register*, *label*
+
+:   Loads a byte from memory at the address which is either a *immediate* or a *label*. The byte is zero extended to 32 bits.
+
+**lhu** *register*, *immediate*
+: \
+
+**lhu** *register*, *label*
+
+:   Loads a half from memory at the address which is either a *immediate* or a *label*. The half is zero extended to 32 bits.
+
+**sb** *register*, *immediate*
+: \
+**sb** *register*, *immediate*, *register*
+: \
+
+**sb** *register*, *label*, *register*
+
+:   Stores a byte into memory at the address which is either a *immediate* or *label*. For *immediate*s over 12 bits and *label*s, a temporary *register* must be specified.
+
+**sh** *register*, *immediate*
+: \
+**sh** *register*, *immediate*, *register*
+: \
+
+**sh** *register*, *label*, *register*
+
+:   Stores a half into memory at the address which is either a *immediate* or *label*. For *immediate*s over 12 bits and *label*s, a temporary *register* must be specified.
+
+**sw** *register*, *immediate*
+: \
+**sw** *register*, *immediate*, *register*
+: \
+
+**sw** *register*, *label*, *register*
+
+:   Stores a word into memory at the address which is either a *immediate* or *label*. For *immediate*s over 12 bits and *label*s, a temporary *register* must be specified.
 
 See [RISC-V Shortened Spec][] for details.
 
@@ -360,11 +432,11 @@ These instructions are used to perform arithmetical, logical and shift operation
 
 **xnor** *register*, *register*, *register*
 
-:   Logical bitwise negated exclusive or of the second and third *register*. Note that this is not defined in the RISC-V standard.
+:   Logical bitwise negated exclusive or of the second and third *register*. Note that this is not defined in the RISC-V standard. Deprecated, do not use!
 
 **equal** *register*, *register*, *register*
 
-:   Compares the second and third *register*s and sets the first *register* to one (1), if they are equal. Note that this is not defined in the RISC-V standard.
+:   Compares the second and third *register*s and sets the first *register* to one (1), if they are equal. Note that this is not defined in the RISC-V standard. Deprecated, do not use!
 
 **mul** *register*, *register*, *register*
 
@@ -404,7 +476,7 @@ Shift operations can only take 4 bit immediates.
 
 Note that some instructions cannot use labels. This is WIP.
 
-**addi** *register*, *register*, *immediate*|*label*
+**addi** *register*, *register*, *immediate*|**%lo(***label***)**
 
 :   Addition of the second *register* and the *immediate* or *label*.
 
@@ -420,17 +492,17 @@ Note that some instructions cannot use labels. This is WIP.
 
 :   Logical bitwise and of the second *register* and the *immediate*.
 
-**slli** *register*, *register*, *immediate*|*label*
+**slli** *register*, *register*, *immediate*
 
-:   Logical left shift of the second *register* by the *immediate* or *label*.
+:   Logical left shift of the second *register* by the *immediate*.
 
-**srli** *register*, *register*, *immediate*|*label*
+**srli** *register*, *register*, *immediate*
 
-:   Logical right shift of the second *register* by the *immediate* or *label*.
+:   Logical right shift of the second *register* by the *immediate*.
 
-**srai** *register*, *register*, *immediate*|*label*
+**srai** *register*, *register*, *immediate*
 
-:   Arithmetical right shift of the second *register* by the *immediate* or *label*.
+:   Arithmetical right shift of the second *register* by the *immediate*.
 
 **slti** *register*, *register*, *immediate*
 
@@ -444,37 +516,37 @@ These instructions are used to manipulate memory content:
 
 The target byte and half are always the LSBs of the target register.
 
-**lb** *register*, *register*, *immediate*|*label*
+**lb** *register*, [*immediate*]**(***register***)**
 
-:   Loads a byte from memory at the address which is the sum of the second *register* and the *immediate* or *label*.
+:   Loads a byte from memory at the address which is the sum of the second *register* and the *immediate*. This instruction has a few Macros, see [MACROS][] for details.
 
-**lh** *register*, *register*, *immediate*|*label*
+**lh** *register*, [*immediate*]**(***register***)**
 
-:   Loads a half (16 bits) from memory at the address which is the sum of the second *register* and the *immediate* or *label*.
+:   Loads a half (16 bits) from memory at the address which is the sum of the second *register* and the *immediate*. This instruction has a few Macros, see [MACROS][] for details.
 
-**lw** *register*, *register*, *immediate*|*label*
+**lw** *register*, [*immediate*]**(***register***)**
 
-:   Loads a word (32 bits) from memory at the address which is the sum of the second *register* and the *immediate* or *label*.
+:   Loads a word (32 bits) from memory at the address which is the sum of the second *register* and the *immediate*. This instruction has a few Macros, see [MACROS][] for details.
 
-**lbu** *register*, *register*, *immediate*|*label*
+**lbu** *register*, [*immediate*]**(***register***)**
 
-:   Loads a byte from memory at the address which is the sum of the second *register* and the *immediate* or *label*. The byte is zero extended to 32 bits.
+:   Loads a byte from memory at the address which is the sum of the second *register* and the *immediate*. The byte is zero extended to 32 bits. This instruction has a few Macros, see [MACROS][] for details.
 
-**lhu** *register*, *register*, *immediate*|*label*
+**lhu** *register*, [*immediate*]**(***register***)**
 
-:   Loads a half from memory at the address which is the sum of the second *register* and the *immediate* or *label*. The half is zero extended to 32 bits.
+:   Loads a half from memory at the address which is the sum of the second *register* and the *immediate*. The half is zero extended to 32 bits. This instruction has a few Macros, see [MACROS][] for details.
 
-**sb** *register*, *register*, *immediate*|*label*
+**sb** *register*, [*immediate*]**(***register***)**
 
-:   Stores a byte into memory at the address which is the sum of the second *register* and the *immediate* or *label*.
+:   Stores a byte into memory at the address which is the sum of the second *register* and the *immediate*. This instruction has a few Macros, see [MACROS][] for details.
 
-**sh** *register*, *register*, *immediate*|*label*
+**sh** *register*, [*immediate*]**(***register***)**
 
-:   Stores a half into memory at the address which is the sum of the second *register* and the *immediate* or *label*.
+:   Stores a half into memory at the address which is the sum of the second *register* and the *immediate*. This instruction has a few Macros, see [MACROS][] for details.
 
-**sw** *register*, *register*, *immediate*|*label*
+**sw** *register*, [*immediate*]**(***register***)**
 
-:   Stores a word into memory at the address which is the sum of the second *register* and the *immediate* or *label*.
+:   Stores a word into memory at the address which is the sum of the second *register* and the *immediate*. This instruction has a few Macros, see [MACROS][] for details.
 
 These instructions are used to control the logic flow of the program:
 
@@ -508,19 +580,19 @@ PC-Relative addressing is used for all instructions but **jalr**. For **jalr** a
 
 :   Jump and link to the address which is the sum of the program counter and the *immediate* or *label*. The return address is written to the *register*.
 
-**jalr** *register*, *register*, *immediate*|*label*
+**jalr** *register*, *register*, *immediate*
 
-:   Jump and link to the address which is the sum of the second *register* and the *immediate* or *label*. The return address is written to the first *register*.
+:   Jump and link to the address which is the sum of the second *register* and the *immediate*. The return address is written to the first *register*.
 
 These instructions cannot be categorized:
 
-**lui** *register*, *immediate*|*label*
+**lui** *register*, *immediate*|**%hi(***label***)**
 
 :   Load upper immediate. The upper 20 bits of the *register* is set to the *immediate* or *label*. The lower 12 bits are zero.
 
-**auipc** *register*, *immediate*|*label*
+**auipc** *register*, *immediate*
 
-:   Add upper immediate to program counter. The upper 20 bits of the *immediate* or *label* is added to the program counter and the result is written to the *register*.
+:   Add upper immediate to program counter. The *immediate* is shifted by 12 bits, added to the program counter and the result is written to the *register*.
 
 See [RISC-V Shortened Spec][] for details.
 
