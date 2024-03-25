@@ -15,6 +15,6 @@ RETABSA1:
 RETABSA0:
     mv      a1, zero
     bge     a0, zero, LOD
-    neg     a0, a0
+    sub     a0, zero, a0            ; neg     a0, a0
 LOD:
     j       LOD
