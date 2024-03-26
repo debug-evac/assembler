@@ -1,7 +1,7 @@
 # Assembler
 
 This Assembler was programmed within the project "Mikrorechner" in order to run assembly code on a self-designed CPU.
-It uses a modified MIPS assembly syntax and features labels, macros, automatic nop insertion, a simple linker, instruction minimization for certain macros and output formatting to raw or mif.
+It uses a modified MIPS assembly syntax and features labels, macros, automatic nop insertion, a simple linker, instruction minimization for certain macros and output formatting to raw, mif or dat.
 
 ## Features
 
@@ -15,10 +15,9 @@ It uses a modified MIPS assembly syntax and features labels, macros, automatic n
 - [x] Rudimentary user output (wip)
 - [x] Support for assembler directives that are used to store constants in memory
 - [x] Python module for easier integration into the compiler
-- [ ] Improvement of error reporting (currently very bare bones)
+- [x] Rudimentary error reporting
 - [ ] Better internal code documentation
-- [ ] Disassembler-Mode (planned for release 2.0.0 or a minor release of 2.0.0)
-- [ ] Separate debugger or simulator
+- [ ] Disassembler-Mode (planned for a minor release of 2.0.0)
 
 ## Out of scope
 
@@ -51,20 +50,6 @@ Note: You cannot install a particular version with this method. If you need to u
 This method is not recommended as you have to manage updates and paths yourself. Head to the [releases](https://git.mafiasi.de/Prj-MR/Assembler/releases/latest) page and download the binary for your operating system. If there is no binary for your operating system, either open an issue [here](https://git.mafiasi.de/Prj-MR/Assembler/issues) or compile it yourself.
 
 To use the binary, you either have it in the directory you are in (not ideal) or put it in the path that your system is using. You may need to look up how to put the binary in the path of your system.
-
-### Python Module
-
-Since release 1.3.0, a python module is provided which contains the functionality of this assembler. For installation, `pip` is required.
-
-You can use the following command to install this as a python module:
-
-```sh
-pip install --index-url https://{username}:{password}@git.mafiasi.de/api/packages/Prj-MR/pypi/simple --no-deps assembler_lib
-```
-
-For more information on installation, see [here](https://docs.gitea.com/next/usage/packages/pypi/).
-
-You can find information on how to use this module in the CHANGELOG.md.
 
 ### From Source 
 
@@ -112,7 +97,7 @@ You can then use `cargo install --path .` to compile the assembler from source a
 ```
 $ assembler --help
 
-Assembler - 1.2.0
+Assembler - 2.1.0
 by Steven Becker <steven.becker@studium.uni-hamburg.de>, Jan Julius <jan.julius@studium.uni-hamburg.de>
 An assembler for a self-written RISC-V based CPU
 
@@ -120,11 +105,13 @@ Usage: assembler [OPTIONS] --input <main asm file> <another asm file>...
 
 Options:
   -f, --format <format>
-          The format in which the output should be written in [default: mif] [possible values: mif, raw, debug]
+          The format in which the output should be written in [default: mif] [possible values: mif, raw, dat]
   -i, --input <main asm file> <another asm file>...
           Input assembly files, use "<PATH>"
-  -o, --output <output bin file>
-          The destination for the output file [default: a.bin]
+  -t, --text-output <output text file>
+          The destination for the text output file [default: a.bin]
+  -d, --data-output <output data file>
+          The destination for the data output file [default: a.mem.bin]
       --depth <address count>
           Depth for MIF format. Does not do anything, if format != mif. [default: 1024]
       --width <word width in bits>
@@ -135,6 +122,8 @@ Options:
           Disallow stack pointer initialization
   -c, --comment
           Comment mif with used instructions. Does not do anything, if format != mif.
+      --stdout
+          Write output to stdout
   -h, --help
           Print help
   -V, --version
