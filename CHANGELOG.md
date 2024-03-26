@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - ReleaseDate
 
+### Added
+
+- CLI argument for format `dat`
+
+### Changed
+
+- Updated library to version 2.1.0, see the changelog [here](https://git.mafiasi.de/Prj-MR/assembler_lib/src/branch/main/CHANGELOG.md)
+
 ## [2.0.0] - 2024-03-25
 
 ### Added
