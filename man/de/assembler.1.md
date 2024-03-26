@@ -41,10 +41,12 @@ Die Option **\-\-stdout** kann dazu verwendet werden, um die Ausgabe über
 [stdout(3)][] werden auch erkannt und die Ausgabe wird automatisch über
 [stdout(3)][] ausgeben.
 
-WARNUNG: Parserfehler sind derzeit sehr rudimentär, nicht einfach und nicht
-hilfreich.  Stellen Sie sicher, dass Sie [assembler-format(5)][] korrekt
-verwenden.  Als letzte Möglichkeit können Sie ein Problem in unserem
-Repository öffnen, bei dem Sie das Problem detailliert darstellen sollten.
+DISCLAIMER: Die Spalt für Parserfehler is nicht korrekt. Für die meisten
+Fehler können Sie davon ausgehen, dass sich dieser am Ende der Zeile
+befindet. Stellen Sie sicher, dass Sie [assembler-format(5)][] korrekt
+verwenden. Bei Problemen können Sie sich mit einem Ticket in unserer
+Repository an uns wenden. Bitte stellen Sie Ihr Problem mit ausreichenden
+Informationen dar, damit wir Ihnen schnell weiterhelfen können.
 
 # DATEIEN
 
@@ -67,13 +69,15 @@ verwendet wird.
 Diese Optionen legen das Format, den Speicherort und den Typ der Ausgabe
 fest.
 
-**-f**=[**raw**|**mif**], **\-\-format**=[**raw**|**mif**]
+**-f**=[**raw**|**mif**|**dat**], **\-\-format**=[**raw**|**mif**|**dat**]
 
 :   Gibt das Format der Ausgabe an. Standardmäßig ist diese **mif**.
 
     **raw** schreibt den Maschinencode und die Daten binär in die Ausgabedateien.
 
     **mif** schreibt und formatiert den Maschinencode und die Daten als MIF, siehe [src_mif(5)][] für Details. Jede Instruktion kann mithilfe der Option **-c** oder **\-\-comment** mit dessen Repräsentation in Assemblersyntax automatisch kommentiert werden. Die Anzahl der Speicheradressen (*depth*) und die Wortbreite (*width*) kann mithilfe der Optionen **\-\-depth** und **\-\-width** respektive verändert werden.
+
+    Das Format **dat** ist ähnlich zu dem Format **mif** bis auf, dass die Ausgabe bei diesem Format nur die Adresse mit den dazugehörigen Daten beinhaltet. Die Option **-c** oder **\-\-comment** wird bis jetzt nicht unterstützt, jedoch ist die Unterstützung dieser Option geplant.
 
 **-c**, **\-\-comment**
 

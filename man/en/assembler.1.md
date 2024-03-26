@@ -28,7 +28,7 @@ The **-t** or **\-\-text-output** and **-d** or **\-\-data-output** options chan
 
 The option **\-\-stdout** can be used to print the output to [stdout(3)][]. Pipes and redirections of [stdout(3)][] are also detected and will print the output to [stdout(3)][].
 
-WARNING: Parser errors currently are very rudimentary, not simple and not helpful. Make sure to use [assembler-format(5)][] correctly. As last resort, you may open an issue in our repository with sufficient details.
+DISCLAIMER: The column for parser errors is incorrect. For most errors, you can assume that the error is at the end of the line. Make sure to use [assembler-format(5)][] correctly. If you have issues, you may open an issue in our repository with sufficient details.
 
 # FILES
 
@@ -42,13 +42,15 @@ When assembling output files, destination filenames are **a.***ext* for text out
 
 These options control the format, location and type of the output.
 
-**-f**=[**raw**|**mif**], **\-\-format**=[**raw**|**mif**]
+**-f**=[**raw**|**mif**|**dat**], **\-\-format**=[**raw**|**mif**|**dat**]
 
 :   Specify the format of the output. The default is **mif**.
 
     **raw** writes the machine code and data as binary to the output files.
 
     **mif** writes and formats the machine code and data as MIF, see [src_mif(5)][] for details. The MIF format can be commented with the instruction assembly names using option **-c** or **\-\-comment**. The memory *depth* and word *width* can be changed using **\-\-depth** and **\-\-width** respectively.
+
+    The format **dat** is similar to the format **mif**, but it only outputs the address with the associated data. Support for the option **-c** or **\-\-comment** is not implemented, but may come in the future.
 
 **-c**, **\-\-comment**
 
