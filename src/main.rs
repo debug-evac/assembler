@@ -7,7 +7,7 @@
  */
 
 use assembler_lib::{
-    asm::{translator::{CodeWriter, Format, MifFormat, RawFormat, WordWidth}, ParseLinkBuilder}, common::{errors::{ExitErrorCode, TranslatorError}, TranslatableCode}
+    asm::{translator::{CodeWriter, DatFormat, Format, MifFormat, RawFormat, WordWidth}, ParseLinkBuilder}, common::{errors::{ExitErrorCode, TranslatorError}, TranslatableCode}
 };
 
 use clap::{
@@ -40,7 +40,7 @@ Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
 ")
     .arg(Arg::new("format")
                 .value_hint(ValueHint::Other)
-                .value_parser(["mif", "raw"])
+                .value_parser(["mif", "raw", "dat"])
                 .action(ArgAction::Set)
                 .short('f')
                 .num_args(1)
@@ -179,8 +179,9 @@ fn translate(translatable_code: TranslatableCode, matches: ArgMatches) -> Result
             write_code(code_writer, not_stdout_out, data_empty, text_output, data_output)?;
         },
         "dat" => {
-            error!("Dat format is currently not available!");
-            std::process::exit(1)
+            let code_writer = CodeWriter::new(DatFormat, translatable_code);
+
+            write_code(code_writer, not_stdout_out, data_empty, text_output, data_output)?;
         },
         _ => unreachable!(),
     };
