@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated library to version 2.1.0, see the changelog [here](https://git.mafiasi.de/Prj-MR/assembler_lib/src/branch/main/CHANGELOG.md)
+- The path to the file is now shown when there is a parser error in that file
 
 ## [2.0.0] - 2024-03-25
 

@@ -7,7 +7,7 @@
  */
 
 use assembler_lib::{
-    asm::{translator::{CodeWriter, DatFormat, Format, MifFormat, RawFormat, WordWidth}, ParseLinkBuilder}, common::{errors::{ExitErrorCode, TranslatorError}, TranslatableCode}
+    asm::{translator::{CodeWriter, DatFormat, Format, MifFormat, RawFormat, WordWidth}, ParseLinkBuilder}, common::{errors::{ExitErrorCode, LibraryError, TranslatorError}, TranslatableCode}
 };
 
 use clap::{
@@ -256,7 +256,7 @@ fn main() {
                                                 .sp_init(matches.get_flag("sp_init"))
                                                 .no_nop_insert(matches.get_flag("nop_insert"));
 
-    for file in vals {
+    for file in vals.iter() {
         match fs::read_to_string(file.as_path()) {
             Ok(val) => builder.add_code(val),
             Err(msg) => {
@@ -272,7 +272,12 @@ fn main() {
     let translatable_code = match builder.parse_link_optimize() {
         Ok(data) => data,
         Err(msg) => {
-            error!("{msg}");
+            if let LibraryError::ParsingError { file, .. } = &msg {
+                assert!(*file < vals.len());
+                error!("Encountered in '{}': {msg}", vals[*file].display());
+            } else {
+                error!("{msg}");
+            }
             std::process::exit(msg.get_err_code())
         }
     };
