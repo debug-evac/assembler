@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: steven.becker@studium.uni-hamburg.de\n"
-"POT-Creation-Date: 2024-03-26 23:08+0100\n"
+"POT-Creation-Date: 2024-05-03 01:11+0200\n"
 "PO-Revision-Date: 2024-03-26 23:13+0100\n"
 "Last-Translator: Steven Becker <steven.becker@studium.uni-hamburg.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -559,8 +559,11 @@ msgstr "FEHLER"
 
 #. type: Plain text
 #: en/assembler.1.md:166
+#, fuzzy
+#| msgid ""
+#| "See Gitea Issues: <https://git.mafiasi.de/Prj-MR/assembler-crates/issues>"
 msgid ""
-"See Gitea Issues: <https://git.mafiasi.de/Prj-MR/assembler-crates/issues>"
+"See Gitea Issues: <https://git.mafiasi.de/21sbecker/assembler-crates/issues>"
 msgstr ""
 "Siehe Gitea-Probleme: <https://git.mafiasi.de/Prj-MR/assembler-crates/issues>"
 
@@ -613,8 +616,8 @@ msgstr "Jan Julius <jan.julius@studium.uni-hamburg.de>\n"
 #. type: Plain text
 #: en/assembler.1.md:182
 #, no-wrap
-msgid ":   Maintainer\n"
-msgstr ":   Mitverantwortlicher\n"
+msgid ":   Former Maintainer and Contributor\n"
+msgstr ""
 
 #. type: Title #
 #: en/assembler.1.md:183 en/assembler-format.5.md:599

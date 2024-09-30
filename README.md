@@ -38,7 +38,7 @@ There are several ways to install the assembler. We recommend using the first me
 Once installed, you need to run the following:
 
 ```
-cargo binstall assembler --git https://git.mafiasi.de/Prj-MR/Assembler --only-signed
+cargo binstall assembler --git https://git.mafiasi.de/21sbecker/assembler --only-signed
 ```
 
 Then enter your username & password for Gitea. The installation is done.
@@ -47,7 +47,7 @@ Note: You cannot install a particular version with this method. If you need to u
 
 #### Using bare binaries
 
-This method is not recommended as you have to manage updates and paths yourself. Head to the [releases](https://git.mafiasi.de/Prj-MR/Assembler/releases/latest) page and download the binary for your operating system. If there is no binary for your operating system, either open an issue [here](https://git.mafiasi.de/Prj-MR/Assembler/issues) or compile it yourself.
+This method is not recommended as you have to manage updates and paths yourself. Head to the [releases](https://git.mafiasi.de/21sbecker/assembler/releases/latest) page and download the binary for your operating system. If there is no binary for your operating system, either open an issue [here](https://git.mafiasi.de/21sbecker/assembler/issues) or compile it yourself.
 
 To use the binary, you either have it in the directory you are in (not ideal) or put it in the path that your system is using. You may need to look up how to put the binary in the path of your system.
 
@@ -68,7 +68,7 @@ Create a file at `~/.cargo/config.toml` with the following content:
 global-credential-providers = ["cargo:token", "cargo:libsecret"]
 
 [registries.mafiasi-gitea] 
-index = "sparse+https://git.mafiasi.de/api/packages/Prj-MR/cargo/"
+index = "sparse+https://git.mafiasi.de/api/packages/21sbecker/cargo/"
 ```
 
 This defines a new registry to use for cargo commands and authentication methods for these registries. `Crate.io` is the default registry, which is **NOT USED** for this crate. If you do not have a system keyring installed, remove `"cargo:libsecret"` from the credential-providers.
@@ -88,7 +88,7 @@ To uninstall the assembler, use `cargo uninstall assembler`.
 
 #### Using `cargo install` with Git
 
-This method is highly discouraged. You can clone this repo to your PC by using `git clone https://git.mafiasi.de/Prj-MR/Assembler -b stable`. We do not recommend using any other branch than stable. 
+This method is highly discouraged. You can clone this repo to your PC by using `git clone https://git.mafiasi.de/21sbecker/assembler -b stable`. We do not recommend using any other branch than stable.
 
 You can then use `cargo install --path .` to compile the assembler from source and install it.
 
@@ -132,7 +132,7 @@ Options:
 Copyright: MPL-2.0 (https://mozilla.org/MPL/2.0/)
 ```
 
-For more information, please head to the [man directory of this repo](https://git.mafiasi.de/Prj-MR/Assembler/src/branch/main/man).
+For more information, please head to the [man directory of this repo](https://git.mafiasi.de/21sbecker/assembler/src/branch/main/man).
 
 ## Support
 
