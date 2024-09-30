@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated library to version 2.1.0, see the changelog [here](https://git.mafiasi.de/Prj-MR/assembler_lib/src/branch/main/CHANGELOG.md)
+- Updated library to version 2.1.0, see the changelog [here](https://git.mafiasi.de/21sbecker/assembler_lib/src/branch/main/CHANGELOG.md)
 - The path to the file is now shown when there is a parser error in that file
 
 ## [2.0.0] - 2024-03-25
@@ -37,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `-t` or `--text-output` decides the path of the text output
   - `-d` or `--data-output` decides the path of the data output
   - For compatibility, `-o` and `--output` also decides the path of the text output
-- [BREAKING] Updated library to version 2.0.0, see the changelog [here](https://git.mafiasi.de/Prj-MR/assembler_lib/src/branch/main/CHANGELOG.md)
+- [BREAKING] Updated library to version 2.0.0, see the changelog [here](https://git.mafiasi.de/21sbecker/assembler_lib/src/branch/main/CHANGELOG.md)
   - This update has breaking changes to the assembler syntax!
 - [BREAKING] Moved library out of this crate into assembler_lib and use workspace for management
   - Does not impact program behavior but does impact development
@@ -291,13 +291,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Forwarding unit, Multiplication hardware instruction
 
 <!-- next-url -->
-[Unreleased]: https://git.mafiasi.de/Prj-MR/Assembler/compare/assembler-2.1.0...HEAD
-[2.1.0]: https://git.mafiasi.de/Prj-MR/Assembler/compare/assembler-2.0.0...assembler-2.1.0
-[2.0.0]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.3.0...assembler-2.0.0
-[1.3.0]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.2.0...1.3.0
-[1.2.0]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.1.2...1.2.0
-[1.1.2]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.1.1...1.1.2
-[1.1.1]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.1.0...1.1.1
-[1.1.0]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.0.1...1.1.0
-[1.0.1]: https://git.mafiasi.de/Prj-MR/Assembler/compare/1.0.0...1.0.1
-[1.0.0]: https://git.mafiasi.de/Prj-MR/Assembler/compare/05d33c7556d2d3d08d2bc21aa930810ab19428c1...1.0.0
+[Unreleased]: https://git.mafiasi.de/21sbecker/assembler/compare/2.1.0...HEAD
+[2.1.0]: https://git.mafiasi.de/21sbecker/assembler/compare/2.0.0...2.1.0
+[2.0.0]: https://git.mafiasi.de/21sbecker/assembler/compare/1.3.0...2.0.0
+[1.3.0]: https://git.mafiasi.de/21sbecker/assembler/compare/1.2.0...1.3.0
+[1.2.0]: https://git.mafiasi.de/21sbecker/assembler/compare/1.1.2...1.2.0
+[1.1.2]: https://git.mafiasi.de/21sbecker/assembler/compare/1.1.1...1.1.2
+[1.1.1]: https://git.mafiasi.de/21sbecker/assembler/compare/1.1.0...1.1.1
+[1.1.0]: https://git.mafiasi.de/21sbecker/assembler/compare/1.0.1...1.1.0
+[1.0.1]: https://git.mafiasi.de/21sbecker/assembler/compare/1.0.0...1.0.1
+[1.0.0]: https://git.mafiasi.de/21sbecker/assembler/compare/05d33c7556d2d3d08d2bc21aa930810ab19428c1...1.0.0

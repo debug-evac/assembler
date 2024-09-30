@@ -193,8 +193,7 @@ nach [stdout(3)][] schreiben:
 
 # FEHLER
 
-Siehe Gitea-Probleme:
-<https://git.mafiasi.de/Prj-MR/assembler-crates/issues>
+See Gitea Issues: <https://git.mafiasi.de/21sbecker/assembler-crates/issues>
 
 # URHEBERRECHT
 
@@ -212,7 +211,7 @@ Steven Becker <steven.becker@studium.uni-hamburg.de>
 
 Jan Julius <jan.julius@studium.uni-hamburg.de>
 
-:   Mitverantwortlicher
+:   Former Maintainer and Contributor
 
 # SIEHE AUCH
 

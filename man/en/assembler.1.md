@@ -162,7 +162,7 @@ Assemble one assembly file, view debug messages and write output to [stdout(3)][
 
 # BUGS
 
-See Gitea Issues: <https://git.mafiasi.de/Prj-MR/assembler-crates/issues>
+See Gitea Issues: <https://git.mafiasi.de/21sbecker/assembler-crates/issues>
 
 # COPYRIGHT
 
@@ -178,7 +178,7 @@ Steven Becker <steven.becker@studium.uni-hamburg.de>
 
 Jan Julius <jan.julius@studium.uni-hamburg.de>
 
-:   Maintainer
+:   Former Maintainer and Contributor
 
 # SEE ALSO
 

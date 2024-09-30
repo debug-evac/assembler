@@ -2,7 +2,7 @@
 name = "assembler"
 version = "2.1.0"
 description = "An assembler for a self-written RISC-V based CPU"
-repository = "https://git.mafiasi.de/Prj-MR/assembler"
+repository = "https://git.mafiasi.de/21sbecker/assembler"
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
@@ -36,13 +36,13 @@ assert_fs.workspace = true
 sign-commit = true
 sign-tag = true
 registry = "mafiasi-gitea"
-tag-name = "{{prefix}}{{version}}"
+tag-name = "{{version}}"
 pre-release-replacements = [
   {file="CHANGELOG.md", search="Unreleased", replace="{{version}}"},
   {file="CHANGELOG.md", search="\\.\\.\\.HEAD", replace="...{{tag_name}}", exactly=1},
   {file="CHANGELOG.md", search="ReleaseDate", replace="{{date}}"},
   {file="CHANGELOG.md", search="<!-- next-header -->", replace="<!-- next-header -->\n\n## [Unreleased] - ReleaseDate", exactly=1},
-  {file="CHANGELOG.md", search="<!-- next-url -->", replace="<!-- next-url -->\n[Unreleased]: https://git.mafiasi.de/Prj-MR/Assembler/compare/{{tag_name}}...HEAD", exactly=1},
+  {file="CHANGELOG.md", search="<!-- next-url -->", replace="<!-- next-url -->\n[Unreleased]: https://git.mafiasi.de/21sbecker/assembler/compare/{{tag_name}}...HEAD", exactly=1},
 ]
 target = "x86_64-unknown-linux-gnu"
 
